@@ -159,10 +159,15 @@ class MapWidget extends StatelessWidget {
                 'https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}.png?apiKey=fb622ee8c7a048f1b766548572313f5a',
             userAgentPackageName: 'com.example.karta',
           ),
-          FloatingMarkerTitlesLayer(
-            floatingTitles: [FloatingMarkerTitlesLayer],
-            fmtoOptions: fmtoOptions,
-          ),
+          MarkerLayer(markers: [
+            Marker(
+                point: LatLng(55.509364, 13.128928),
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: Image.asset('assets/icons/kombiterminal.png'),
+                ))
+          ])
         ]);
   }
 }
