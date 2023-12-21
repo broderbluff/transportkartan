@@ -1,4 +1,4 @@
-enum MarkerType {
+enum SiteType {
   combiTerminal('Kombiterminal'),
   industryPort('Industrihamn'),
   oilPort('Oljehamn'),
@@ -8,6 +8,6 @@ enum MarkerType {
   ferryPort('Färjeterminal'),
   thirdPartyTerminal('Tredjepartsterminal');
 
-  const MarkerType(this.name);
+  const SiteType(this.name);
   final String name;
 }

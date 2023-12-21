@@ -1,12 +1,12 @@
-import 'package:transportkartan/enums/union.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:transportkartan/data/enums/union.dart';
+import 'package:uuid/uuid.dart';
 
 class Company {
   final String name;
   final String description;
   final UnionType? union;
   final int employees;
-  final int members;
-  final int electedOfficials;
   final String id;
   final String? logoUrl;
   final String? websiteUrl;
@@ -15,50 +15,46 @@ class Company {
   final String? headquarterAddress;
   final List<String>? sites;
 
-  const Company({
-    required this.name,
+  Company({
     required this.description,
-    this.union,
     required this.employees,
-    required this.members,
-    required this.electedOfficials,
-    required this.id,
-    this.logoUrl,
-    this.websiteUrl,
-    this.facebookUrl,
+    required this.name,
     required this.orgNumber,
+    this.facebookUrl,
     this.headquarterAddress,
+    id,
+    this.logoUrl,
     this.sites,
-  });
+    this.union,
+    this.websiteUrl,
+  }) : id = id ?? const Uuid().v4();
 
-  factory Company.fromJson(Map<String, dynamic> json) {
+  factory Company.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>;
+
     return Company(
-      name: json['name'] as String,
-      description: json['description'] as String,
-      union: json['union'] != null
+      name: data['name'] ?? '',
+      description: data['description'] ?? '',
+      union: data['union'] != ''
           ? UnionType.values
-              .firstWhere((element) => element.name == json['union'])
+              .firstWhere((element) => element.name == data['union'])
           : null,
-      employees: json['employees'] as int,
-      members: json['members'] as int,
-      electedOfficials: json['electedOfficials'] as int,
-      id: json['id'] as String,
-      logoUrl: json['logoUrl'] as String?,
-      websiteUrl: json['websiteUrl'] as String?,
-      facebookUrl: json['facebookUrl'] as String?,
-      orgNumber: json['orgNumber'] as String,
-      headquarterAddress: json['headquarterAddress'] as String?,
+      employees: data['employees'] ?? 0,
+      id: data['id'] ?? '',
+      logoUrl: data['logoUrl'] ?? '',
+      websiteUrl: data['websiteUrl'] ?? '',
+      facebookUrl: data['facebookUrl'] ?? '',
+      orgNumber: data['orgNumber'] ?? '',
+      headquarterAddress: data['headquarterAddress'] ?? '',
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'description': description,
       'union': union?.name,
       'employees': employees,
-      'members': members,
-      'electedOfficials': electedOfficials,
       'id': id,
       'logoUrl': logoUrl,
       'websiteUrl': websiteUrl,
@@ -87,8 +83,6 @@ class Company {
       description: description ?? this.description,
       union: union ?? this.union,
       employees: employees ?? this.employees,
-      members: members ?? this.members,
-      electedOfficials: electedOfficials ?? this.electedOfficials,
       id: id ?? this.id,
       logoUrl: logoUrl ?? this.logoUrl,
       websiteUrl: websiteUrl ?? this.websiteUrl,

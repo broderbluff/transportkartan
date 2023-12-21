@@ -1,59 +1,64 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/models/ferry_port.dart';
-import 'package:transportkartan/models/marker_model.dart';
+import 'package:transportkartan/data/models/marker_model.dart';
 
-import '../models/combi_terminal.dart';
-import '../models/oil_port.dart';
+class SitesFirestoreCubit extends Cubit<SitesFirestoreState> {
+  SitesFirestoreCubit() : super(SitesInitial());
 
-class FirestoreCubit extends Cubit<FirestoreState> {
-  FirestoreCubit() : super(FirestoreInitial());
+  void fetchSites() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sites').get();
 
-  void fetchMarkerModels() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('markers').get();
-
-    List<MarkerModel> markerModels = [];
+    List<SiteMarker> markerModels = [];
     for (var doc in querySnapshot.docs) {
-      MarkerModel markerModel;
+      SiteMarker markerModel;
+      markerModel = SiteMarker.fromSnapshot(doc);
 
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      switch (doc['type']) {
-        case 'combiTerminal':
-          markerModel = CombiTerminal.fromJson(data);
-          break;
-        case 'ferryPort':
-          markerModel = FerryPort.fromJson(data);
-          break;
-        case 'oilPort':
-          markerModel = OilPort.fromJson(data);
-          break;
-        default:
-          throw Exception('Unknown MarkerModel type: ${doc['type']}');
-      }
       markerModels.add(markerModel);
     }
-    emit(FirestoreStateWithMarkersList(markerModels));
+    emit(SitesList(markerModels));
   }
 
-  void createMarker() {
-    // TODO: Implement creating a new marker
+  void createSite(SiteMarker markerModel) {
+    FirebaseFirestore.instance
+        .collection('sites')
+        .doc(markerModel.id) // Set documentId to SiteMarker.id
+        .set(markerModel.toMap()) // Use set() instead of add()
+        .then((value) => emit(CreateSuccess(markerModel)))
+        .catchError((error) => emit(CreateFailure(error)));
   }
 }
 
-abstract class FirestoreState extends Equatable {}
+class CreateFailure extends SitesFirestoreState {
+  final dynamic error;
 
-class FirestoreInitial extends FirestoreState {
+  CreateFailure(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
+
+abstract class SitesFirestoreState extends Equatable {}
+
+class SitesInitial extends SitesFirestoreState {
   @override
   List<Object?> get props => [];
 }
 
-class FirestoreStateWithMarkersList extends FirestoreState {
-  final List<MarkerModel> markersList;
+class SitesList extends SitesFirestoreState {
+  final List<SiteMarker> markersList;
 
-  FirestoreStateWithMarkersList(this.markersList);
+  SitesList(this.markersList);
 
   @override
   List<Object?> get props => [markersList];
+}
+
+class CreateSuccess extends SitesFirestoreState {
+  final SiteMarker marker;
+
+  CreateSuccess(this.marker);
+
+  @override
+  List<Object?> get props => [marker];
 }
