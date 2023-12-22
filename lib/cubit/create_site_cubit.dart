@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/data/enums/marker_type.dart';
-import 'package:transportkartan/data/models/marker_model.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
+import 'package:transportkartan/data/enums/unit_type.dart';
+import 'package:transportkartan/data/models/site_model.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateSiteCubit extends Cubit<SiteMarker> {
   static final SiteMarker _initState = SiteMarker(
@@ -20,6 +22,14 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
     emit(state.copyWith(name: name));
   }
 
+  void updateSiteUnit(String unit) {
+    emit(state.copyWith(unit: int.tryParse(unit) ?? 0));
+  }
+
+  void updateSiteUnitType(UnitType unitType) {
+    emit(state.copyWith(unitType: unitType));
+  }
+
   void updateSiteCoordinates(List<double> coordinates) {
     emit(state.copyWith(coordinates: coordinates));
   }
@@ -29,6 +39,14 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
   }
 
   void resetState() {
-    emit(_initState);
+    emit(
+      state.copyWith(
+        type: SiteType.combiTerminal,
+        id: const Uuid().v4(),
+        name: '',
+        coordinates: [0, 0],
+        description: '',
+      ),
+    );
   }
 }

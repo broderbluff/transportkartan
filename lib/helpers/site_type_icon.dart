@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transportkartan/data/enums/marker_type.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
 
 class SiteTypeIcon extends StatelessWidget {
   final SiteType siteType;

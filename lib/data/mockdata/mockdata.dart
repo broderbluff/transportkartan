@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:transportkartan/data/enums/marker_type.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/union.dart';
 import 'package:transportkartan/data/models/company_model.dart';
-import 'package:transportkartan/data/models/marker_model.dart';
+import 'package:transportkartan/data/models/site_model.dart';
 
 var listOfMarker = [
   SiteMarker(

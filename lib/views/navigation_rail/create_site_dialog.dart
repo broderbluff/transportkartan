@@ -6,8 +6,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:transportkartan/cubit/create_site_cubit.dart';
 import 'package:transportkartan/cubit/firestore_cubit.dart';
 import 'package:transportkartan/cubit/navigation_rail_cubit.dart';
-import 'package:transportkartan/data/enums/marker_type.dart';
-import 'package:transportkartan/data/models/marker_model.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
+import 'package:transportkartan/data/enums/unit_type.dart';
+import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
 
 class CreateSiteDialog extends StatelessWidget {
@@ -42,6 +43,7 @@ class CreateSiteDialog extends StatelessWidget {
                       CloseButton(
                         onPressed: () {
                           context.read<NavigationRailCubit>().changeIndex(0);
+                          context.read<CreateSiteCubit>().resetState();
                           Navigator.of(context).pop();
                         },
                       )
@@ -130,8 +132,46 @@ class CreateSiteDialog extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                    labelText: 'Antal',
+                                  ),
+                                  onChanged: (value) => context.read<CreateSiteCubit>().updateSiteUnit(value),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: DropdownButtonFormField<UnitType>(
+                                  borderRadius: BorderRadius.circular(16),
+                                  value: siteMarkerState.unitType,
+                                  hint: Text('Enhets typ'),
+                                  onChanged: (UnitType? newValue) {
+                                    context.read<CreateSiteCubit>().updateSiteUnitType(newValue!);
+                                  },
+                                  items: UnitType.values.map((UnitType unitType) {
+                                    return DropdownMenuItem<UnitType>(
+                                      value: unitType,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(unitType.name),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
                           TextField(
-                            maxLines: 3,
+                            maxLines: 2,
                             decoration: const InputDecoration(
                               labelText: 'Beskrivning',
                             ),
@@ -149,46 +189,43 @@ class CreateSiteDialog extends StatelessWidget {
                             context.read<CreateSiteCubit>().resetState();
                           },
                           child: const Text('Rensa')),
-                      BlocBuilder<SitesFirestoreCubit, SitesFirestoreState>(
-                        builder: (context, firestoreState) {
+                      BlocConsumer<SitesFirestoreCubit, SitesFirestoreState>(
+                        listener: (context, state) {
+                          if (state is CreateSuccess) {
+                            context.read<CreateSiteCubit>().resetState();
+
+                            context.read<NavigationRailCubit>().changeIndex(0);
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Colors.green,
+                                content: Text(
+                                  'Plats skapad!',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            );
+                          } else if (state is CreateFailure) {
+                            // Handle CreateFailure state
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                  'Error: ${state.error}',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          // Build your UI based on the current state
                           return ElevatedButton(
-                              onPressed: () {
-                                context.read<SitesFirestoreCubit>().createSite(siteMarkerState);
-
-                                if (firestoreState is CreateSuccess) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green,
-                                      showCloseIcon: true,
-                                      width: windowSize.width * 0.4,
-                                      behavior: SnackBarBehavior.floating,
-                                      content: const Text(
-                                        'Plats skapad!',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  );
-                                  context.read<CreateSiteCubit>().resetState();
-
-                                  context.read<NavigationRailCubit>().changeIndex(0);
-                                  Navigator.of(context).pop();
-                                }
-
-                                if (firestoreState is CreateFailure) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.red,
-                                      showCloseIcon: true,
-                                      behavior: SnackBarBehavior.floating,
-                                      content: Text('Något gick fel: ${firestoreState.error}'),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: const Text(
-                                'Skapa',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ));
+                            onPressed: () {
+                              context.read<SitesFirestoreCubit>().createSite(siteMarkerState);
+                            },
+                            child: const Text('Skapa'),
+                          );
                         },
                       )
                     ],

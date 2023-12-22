@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:transportkartan/data/models/marker_model.dart';
+import 'package:transportkartan/data/models/site_model.dart';
 
 List<SiteMarker> arrangeMarkers(List<SiteMarker> markers) {
   final Map<LatLng, List<SiteMarker>> groupedMarkers = {};
