@@ -44,12 +44,12 @@ class SiteMarker implements Equatable {
       type: SiteType.values.firstWhere((element) => element.name == data['type']),
       unitType: UnitType.values.firstWhere((element) => element.name == data['unitType']),
       name: data['name'] ?? '',
-      coordinates: data['coordinates'] ?? [],
+      coordinates: (data['coordinates'] as List<dynamic>).cast<double>(),
       polylinePoints: data['polylinePoints'] ?? [],
       description: data['description'] ?? '',
-      companies: data['companies'] ?? [],
-      subContractors: data['subContractors'] ?? [],
-      staffingCompanies: data['staffingCompanies'] ?? [],
+      companies: (data['companies'] as List<dynamic>).cast<String>(),
+      subContractors: (data['subContractors'] != null) ? (data['subContractors'] as List<dynamic>).cast<String>() : [],
+      staffingCompanies: (data['staffingCompanies'] != null) ? (data['staffingCompanies'] as List<dynamic>).cast<String>() : [],
     );
   }
 

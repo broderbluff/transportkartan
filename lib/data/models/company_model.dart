@@ -6,18 +6,19 @@ class Company {
   final String name;
   final String description;
   final UnionType? union;
-  final int employees;
+  final int totalEmployees;
+
   final String id;
   final String? logoUrl;
   final String? websiteUrl;
   final String? facebookUrl;
   final String orgNumber;
   final String? headquarterAddress;
-  final List<String>? sites;
+  final List<Site>? sites;
 
   Company({
     required this.description,
-    required this.employees,
+    required this.totalEmployees,
     required this.name,
     required this.orgNumber,
     this.facebookUrl,
@@ -35,16 +36,14 @@ class Company {
     return Company(
       name: data['name'] ?? '',
       description: data['description'] ?? '',
-      union: data['union'] != ''
-          ? UnionType.values
-              .firstWhere((element) => element.name == data['union'])
-          : null,
-      employees: data['employees'] ?? 0,
+      union: data['union'] != '' ? UnionType.values.firstWhere((element) => element.name == data['union']) : null,
+      totalEmployees: data['employees'] ?? 0,
       id: data['id'] ?? '',
       logoUrl: data['logoUrl'] ?? '',
       websiteUrl: data['websiteUrl'] ?? '',
       facebookUrl: data['facebookUrl'] ?? '',
       orgNumber: data['orgNumber'] ?? '',
+      sites: data['sites'] != null ? List<Site>.from(data['sites'].map((x) => Site.fromMap(x))) : [],
       headquarterAddress: data['headquarterAddress'] ?? '',
     );
   }
@@ -54,13 +53,14 @@ class Company {
       'name': name,
       'description': description,
       'union': union?.name,
-      'employees': employees,
+      'employees': totalEmployees,
       'id': id,
       'logoUrl': logoUrl,
       'websiteUrl': websiteUrl,
       'facebookUrl': facebookUrl,
       'orgNumber': orgNumber,
       'headquarterAddress': headquarterAddress,
+      'sites': sites?.map((x) => x.toMap()).toList() ?? '',
     };
   }
 
@@ -68,27 +68,73 @@ class Company {
     String? name,
     String? description,
     UnionType? union,
-    int? employees,
-    int? members,
-    int? electedOfficials,
+    int? totalEmployees,
     String? id,
     String? logoUrl,
     String? websiteUrl,
     String? facebookUrl,
     String? orgNumber,
     String? headquarterAddress,
+    List<Site>? sites,
   }) {
     return Company(
       name: name ?? this.name,
       description: description ?? this.description,
       union: union ?? this.union,
-      employees: employees ?? this.employees,
+      totalEmployees: totalEmployees ?? this.totalEmployees,
       id: id ?? this.id,
       logoUrl: logoUrl ?? this.logoUrl,
       websiteUrl: websiteUrl ?? this.websiteUrl,
       facebookUrl: facebookUrl ?? this.facebookUrl,
       orgNumber: orgNumber ?? this.orgNumber,
       headquarterAddress: headquarterAddress ?? this.headquarterAddress,
+      sites: sites ?? this.sites,
+    );
+  }
+}
+
+class Site {
+  final String siteId;
+  final int members;
+  final int electedOfficials;
+  final int employees;
+
+  Site({
+    required this.siteId,
+    required this.members,
+    required this.electedOfficials,
+    required this.employees,
+  });
+
+  toMap() {
+    return {
+      'siteId': siteId,
+      'members': members,
+      'electedOfficials': electedOfficials,
+      'employees': employees,
+    };
+  }
+
+  factory Site.fromMap(Map<String, dynamic> data) {
+    return Site(
+      siteId: data['siteId'] ?? '',
+      members: data['members'] ?? 0,
+      electedOfficials: data['electedOfficials'] ?? 0,
+      employees: data['employees'] ?? 0,
+    );
+  }
+
+  Site copyWith({
+    String? siteId,
+    int? members,
+    int? electedOfficials,
+    int? employees,
+  }) {
+    return Site(
+      siteId: siteId ?? this.siteId,
+      members: members ?? this.members,
+      electedOfficials: electedOfficials ?? this.electedOfficials,
+      employees: employees ?? this.employees,
     );
   }
 }

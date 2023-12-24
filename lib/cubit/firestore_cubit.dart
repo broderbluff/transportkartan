@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 
-class SitesFirestoreCubit extends Cubit<SitesFirestoreState> {
-  SitesFirestoreCubit() : super(SitesInitial());
+class FireStoreCubit extends Cubit<FirestoreState> {
+  FireStoreCubit() : super(InitialState());
 
   void fetchSites() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sites').get();
 
     List<SiteMarker> markerModels = [];
     for (var doc in querySnapshot.docs) {
-      print(doc.id);
       SiteMarker markerModel;
       markerModel = SiteMarker.fromSnapshot(doc);
 
@@ -28,14 +28,28 @@ class SitesFirestoreCubit extends Cubit<SitesFirestoreState> {
           .set(markerModel.toMap());
 
       emit(CreateSuccess());
-      emit(SitesInitial());
+      emit(InitialState());
+    } catch (e) {
+      emit(CreateFailure(e));
+    }
+  }
+
+  void createCompany(Company company) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('company')
+          .doc(company.id) // Set documentId to SiteMarker.id
+          .set(company.toMap());
+
+      emit(CreateSuccess());
+      emit(InitialState());
     } catch (e) {
       emit(CreateFailure(e));
     }
   }
 }
 
-class CreateFailure extends SitesFirestoreState {
+class CreateFailure extends FirestoreState {
   final dynamic error;
 
   CreateFailure(this.error);
@@ -44,14 +58,14 @@ class CreateFailure extends SitesFirestoreState {
   List<Object?> get props => [error];
 }
 
-abstract class SitesFirestoreState extends Equatable {}
+abstract class FirestoreState extends Equatable {}
 
-class SitesInitial extends SitesFirestoreState {
+class InitialState extends FirestoreState {
   @override
   List<Object?> get props => [];
 }
 
-class SitesList extends SitesFirestoreState {
+class SitesList extends FirestoreState {
   final List<SiteMarker> markersList;
 
   SitesList(this.markersList);
@@ -60,7 +74,7 @@ class SitesList extends SitesFirestoreState {
   List<Object?> get props => [markersList];
 }
 
-class CreateSuccess extends SitesFirestoreState {
+class CreateSuccess extends FirestoreState {
   @override
   List<Object?> get props => [];
 }

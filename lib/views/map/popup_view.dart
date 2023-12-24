@@ -138,10 +138,11 @@ class MapPopup extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: PieChart(
                       dataMap: dataMap,
+                      colorList: [Colors.green, Colors.red],
                       animationDuration: const Duration(milliseconds: 800),
                       chartLegendSpacing: 32,
                       initialAngleInDegree: 0,
-                      chartType: ChartType.ring,
+                      chartType: ChartType.disc,
                       ringStrokeWidth: 32,
                       centerText: "Anslutningsgrad",
                       legendOptions: const LegendOptions(

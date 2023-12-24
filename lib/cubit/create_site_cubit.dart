@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
+import 'package:transportkartan/data/typedefs/company_id.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateSiteCubit extends Cubit<SiteMarker> {
@@ -38,6 +41,18 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
     emit(state.copyWith(description: description));
   }
 
+  void addCompany(CompanyId companyId) {
+    emit(state.copyWith(companies: [...state.companies, companyId]));
+  }
+
+  void removeCompany(CompanyId company) {
+    emit(
+      state.copyWith(
+        companies: state.companies.where((element) => element != company).toList(),
+      ),
+    );
+  }
+
   void resetState() {
     emit(
       state.copyWith(
@@ -48,5 +63,9 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
         description: '',
       ),
     );
+  }
+
+  void openSite(SiteMarker marker) {
+    emit(marker);
   }
 }
