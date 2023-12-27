@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
@@ -11,8 +9,11 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
   static final SiteMarker _initState = SiteMarker(
     type: SiteType.combiTerminal,
     name: '',
+    id: const Uuid().v4(),
     coordinates: [0, 0],
     description: '',
+    unit: 0,
+    unitType: null,
     companies: [],
   );
   CreateSiteCubit() : super(_initState);
@@ -61,6 +62,9 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
         name: '',
         coordinates: [0, 0],
         description: '',
+        unit: 0,
+        unitType: null,
+        companies: [],
       ),
     );
   }

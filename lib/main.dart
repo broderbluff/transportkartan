@@ -2,12 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/constants/colors.dart';
-import 'package:transportkartan/cubit/create_company_cubit.dart';
-import 'package:transportkartan/cubit/create_site_cubit.dart';
-import 'package:transportkartan/cubit/firestore_cubit.dart';
+import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/cubit/local_cubits/create_company_cubit.dart';
+import 'package:transportkartan/cubit/local_cubits/create_site_cubit.dart';
+import 'package:transportkartan/cubit/site_firestore_cubit.dart';
 import 'package:transportkartan/cubit/map_cubit.dart';
-import 'package:transportkartan/cubit/marker_cubit.dart';
-import 'package:transportkartan/cubit/navigation_rail_cubit.dart';
+import 'package:transportkartan/cubit/local_cubits/navigation_rail_cubit.dart';
 import 'package:transportkartan/firebase_options.dart';
 
 import 'package:transportkartan/views/navigation_rail/left_navigation_bar.dart';
@@ -27,9 +27,6 @@ void main() async {
           create: (context) => MapControllerCubit(),
         ),
         BlocProvider(
-          create: (context) => MarkerCubit(),
-        ),
-        BlocProvider(
           create: (context) => NavigationRailCubit(),
         ),
         BlocProvider(
@@ -39,7 +36,10 @@ void main() async {
           create: (context) => CreateCompanyCubit(),
         ),
         BlocProvider(
-          create: (context) => FireStoreCubit(),
+          create: (context) => SiteFirestoreCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CompanyFirestoreCubit(),
         ),
       ],
       child: const MyApp(),

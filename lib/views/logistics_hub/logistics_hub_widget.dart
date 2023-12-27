@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:transportkartan/constants/colors.dart';
-import 'package:transportkartan/cubit/create_site_cubit.dart';
-import 'package:transportkartan/cubit/firestore_cubit.dart';
-import 'package:transportkartan/cubit/map_cubit.dart';
-import 'package:transportkartan/cubit/marker_cubit.dart';
-import 'package:transportkartan/helpers/site_type_icon.dart';
-import 'package:transportkartan/data/mockdata/mockdata.dart';
-import 'package:transportkartan/views/navigation_rail/create_site_dialog/create_site_dialog.dart';
+import 'package:transportkartan/views/logistics_hub/widgets/company_list.dart';
+import 'package:transportkartan/views/logistics_hub/widgets/logistics_hub_list.dart';
 
 class LogisticsHubsWidget extends StatefulWidget {
   const LogisticsHubsWidget({
@@ -21,8 +12,7 @@ class LogisticsHubsWidget extends StatefulWidget {
 }
 
 class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
-  int selectedIndex = -1; // Track the index of the selected ListTile
-  int hoverIndex = -1; // Track the index of the selected ListTile
+  HubOrCompany view = HubOrCompany.hub;
 
   @override
   Widget build(BuildContext context) {
@@ -57,121 +47,28 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Logistikhubbar', style: Theme.of(context).textTheme.headlineSmall),
+                  Text(view == HubOrCompany.hub ? 'Logistikhubbar' : 'Företag', style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Chip(
-                        avatar: CircleAvatar(
-                          backgroundColor: Colors.red.shade500,
-                          child: const Text('H'),
-                        ),
-                        label: const Text('Hubbar'),
-                      ),
-                      Chip(
-                        avatar: CircleAvatar(
-                          backgroundColor: Colors.grey.shade800,
-                          child: const Text('F'),
-                        ),
-                        label: const Text('Företag'),
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    child: BlocBuilder<FireStoreCubit, FirestoreState>(
-                      bloc: context.watch<FireStoreCubit>()..fetchSites(),
-                      builder: (context, state) {
-                        if (state is InitialState) {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-
-                        if (state is SitesList) {
-                          return ListView.builder(
-                            itemCount: state.markersList.length,
-                            itemBuilder: (context, index) {
-                              var siteMarker = state.markersList[index];
-                              bool selected = selectedIndex == index;
-                              bool hover = hoverIndex == index;
-
-                              return BlocBuilder<MapControllerCubit, MapState>(
-                                builder: (context, state) {
-                                  return MouseRegion(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16),
-                                        color: selected
-                                            ? mainColor
-                                            : hover
-                                                ? Colors.blue[200]
-                                                : Colors.white,
-                                      ),
-                                      child: InkWell(
-                                        onHover: (value) {
-                                          if (value) {
-                                            setState(() {
-                                              hoverIndex = index; // Update the selectedIndex when a ListTile is tapped
-                                            });
-                                          }
-                                        },
-                                        onLongPress: () {
-                                          context.read<CreateSiteCubit>().openSite(siteMarker);
-                                          showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return const CreateSiteDialog();
-                                            },
-                                          );
-                                          setState(() {
-                                            selectedIndex = index; // Update the selectedIndex when a ListTile is tapped
-                                          });
-                                        },
-                                        onTap: () {
-                                          // context.read<MapControllerCubit>().triggerControllers(
-                                          //       LatLng(siteMarker.coordinates[0], siteMarker.coordinates[1]),
-                                          //       stateMarker[index],
-                                          //     );
-                                          setState(() {
-                                            selectedIndex = index; // Update the selectedIndex when a ListTile is tapped
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              const SizedBox(
-                                                width: 8,
-                                              ),
-                                              SizedBox(
-                                                width: 30,
-                                                height: 30,
-                                                child: SiteTypeIcon(siteType: siteMarker.type),
-                                              ),
-                                              const SizedBox(width: 8),
-                                              Expanded(
-                                                child: Text(
-                                                  siteMarker.name,
-                                                  style: TextStyle(
-                                                    color: selected || hover ? Colors.white : Colors.black,
-                                                    fontWeight: selected || hover ? FontWeight.bold : FontWeight.normal,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        }
-                        return Text('ERRROR');
+                  view == HubOrCompany.hub
+                      ? const Expanded(child: LogisticsHubListWidget())
+                      : const Expanded(child: CompanyListWidget(false)),
+                  Center(
+                    child: SegmentedButton(
+                      segments: const [
+                        ButtonSegment(value: HubOrCompany.hub, icon: Icon(Icons.api), label: Text('Hubbar')),
+                        ButtonSegment(value: HubOrCompany.company, icon: Icon(Icons.business), label: Text('Företag')),
+                      ],
+                      selected: <HubOrCompany>{view},
+                      onSelectionChanged: (Set newSelection) {
+                        setState(() {
+                          // By default there is only a single segment that can be
+                          // selected at one time, so its value is always the first
+                          // item in the selected set.
+                          view = newSelection.first;
+                        });
                       },
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -181,3 +78,5 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
     );
   }
 }
+
+enum HubOrCompany { hub, company }

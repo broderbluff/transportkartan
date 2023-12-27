@@ -4,8 +4,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:transportkartan/cubit/site_firestore_cubit.dart';
 import 'package:transportkartan/cubit/map_cubit.dart';
-import 'package:transportkartan/cubit/marker_cubit.dart';
+import 'package:transportkartan/helpers/site_marker_to_markers.dart';
 import 'package:transportkartan/views/map/popup_view.dart';
 
 class MapWidget extends StatefulWidget {
@@ -55,26 +56,35 @@ class _MapWidgetState extends State<MapWidget> {
                       'https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}.png?apiKey=fb622ee8c7a048f1b766548572313f5a',
                   userAgentPackageName: 'se.transport.trasnportkartan',
                 ),
-                PolylineLayer(
-                  polylineCulling: true,
-                  polylines: state.polylinePoints,
-                ),
-                BlocBuilder<MarkerCubit, List<Marker>>(
-                  builder: (context, markerState) {
-                    return PopupMarkerLayer(
-                      options: PopupMarkerLayerOptions(
-                        popupController: state.popupController,
-                        markers: markerState,
-                        markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
-                        markerCenterAnimation:
-                            const MarkerCenterAnimation(curve: Curves.easeOut, duration: Duration(milliseconds: 300)),
-                        popupDisplayOptions: PopupDisplayOptions(
-                          snap: PopupSnap.markerRight,
-                          animation: const PopupAnimation.fade(duration: Duration(milliseconds: 200)),
-                          builder: (BuildContext context, Marker marker) => MapPopup(marker),
+                // PolylineLayer(
+                //   polylineCulling: true,
+                //   polylines: state.polylinePoints,
+                // ),
+                BlocBuilder<SiteFirestoreCubit, SiteFirestoreState>(
+                  bloc: context.watch<SiteFirestoreCubit>()..fetchSites(),
+                  builder: (context, firestoreState) {
+                    if (firestoreState is InitialState) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (firestoreState is SitesList) {
+                      return PopupMarkerLayer(
+                        options: PopupMarkerLayerOptions(
+                          popupController: state.popupController,
+                          markers: siteMarkerToMarkers(firestoreState.markersList),
+                          markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
+                          markerCenterAnimation:
+                              const MarkerCenterAnimation(curve: Curves.easeOut, duration: Duration(milliseconds: 300)),
+                          popupDisplayOptions: PopupDisplayOptions(
+                            snap: PopupSnap.markerRight,
+                            animation: const PopupAnimation.fade(duration: Duration(milliseconds: 200)),
+                            builder: (BuildContext context, Marker marker) => MapPopup(marker, firestoreState.markersList),
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
+
+                    return const Text('Error');
                   },
                 ),
               ]);

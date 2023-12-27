@@ -5,9 +5,12 @@ import 'package:transportkartan/views/navigation_rail/create_site_dialog/widgets
 import 'package:transportkartan/views/navigation_rail/create_site_dialog/widgets/title_row_widget.dart';
 
 class CreateSiteDialog extends StatelessWidget {
-  const CreateSiteDialog({
+  const CreateSiteDialog(
+    this.isNew, {
     super.key,
   });
+
+  final bool isNew;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +25,11 @@ class CreateSiteDialog extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           height: windowSize.height * 0.8,
           width: windowSize.width * 0.6,
-          child: const Column(
+          child: Column(
             children: [
-              TitleRowWidget(),
-              SiteInputWidget(),
-              ButtonRowWidget(),
+              TitleRowWidget(isNew),
+              const Expanded(child: SiteInputWidget()),
+              const ButtonRowWidget(),
             ],
           ),
         ),

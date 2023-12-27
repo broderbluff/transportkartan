@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/cubit/create_site_cubit.dart';
-import 'package:transportkartan/cubit/firestore_cubit.dart';
-import 'package:transportkartan/cubit/navigation_rail_cubit.dart';
+import 'package:transportkartan/cubit/local_cubits/create_site_cubit.dart';
+import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/cubit/local_cubits/navigation_rail_cubit.dart';
 
 class ButtonRowWidget extends StatelessWidget {
   const ButtonRowWidget({
@@ -19,7 +19,7 @@ class ButtonRowWidget extends StatelessWidget {
               context.read<CreateSiteCubit>().resetState();
             },
             child: const Text('Rensa')),
-        BlocConsumer<FireStoreCubit, FirestoreState>(
+        BlocConsumer<SiteFirestoreCubit, SiteFirestoreState>(
           listener: (context, state) {
             if (state is CreateSuccess) {
               context.read<CreateSiteCubit>().resetState();
@@ -53,7 +53,7 @@ class ButtonRowWidget extends StatelessWidget {
             return ElevatedButton(
               onPressed: () {
                 var siteMarkerState = context.read<CreateSiteCubit>().state;
-                context.read<FireStoreCubit>().createSite(siteMarkerState);
+                context.read<SiteFirestoreCubit>().createSite(siteMarkerState);
               },
               child: const Text('Skapa'),
             );
