@@ -5,9 +5,9 @@ import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_ti
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:transportkartan/cubit/site_firestore_cubit.dart';
-import 'package:transportkartan/cubit/map_cubit.dart';
+import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
-import 'package:transportkartan/views/map/popup_view.dart';
+import 'package:transportkartan/views/map_popup/popup_view.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({super.key});
@@ -61,7 +61,7 @@ class _MapWidgetState extends State<MapWidget> {
                 //   polylines: state.polylinePoints,
                 // ),
                 BlocBuilder<SiteFirestoreCubit, SiteFirestoreState>(
-                  bloc: context.watch<SiteFirestoreCubit>()..fetchSites(),
+                  bloc: context.read<SiteFirestoreCubit>()..fetchSites(),
                   builder: (context, firestoreState) {
                     if (firestoreState is InitialState) {
                       return const Center(child: CircularProgressIndicator());

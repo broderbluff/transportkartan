@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/cubit/local_cubits/create_site_cubit.dart';
-import 'package:transportkartan/cubit/local_cubits/navigation_rail_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
 class TitleRowWidget extends StatelessWidget {
   const TitleRowWidget(

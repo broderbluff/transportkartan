@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:transportkartan/cubit/local_cubits/create_site_cubit.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
 import 'package:transportkartan/views/logistics_hub/widgets/company_list.dart';
+import 'package:transportkartan/views/navigation_rail/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/create_site_dialog/widgets/site_company_list_widget.dart';
 
 class SiteInputWidget extends StatelessWidget {

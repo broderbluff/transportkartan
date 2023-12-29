@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
-import 'package:transportkartan/cubit/local_cubits/create_site_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/create_site_dialog/cubit/create_site_cubit.dart';
 
 class SiteCompaniesListWidget extends StatelessWidget {
   const SiteCompaniesListWidget(
@@ -28,19 +28,39 @@ class SiteCompaniesListWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final company = companyData.companyList[index];
 
-                return ListTile(
-                  leading: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: company.logoUrl!.isEmpty ? const Icon(Icons.business_sharp) : Image.network(company.logoUrl!),
-                  ),
-                  title: Text(company.name),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      context.read<CreateSiteCubit>().removeCompany(company.id);
-                    },
-                  ),
+                return Row(
+                  children: [
+                    SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: company.logoUrl!.isEmpty ? const Icon(Icons.business_sharp) : Image.network(company.logoUrl!),
+                    ),
+                    Text(company.name),
+                    const TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Anställda',
+                        constraints: BoxConstraints(maxWidth: 100, minWidth: 100),
+                      ),
+                    ),
+                    const TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Medlemmar',
+                        constraints: BoxConstraints(maxWidth: 100, minWidth: 100),
+                      ),
+                    ),
+                    const TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Förtroendevalda',
+                        constraints: BoxConstraints(maxWidth: 100, minWidth: 100),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        context.read<CreateSiteCubit>().removeCompany(company.id);
+                      },
+                    ),
+                  ],
                 );
               },
             ),

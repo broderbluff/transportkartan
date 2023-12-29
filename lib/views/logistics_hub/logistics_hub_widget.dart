@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/views/logistics_hub/widgets/company_list.dart';
-import 'package:transportkartan/views/logistics_hub/widgets/logistics_hub_list.dart';
+import 'package:transportkartan/views/logistics_hub/widgets/site_list.dart';
 
 class LogisticsHubsWidget extends StatefulWidget {
   const LogisticsHubsWidget({
@@ -50,7 +52,7 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
                   Text(view == HubOrCompany.hub ? 'Logistikhubbar' : 'Företag', style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 16),
                   view == HubOrCompany.hub
-                      ? const Expanded(child: LogisticsHubListWidget())
+                      ? const Expanded(child: SiteListMainWidget())
                       : const Expanded(child: CompanyListWidget(false)),
                   Center(
                     child: SegmentedButton(
@@ -61,6 +63,8 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
                       selected: <HubOrCompany>{view},
                       onSelectionChanged: (Set newSelection) {
                         setState(() {
+                          context.read<MapControllerCubit>().hidePopup();
+
                           // By default there is only a single segment that can be
                           // selected at one time, so its value is always the first
                           // item in the selected set.
