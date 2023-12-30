@@ -7,9 +7,9 @@ import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
-import 'package:transportkartan/views/logistics_hub/widgets/company_list.dart';
-import 'package:transportkartan/views/navigation_rail/create_site_dialog/cubit/create_site_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/create_site_dialog/widgets/site_company_list_widget.dart';
+import 'package:transportkartan/views/site_and_company_view/widgets/company_list.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget.dart';
 
 class SiteInputWidget extends StatelessWidget {
   const SiteInputWidget({

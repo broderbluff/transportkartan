@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/create_company_dialog/cubit/create_company_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
 
-import 'package:transportkartan/views/navigation_rail/create_company_dialog/widgets/company_input_widget.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/widgets/company_input_widget.dart';
 import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
 class CreateCompanyDialog extends StatelessWidget {

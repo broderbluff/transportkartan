@@ -4,7 +4,7 @@ import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
-import 'package:transportkartan/views/logistics_hub/cubit/selected_site_cubit.dart';
+import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 
 class PopupTitleRowWidget extends StatelessWidget {

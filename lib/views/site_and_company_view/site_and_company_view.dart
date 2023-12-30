@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
-import 'package:transportkartan/views/logistics_hub/widgets/company_list.dart';
-import 'package:transportkartan/views/logistics_hub/widgets/site_list.dart';
+import 'package:transportkartan/views/site_and_company_view/widgets/company_list.dart';
+import 'package:transportkartan/views/site_and_company_view/widgets/site_list.dart';
 
 class LogisticsHubsWidget extends StatefulWidget {
   const LogisticsHubsWidget({

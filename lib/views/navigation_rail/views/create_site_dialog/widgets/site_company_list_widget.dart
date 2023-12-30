@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 
 class SiteCompaniesListWidget extends StatelessWidget {
   const SiteCompaniesListWidget(

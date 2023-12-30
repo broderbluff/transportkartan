@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
-import 'package:transportkartan/views/logistics_hub/cubit/selected_site_cubit.dart';
+import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_marker_fetcher.dart';
 import 'package:transportkartan/helpers/total_employees.dart';

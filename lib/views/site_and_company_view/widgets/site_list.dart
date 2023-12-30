@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:transportkartan/constants/colors.dart';
-import 'package:transportkartan/views/logistics_hub/cubit/selected_site_cubit.dart';
+import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/cubit/site_firestore_cubit.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
-import 'package:transportkartan/views/navigation_rail/create_site_dialog/create_site_dialog.dart';
-import 'package:transportkartan/views/navigation_rail/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/create_site_dialog.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 
 class SiteListMainWidget extends StatelessWidget {
   const SiteListMainWidget({super.key});
