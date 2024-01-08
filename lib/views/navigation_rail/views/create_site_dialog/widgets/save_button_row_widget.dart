@@ -25,6 +25,7 @@ class ButtonRowWidget extends StatelessWidget {
               context.read<CreateSiteCubit>().resetState();
 
               context.read<NavigationRailCubit>().changeIndex(0);
+              context.read<SiteFirestoreCubit>().fetchSites();
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(

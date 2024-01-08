@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/data/enums/company_type.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
+import 'package:transportkartan/helpers/site_type_icon.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
-import 'package:transportkartan/views/site_and_company_view/widgets/company_list.dart';
-import 'package:transportkartan/views/site_and_company_view/widgets/site_list.dart';
+import 'package:transportkartan/views/site_and_company_view/cubit/filter_site_cubit.dart';
+import 'package:transportkartan/views/site_and_company_view/views/company_list.dart';
+import 'package:transportkartan/views/site_and_company_view/views/site_list.dart';
 
 class LogisticsHubsWidget extends StatefulWidget {
   const LogisticsHubsWidget({
@@ -51,9 +55,46 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
                 children: [
                   Text(view == HubOrCompany.hub ? 'Logistikhubbar' : 'Företag', style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 16),
+                  BlocBuilder<FilterSiteCubit, SiteTypesState>(
+                    builder: (context, state) {
+                      return ExpansionTile(
+                        title: const Text('Filter'),
+                        initiallyExpanded: false,
+                        maintainState: true,
+                        // onExpansionChanged: (expanded) {
+                        //   if (!expanded) {
+                        //     List<SiteType> selectedTypesList = selectedSiteTypes.toList();
+                        //     context.read<SiteFirestoreCubit>().fetchSites(sortByType: true, siteTypes: selectedTypesList);
+                        //   }
+                        // },
+                        children: [
+                          Wrap(
+                            spacing: 8,
+                            children: SiteType.values.map((siteType) {
+                              return FilterChip(
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  child: SiteTypeIcon(
+                                    siteType: siteType,
+                                  ),
+                                ),
+                                label: Text(siteType.name, style: Theme.of(context).textTheme.labelSmall),
+                                selected: state.selectedSiteTypes.contains(siteType),
+                                onSelected: (selected) {
+                                  context.read<FilterSiteCubit>().toggleSiteType(siteType);
+                                },
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 8),
                   view == HubOrCompany.hub
                       ? const Expanded(child: SiteListMainWidget())
-                      : const Expanded(child: CompanyListWidget(false)),
+                      : const Expanded(child: CompanyListWidget(false, CompanyType.mainCompany)),
                   Center(
                     child: SegmentedButton(
                       segments: const [

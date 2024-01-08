@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SiteListCubit extends Cubit<SiteListState> {
-  SiteListCubit() : super(SiteListState(selectedIndex: -1, hoverIndex: -1));
+class SiteListCubit extends Cubit<SiteSelectedState> {
+  SiteListCubit() : super(SiteSelectedState(selectedIndex: -1, hoverIndex: -1));
 
   void setSelectedIndex(int value) {
     emit(state.copyWith(selectedIndex: value));
@@ -14,23 +14,23 @@ class SiteListCubit extends Cubit<SiteListState> {
   // Add other methods to update specific boolean values
 }
 
-class SiteListState {
+class SiteSelectedState {
   final int selectedIndex;
   final int hoverIndex;
   // Add other boolean values you want to track
 
-  SiteListState({
+  SiteSelectedState({
     required this.selectedIndex,
     required this.hoverIndex,
     // Initialize other boolean values
   });
 
-  SiteListState copyWith({
+  SiteSelectedState copyWith({
     int? selectedIndex,
     int? hoverIndex,
     // Add other boolean values you want to track
   }) {
-    return SiteListState(
+    return SiteSelectedState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       hoverIndex: hoverIndex ?? this.hoverIndex,
       // Add other boolean values you want to track

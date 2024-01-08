@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:transportkartan/data/enums/company_type.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/union.dart';
 
 part 'company_model.freezed.dart';
@@ -18,24 +20,37 @@ class Company with _$Company {
     String? linkedInUrl,
     required String orgNumber,
     String? headquarterAddress,
-    List<Site>? sites,
+    List<Workplace>? workplaces,
   }) = _Company;
 
   factory Company.fromJson(Map<String, dynamic> json) => _$CompanyFromJson(json);
 }
 
 @freezed
-class Site with _$Site {
-  const factory Site({
+class Workplace with _$Workplace {
+  const factory Workplace({
     required String siteId,
     required int members,
     required int electedOfficials,
     required int employees,
-  }) = _Site;
+    CompanyType? companyType,
+  }) = _Workplace;
 
-  factory Site.fromJson(Map<String, dynamic> json) => _$SiteFromJson(json);
+  factory Workplace.fromJson(Map<String, dynamic> json) => _$WorkplaceFromJson(json);
 }
 
+@freezed
+class CompanyListModel with _$CompanyListModel {
+  const factory CompanyListModel({
+    List<Company>? mainCompanies,
+    List<Company>? subContractors,
+    List<Company>? staffingCompanies,
+    List<Company>? securityCompanies,
+    List<Company>? carrierCompanies,
+  }) = _CompanyListModel;
+
+  factory CompanyListModel.fromJson(Map<String, dynamic> json) => _$CompanyListModelFromJson(json);
+}
 
 
 

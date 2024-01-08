@@ -31,6 +31,8 @@ mixin _$SiteMarker {
       throw _privateConstructorUsedError; //List<Polyline>? polylinePoints,
   List<String>? get subContractors => throw _privateConstructorUsedError;
   List<String>? get staffingCompanies => throw _privateConstructorUsedError;
+  List<String>? get securityCompanies => throw _privateConstructorUsedError;
+  List<String>? get carrierCompanies => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +56,9 @@ abstract class $SiteMarkerCopyWith<$Res> {
       String description,
       List<String> companies,
       List<String>? subContractors,
-      List<String>? staffingCompanies});
+      List<String>? staffingCompanies,
+      List<String>? securityCompanies,
+      List<String>? carrierCompanies});
 }
 
 /// @nodoc
@@ -80,6 +84,8 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
     Object? companies = null,
     Object? subContractors = freezed,
     Object? staffingCompanies = freezed,
+    Object? securityCompanies = freezed,
+    Object? carrierCompanies = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -122,6 +128,14 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
           ? _value.staffingCompanies
           : staffingCompanies // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      securityCompanies: freezed == securityCompanies
+          ? _value.securityCompanies
+          : securityCompanies // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      carrierCompanies: freezed == carrierCompanies
+          ? _value.carrierCompanies
+          : carrierCompanies // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -144,7 +158,9 @@ abstract class _$$SiteMarkerImplCopyWith<$Res>
       String description,
       List<String> companies,
       List<String>? subContractors,
-      List<String>? staffingCompanies});
+      List<String>? staffingCompanies,
+      List<String>? securityCompanies,
+      List<String>? carrierCompanies});
 }
 
 /// @nodoc
@@ -168,6 +184,8 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
     Object? companies = null,
     Object? subContractors = freezed,
     Object? staffingCompanies = freezed,
+    Object? securityCompanies = freezed,
+    Object? carrierCompanies = freezed,
   }) {
     return _then(_$SiteMarkerImpl(
       id: freezed == id
@@ -210,6 +228,14 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
           ? _value._staffingCompanies
           : staffingCompanies // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      securityCompanies: freezed == securityCompanies
+          ? _value._securityCompanies
+          : securityCompanies // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      carrierCompanies: freezed == carrierCompanies
+          ? _value._carrierCompanies
+          : carrierCompanies // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -227,11 +253,15 @@ class _$SiteMarkerImpl implements _SiteMarker {
       required this.description,
       required final List<String> companies,
       final List<String>? subContractors,
-      final List<String>? staffingCompanies})
+      final List<String>? staffingCompanies,
+      final List<String>? securityCompanies,
+      final List<String>? carrierCompanies})
       : _coordinates = coordinates,
         _companies = companies,
         _subContractors = subContractors,
-        _staffingCompanies = staffingCompanies;
+        _staffingCompanies = staffingCompanies,
+        _securityCompanies = securityCompanies,
+        _carrierCompanies = carrierCompanies;
 
   factory _$SiteMarkerImpl.fromJson(Map<String, dynamic> json) =>
       _$$SiteMarkerImplFromJson(json);
@@ -287,9 +317,31 @@ class _$SiteMarkerImpl implements _SiteMarker {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _securityCompanies;
+  @override
+  List<String>? get securityCompanies {
+    final value = _securityCompanies;
+    if (value == null) return null;
+    if (_securityCompanies is EqualUnmodifiableListView)
+      return _securityCompanies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _carrierCompanies;
+  @override
+  List<String>? get carrierCompanies {
+    final value = _carrierCompanies;
+    if (value == null) return null;
+    if (_carrierCompanies is EqualUnmodifiableListView)
+      return _carrierCompanies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, companies: $companies, subContractors: $subContractors, staffingCompanies: $staffingCompanies)';
+    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, companies: $companies, subContractors: $subContractors, staffingCompanies: $staffingCompanies, securityCompanies: $securityCompanies, carrierCompanies: $carrierCompanies)';
   }
 
   @override
@@ -312,7 +364,11 @@ class _$SiteMarkerImpl implements _SiteMarker {
             const DeepCollectionEquality()
                 .equals(other._subContractors, _subContractors) &&
             const DeepCollectionEquality()
-                .equals(other._staffingCompanies, _staffingCompanies));
+                .equals(other._staffingCompanies, _staffingCompanies) &&
+            const DeepCollectionEquality()
+                .equals(other._securityCompanies, _securityCompanies) &&
+            const DeepCollectionEquality()
+                .equals(other._carrierCompanies, _carrierCompanies));
   }
 
   @JsonKey(ignore: true)
@@ -328,7 +384,9 @@ class _$SiteMarkerImpl implements _SiteMarker {
       description,
       const DeepCollectionEquality().hash(_companies),
       const DeepCollectionEquality().hash(_subContractors),
-      const DeepCollectionEquality().hash(_staffingCompanies));
+      const DeepCollectionEquality().hash(_staffingCompanies),
+      const DeepCollectionEquality().hash(_securityCompanies),
+      const DeepCollectionEquality().hash(_carrierCompanies));
 
   @JsonKey(ignore: true)
   @override
@@ -355,7 +413,9 @@ abstract class _SiteMarker implements SiteMarker {
       required final String description,
       required final List<String> companies,
       final List<String>? subContractors,
-      final List<String>? staffingCompanies}) = _$SiteMarkerImpl;
+      final List<String>? staffingCompanies,
+      final List<String>? securityCompanies,
+      final List<String>? carrierCompanies}) = _$SiteMarkerImpl;
 
   factory _SiteMarker.fromJson(Map<String, dynamic> json) =
       _$SiteMarkerImpl.fromJson;
@@ -380,6 +440,10 @@ abstract class _SiteMarker implements SiteMarker {
   List<String>? get subContractors;
   @override
   List<String>? get staffingCompanies;
+  @override
+  List<String>? get securityCompanies;
+  @override
+  List<String>? get carrierCompanies;
   @override
   @JsonKey(ignore: true)
   _$$SiteMarkerImplCopyWith<_$SiteMarkerImpl> get copyWith =>

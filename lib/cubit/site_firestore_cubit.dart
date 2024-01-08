@@ -1,26 +1,54 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 
 class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   SiteFirestoreCubit() : super(InitialState());
 
-  void fetchSites() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sites').get();
+  void fetchSites({bool sortByType = false, List<SiteType>? siteTypes}) async {
+    try {
+      Query query = FirebaseFirestore.instance.collection('sites');
 
-    List<SiteMarker> markerModels = [];
-    for (var doc in querySnapshot.docs) {
-      final data = doc.data() as Map<String, dynamic>;
+      if (sortByType && siteTypes != null && siteTypes.isNotEmpty) {
+        query = query.where('type', whereIn: siteTypes.map((type) => type.getValue()).toList());
+      }
 
-      SiteMarker markerModel;
-      markerModel = SiteMarker.fromJson(data);
+      query = query.orderBy('name');
 
-      markerModels.add(markerModel);
+      QuerySnapshot querySnapshot = await query.get();
+
+      List<SiteMarker> markerModels = [];
+      for (var doc in querySnapshot.docs) {
+        final data = doc.data() as Map<String, dynamic>;
+
+        SiteMarker markerModel;
+        markerModel = SiteMarker.fromJson(data);
+
+        markerModels.add(markerModel);
+      }
+      emit(SitesList(markerModels));
+    } catch (e) {
+      emit(CreateFailure(e));
     }
-    emit(SitesList(markerModels));
   }
+
+  // void fetchSites() async {
+  //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('sites').orderBy('name').get();
+
+  //   List<SiteMarker> markerModels = [];
+  //   for (var doc in querySnapshot.docs) {
+  //     final data = doc.data() as Map<String, dynamic>;
+
+  //     SiteMarker markerModel;
+  //     markerModel = SiteMarker.fromJson(data);
+
+  //     markerModels.add(markerModel);
+  //   }
+  //   emit(SitesList(markerModels));
+  // }
 
   void createSite(SiteMarker markerModel) async {
     try {

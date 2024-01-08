@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/data/enums/company_type.dart';
 
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
-import 'package:transportkartan/views/site_and_company_view/widgets/company_list_item.dart';
+import 'package:transportkartan/views/site_and_company_view/views/widgets/company_list_item.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/create_company_dialog.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 
 class CompanyListWidget extends StatefulWidget {
-  const CompanyListWidget(this.isAddingCompanyToSite, {super.key});
+  const CompanyListWidget(this.isAddingCompanyToSite, this.companyType, {super.key});
 
   final bool isAddingCompanyToSite;
+  final CompanyType companyType;
   @override
   State<CompanyListWidget> createState() => _CompanyListWidgetState();
 }
@@ -35,7 +37,7 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state is CompanyListState) {
+        if (state is AllCompaniesState) {
           return SingleChildScrollView(
             child: ListView.builder(
               shrinkWrap: true,
@@ -94,14 +96,18 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
                               },
                               onTap: () {
                                 if (widget.isAddingCompanyToSite) {
-                                  context.read<CreateSiteCubit>().addCompany(company.id);
+                                  context.read<CreateSiteCubit>().addCompany(company.id, widget.companyType);
                                   Navigator.pop(context);
                                 }
                                 setState(() {
                                   selectedIndex = index; // Update the selectedIndex when a ListTile is tapped
                                 });
                               },
-                              child: CompanyListItem(company: company, selected: selected, hover: hover),
+                              child: CompanyListItem(
+                                company: company,
+                                selected: selected,
+                                hover: hover,
+                              ),
                             ),
                           ),
                         ),
@@ -113,7 +119,7 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
             ),
           );
         }
-        return const Text('ERRROR');
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

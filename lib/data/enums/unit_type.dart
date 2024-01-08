@@ -1,10 +1,13 @@
 enum UnitType {
-  millionTons('Miljoner ton'),
-  units('Enheter'),
-  containerTEU('Containrar TEU'),
-  tons('Ton'),
-  trucks('Lastbilar'),
-  trailers('Trailers');
+  units('enheter'),
+  containerTEU('containrar TEU'),
+  tons('ton'),
+  trucks('lastbilar'),
+  trailers('trailers'),
+  pallets('pallar'),
+  packages('paket'),
+  trains('godståg'),
+  vehicle('fordon');
 
   const UnitType(this.name);
   final String name;

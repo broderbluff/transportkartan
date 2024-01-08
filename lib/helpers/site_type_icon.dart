@@ -10,11 +10,19 @@ class SiteTypeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (siteType) {
       case SiteType.combiTerminal:
-        return Image.asset('assets/icons/kombiterminal.png');
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/kombiterminal.png'));
       case SiteType.cargoAirport:
-        return Image.asset('assets/icons/airport.png');
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/airport.png'));
       case SiteType.roroPort:
-        return Image.asset('assets/icons/roro.png');
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/roro.png'));
+      case SiteType.containerPort:
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/container.png'));
+      case SiteType.measuringPointRoad:
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/measurePointTrucks.png'));
+      case SiteType.industryPort:
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/industryPort.png'));
+      case SiteType.oilPort:
+        return ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/icons/oilPort.png'));
       default:
         return const Icon(Icons.error_sharp);
     }

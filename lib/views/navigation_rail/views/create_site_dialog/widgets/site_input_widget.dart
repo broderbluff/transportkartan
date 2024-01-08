@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
-import 'package:transportkartan/views/site_and_company_view/widgets/company_list.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/add_company_button.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/site_company_list_widget.dart';
 
 class SiteInputWidget extends StatelessWidget {
   const SiteInputWidget({
@@ -162,40 +163,18 @@ class SiteInputWidget extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Row(
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            elevation: 24,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: Container(
-                                color: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                                height: windowSize.height * 0.8,
-                                width: windowSize.width * 0.6,
-                                child: const Column(
-                                  children: [
-                                    Expanded(flex: 1, child: CompanyListWidget(true)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.add),
-                    label: const Text('Lägg till företag'),
-                  ),
-                ],
-              ),
+              AddCompanyButton(windowSize: windowSize, companyType: CompanyType.mainCompany),
               const SizedBox(height: 16),
-              SiteCompaniesListWidget(siteMarkerState.companies),
+              SiteCompaniesListWidget(siteMarkerState.companies, siteMarkerState.id!, CompanyType.mainCompany),
+              const SizedBox(
+                height: 16,
+              ),
+              AddCompanyButton(windowSize: windowSize, companyType: CompanyType.subContractor),
+              const SizedBox(height: 16),
+              SiteCompaniesListWidget(siteMarkerState.subContractors ?? [], siteMarkerState.id!, CompanyType.subContractor),
+              const SizedBox(
+                height: 16,
+              ),
             ],
           ),
         );

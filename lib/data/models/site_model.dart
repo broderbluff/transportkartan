@@ -20,6 +20,8 @@ class SiteMarker with _$SiteMarker {
     //List<Polyline>? polylinePoints,
     List<CompanyId>? subContractors,
     List<CompanyId>? staffingCompanies,
+    List<CompanyId>? securityCompanies,
+    List<CompanyId>? carrierCompanies,
   }) = _SiteMarker;
 
   factory SiteMarker.fromJson(Map<String, dynamic> json) => _$SiteMarkerFromJson(json);

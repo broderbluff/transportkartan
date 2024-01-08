@@ -25,6 +25,12 @@ _$SiteMarkerImpl _$$SiteMarkerImplFromJson(Map<String, dynamic> json) =>
       staffingCompanies: (json['staffingCompanies'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      securityCompanies: (json['securityCompanies'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      carrierCompanies: (json['carrierCompanies'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
@@ -39,6 +45,8 @@ Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
       'companies': instance.companies,
       'subContractors': instance.subContractors,
       'staffingCompanies': instance.staffingCompanies,
+      'securityCompanies': instance.securityCompanies,
+      'carrierCompanies': instance.carrierCompanies,
     };
 
 const _$SiteTypeEnumMap = {
@@ -50,13 +58,18 @@ const _$SiteTypeEnumMap = {
   SiteType.cargoAirport: 'cargoAirport',
   SiteType.ferryPort: 'ferryPort',
   SiteType.thirdPartyTerminal: 'thirdPartyTerminal',
+  SiteType.measuringPointRoad: 'measuringPointRoad',
+  SiteType.measuringPointRail: 'measuringPointRail',
 };
 
 const _$UnitTypeEnumMap = {
-  UnitType.millionTons: 'millionTons',
   UnitType.units: 'units',
   UnitType.containerTEU: 'containerTEU',
   UnitType.tons: 'tons',
   UnitType.trucks: 'trucks',
   UnitType.trailers: 'trailers',
+  UnitType.pallets: 'pallets',
+  UnitType.packages: 'packages',
+  UnitType.trains: 'trains',
+  UnitType.vehicle: 'vehicle',
 };

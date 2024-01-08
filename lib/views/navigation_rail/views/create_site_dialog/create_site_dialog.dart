@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/button_row_widget.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/save_button_row_widget.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_input_widget.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/title_row_widget.dart';
 
