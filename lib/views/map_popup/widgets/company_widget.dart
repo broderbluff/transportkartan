@@ -32,7 +32,7 @@ class PopupCompanyWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              for (var company in mainCompanies ?? [])
+              for (var company in mainCompanies)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

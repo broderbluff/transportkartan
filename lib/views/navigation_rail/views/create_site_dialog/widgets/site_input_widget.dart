@@ -10,7 +10,6 @@ import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/add_company_button.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/site_company_list_widget.dart';
 
 class SiteInputWidget extends StatelessWidget {
   const SiteInputWidget({
@@ -165,16 +164,6 @@ class SiteInputWidget extends StatelessWidget {
               ),
               AddCompanyButton(windowSize: windowSize, companyType: CompanyType.mainCompany),
               const SizedBox(height: 16),
-              SiteCompaniesListWidget(siteMarkerState.companies, siteMarkerState.id!, CompanyType.mainCompany),
-              const SizedBox(
-                height: 16,
-              ),
-              AddCompanyButton(windowSize: windowSize, companyType: CompanyType.subContractor),
-              const SizedBox(height: 16),
-              SiteCompaniesListWidget(siteMarkerState.subContractors ?? [], siteMarkerState.id!, CompanyType.subContractor),
-              const SizedBox(
-                height: 16,
-              ),
             ],
           ),
         );
