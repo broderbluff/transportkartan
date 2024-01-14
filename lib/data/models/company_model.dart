@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
-import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/union.dart';
 
 part 'company_model.freezed.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
@@ -20,15 +19,21 @@ class PopupTitleRowWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: const BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
       child: Container(
-        color: mainColor,
+        color: siteMarker?.type.getHeaderColor(),
         width: double.infinity,
         height: 50,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                height: 25,
+                width: 25,
+                child: SiteTypeIcon(siteType: siteMarker?.type ?? SiteType.combiTerminal),
+              ),
+            ),
             const Spacer(),
-            SizedBox(height: 25, width: 25, child: SiteTypeIcon(siteType: siteMarker?.type ?? SiteType.combiTerminal)),
-            const SizedBox(width: 8),
             Text(
               siteMarker?.name ?? 'Namn saknas',
               overflow: TextOverflow.fade,

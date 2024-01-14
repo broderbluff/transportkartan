@@ -14,7 +14,7 @@ class LoadingWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: const BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
           child: Container(
-            color: mainColor,
+            color: Colors.transparent,
             width: double.infinity,
             height: 50,
             child: const Padding(

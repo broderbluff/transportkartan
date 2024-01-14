@@ -78,7 +78,31 @@ class _MapWidgetState extends State<MapWidget> {
                           popupDisplayOptions: PopupDisplayOptions(
                             snap: PopupSnap.markerRight,
                             animation: const PopupAnimation.fade(duration: Duration(milliseconds: 200)),
-                            builder: (BuildContext context, Marker marker) => MapPopup(marker, firestoreState.markersList),
+                            builder: (BuildContext context, Marker marker) => Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0,
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_back,
+                                        color: Colors.white,
+                                        size: 33,
+                                      ),
+                                      Icon(
+                                        Icons.arrow_back,
+                                        color: Colors.black,
+                                        size: 30,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                MapPopup(marker, firestoreState.markersList),
+                              ],
+                            ),
                           ),
                         ),
                       );
