@@ -1,9 +1,58 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/constants/colors.dart';
+import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/views/site_and_company_view/cubit/filter_site_cubit.dart';
+import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
+import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/views/map/cubit/map_cubit.dart';
+import 'package:transportkartan/firebase_options.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:transportkartan/views/navigation_rail/left_navigation_bar.dart';
+import 'package:transportkartan/views/site_and_company_view/site_and_company_view.dart';
+import 'package:transportkartan/views/map/map_view.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MapControllerCubit(),
+        ),
+        BlocProvider(
+          create: (context) => NavigationRailCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CreateSiteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CreateCompanyCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SiteFirestoreCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CompanyFirestoreCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SiteListCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FilterSiteCubit(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,45 +62,41 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Transportkartan',
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // TRY THIS: Try running your application with "flutter run". You'll see
-          // the application has a purple toolbar. Then, without quitting the app,
-          // try changing the seedColor in the colorScheme below to Colors.green
-          // and then invoke "hot reload" (save your changes or press the "hot
-          // reload" button in a Flutter-supported IDE, or press "r" if you used
-          // the command line to start the app).
-          //
-          // Notice that the counter didn't reset back to zero; the application
-          // state is not lost during the reload. To reset the state, use hot
-          // restart instead.
-          //
-          // This works for code too, not just values: Most code changes can be
-          // tested with just a hot reload.
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+      debugShowCheckedModeBanner: false,
+      title: 'Transportkartan',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
+        useMaterial3: true,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
-        home: const MapWidget());
-  }
-}
-
-class MapWidget extends StatelessWidget {
-  const MapWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FlutterMap(
-        options: const MapOptions(
-          initialCenter: LatLng(55.509364, 13.128928),
-          initialZoom: 9.2,
+      ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('sv'),
+      ],
+      home: Scaffold(
+        body: Stack(
+          children: [
+            Row(
+              children: [
+                const LeftNavigationBar(),
+                Container(width: 140, height: double.infinity, color: mainColor),
+                const Expanded(
+                  child: MapWidget(),
+                ),
+              ],
+            ),
+            const LogisticsHubsWidget(),
+          ],
         ),
-        children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.example.karta',
-          )
-        ]);
+      ),
+    );
   }
 }
