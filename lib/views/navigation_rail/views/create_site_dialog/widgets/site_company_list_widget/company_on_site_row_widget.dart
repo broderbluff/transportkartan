@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
@@ -155,9 +156,32 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                 Navigator.of(context).pop();
               },
             ),
+
+            //TODO: Move the firebase function to repo
             TextButton(
               child: const Text('Spara'),
-              onPressed: () {
+              onPressed: () async {
+                companySite = companySite.copyWith(employees: 30);
+
+                DocumentReference docRef = FirebaseFirestore.instance.collection('company').doc(company.id);
+
+                FirebaseFirestore.instance.runTransaction((transaction) async {
+                  DocumentSnapshot snapshot = await transaction.get(docRef);
+
+                  if (snapshot.exists) {
+                    Company comp = Company.fromJson(snapshot.data() as Map<String, dynamic>);
+                    List<dynamic> yourArrayField = List.from(comp.workplaces ?? []);
+
+                    // Find the index of the item you want to update
+                    int indexToUpdate = yourArrayField.indexWhere((item) => item['siteId'] == companySite.siteId);
+
+                    // Update the item
+                    yourArrayField[indexToUpdate] = companySite;
+
+                    // Write the updated array back to the document
+                    transaction.update(docRef, {'workplaces': yourArrayField});
+                  }
+                });
                 // Save the changes here
                 Navigator.of(context).pop();
               },
