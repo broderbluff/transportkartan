@@ -70,10 +70,27 @@ class _MapPopupState extends State<MapPopup> {
                           const Padding(padding: EdgeInsets.only(left: 20.0, right: 40)),
                           siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad
                               ? const SizedBox.shrink()
-                              : PopupCompanyWidget(siteMarker?.id ?? '', companiesOnSite),
+                              : PopupCompanyWidget(
+                                  siteId: siteMarker?.id ?? '',
+                                  title: 'Företag:',
+                                  companies: companiesOnSite,
+                                ),
                           const SizedBox(
                             height: 16,
                           ),
+                          const Divider(),
+                          const Padding(padding: EdgeInsets.only(left: 20.0, right: 40)),
+                          siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad
+                              ? const SizedBox.shrink()
+                              : PopupCompanyWidget(
+                                  siteId: siteMarker?.id ?? '',
+                                  companies: subContractorsOnSite,
+                                  title: 'Underleverantör:',
+                                ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          const Divider(),
                           Row(
                             children: [
                               const Expanded(flex: 1, child: Text('Beskrivning:', style: TextStyle(fontWeight: FontWeight.bold))),

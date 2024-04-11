@@ -3,25 +3,22 @@ import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
 
 class PopupCompanyWidget extends StatelessWidget {
-  const PopupCompanyWidget(
-    this.siteId,
-    this.mainCompanies, {
-    super.key,
-  });
+  const PopupCompanyWidget({super.key, required this.siteId, required this.title, required this.companies});
 
   final String siteId;
-  final List<Company> mainCompanies;
+  final List<Company> companies;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Expanded(
+        Expanded(
           flex: 1,
           child: Text(
-            'Företag:',
-            style: TextStyle(
+            title,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -32,7 +29,7 @@ class PopupCompanyWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              for (var company in mainCompanies)
+              for (var company in companies)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
