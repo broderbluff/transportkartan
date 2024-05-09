@@ -79,21 +79,23 @@ class _MapPopupState extends State<MapPopup> {
                             height: 16,
                           ),
                           const Divider(),
-                          const Padding(padding: EdgeInsets.only(left: 20.0, right: 40)),
                           siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad
                               ? const SizedBox.shrink()
-                              : PopupCompanyWidget(
-                                  siteId: siteMarker?.id ?? '',
-                                  companies: subContractorsOnSite,
-                                  title: 'Underleverantör:',
-                                ),
+                              : subContractorsOnSite.isEmpty
+                                  ? PopupCompanyWidget(
+                                      siteId: siteMarker?.id ?? '',
+                                      companies: subContractorsOnSite,
+                                      title: 'Underleverantör:',
+                                    )
+                                  : const SizedBox.shrink(),
                           const SizedBox(
                             height: 16,
                           ),
                           const Divider(),
                           Row(
                             children: [
-                              const Expanded(flex: 1, child: Text('Beskrivning:', style: TextStyle(fontWeight: FontWeight.bold))),
+                              const Expanded(
+                                  flex: 1, child: Text('Hanterar gods åt:', style: TextStyle(fontWeight: FontWeight.bold))),
                               Expanded(
                                 flex: 2,
                                 child: Text(
