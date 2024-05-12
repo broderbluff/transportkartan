@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
+import 'package:transportkartan/helpers/letter_to_color.dart';
 import 'package:transportkartan/helpers/number_formatter.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/data/models/site_model.dart';
@@ -103,15 +104,40 @@ class _MapPopupState extends State<MapPopup> {
                           const SizedBox(
                             height: 16,
                           ),
+                          siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad
+                              ? const SizedBox.shrink()
+                              : staffingCompaniesOnSite.isNotEmpty
+                                  ? PopupCompanyWidget(
+                                      siteId: siteMarker?.id ?? '',
+                                      companies: staffingCompaniesOnSite,
+                                      title: 'Bemanningsbolag:',
+                                    )
+                                  : const SizedBox.shrink(),
+                          const SizedBox(
+                            height: 16,
+                          ),
                           const Divider(),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Expanded(
                                   flex: 1, child: Text('Hanterar gods åt:', style: TextStyle(fontWeight: FontWeight.bold))),
                               Expanded(
                                 flex: 2,
-                                child: Text(
-                                  siteMarker?.description ?? '',
+                                child: Wrap(
+                                  spacing: 4.0, // gap between adjacent chips
+                                  runSpacing: 4.0, // gap between lines
+                                  children: siteMarker?.handleGoods
+                                          ?.map((good) => Chip(
+                                                label: Text(good),
+                                                backgroundColor: getColorBasedOnFirstCharacter(good),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(20.0),
+                                                ),
+                                                labelPadding: EdgeInsets.all(1.0), // Reduced padding
+                                              ))
+                                          .toList() ??
+                                      [],
                                 ),
                               ),
                             ],

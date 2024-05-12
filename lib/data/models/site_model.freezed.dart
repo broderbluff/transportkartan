@@ -27,6 +27,7 @@ mixin _$SiteMarker {
   UnitType? get unitType => throw _privateConstructorUsedError;
   List<double> get coordinates => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  List<String>? get handleGoods => throw _privateConstructorUsedError;
   List<String> get companies =>
       throw _privateConstructorUsedError; //List<Polyline>? polylinePoints,
   List<String>? get subContractors => throw _privateConstructorUsedError;
@@ -54,6 +55,7 @@ abstract class $SiteMarkerCopyWith<$Res> {
       UnitType? unitType,
       List<double> coordinates,
       String description,
+      List<String>? handleGoods,
       List<String> companies,
       List<String>? subContractors,
       List<String>? staffingCompanies,
@@ -81,6 +83,7 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
     Object? unitType = freezed,
     Object? coordinates = null,
     Object? description = null,
+    Object? handleGoods = freezed,
     Object? companies = null,
     Object? subContractors = freezed,
     Object? staffingCompanies = freezed,
@@ -116,6 +119,10 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      handleGoods: freezed == handleGoods
+          ? _value.handleGoods
+          : handleGoods // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       companies: null == companies
           ? _value.companies
           : companies // ignore: cast_nullable_to_non_nullable
@@ -156,6 +163,7 @@ abstract class _$$SiteMarkerImplCopyWith<$Res>
       UnitType? unitType,
       List<double> coordinates,
       String description,
+      List<String>? handleGoods,
       List<String> companies,
       List<String>? subContractors,
       List<String>? staffingCompanies,
@@ -181,6 +189,7 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
     Object? unitType = freezed,
     Object? coordinates = null,
     Object? description = null,
+    Object? handleGoods = freezed,
     Object? companies = null,
     Object? subContractors = freezed,
     Object? staffingCompanies = freezed,
@@ -216,6 +225,10 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      handleGoods: freezed == handleGoods
+          ? _value._handleGoods
+          : handleGoods // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       companies: null == companies
           ? _value._companies
           : companies // ignore: cast_nullable_to_non_nullable
@@ -251,12 +264,14 @@ class _$SiteMarkerImpl implements _SiteMarker {
       this.unitType,
       required final List<double> coordinates,
       required this.description,
+      final List<String>? handleGoods,
       required final List<String> companies,
       final List<String>? subContractors,
       final List<String>? staffingCompanies,
       final List<String>? securityCompanies,
       final List<String>? carrierCompanies})
       : _coordinates = coordinates,
+        _handleGoods = handleGoods,
         _companies = companies,
         _subContractors = subContractors,
         _staffingCompanies = staffingCompanies,
@@ -286,6 +301,16 @@ class _$SiteMarkerImpl implements _SiteMarker {
 
   @override
   final String description;
+  final List<String>? _handleGoods;
+  @override
+  List<String>? get handleGoods {
+    final value = _handleGoods;
+    if (value == null) return null;
+    if (_handleGoods is EqualUnmodifiableListView) return _handleGoods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String> _companies;
   @override
   List<String> get companies {
@@ -341,7 +366,7 @@ class _$SiteMarkerImpl implements _SiteMarker {
 
   @override
   String toString() {
-    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, companies: $companies, subContractors: $subContractors, staffingCompanies: $staffingCompanies, securityCompanies: $securityCompanies, carrierCompanies: $carrierCompanies)';
+    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, companies: $companies, subContractors: $subContractors, staffingCompanies: $staffingCompanies, securityCompanies: $securityCompanies, carrierCompanies: $carrierCompanies)';
   }
 
   @override
@@ -359,6 +384,8 @@ class _$SiteMarkerImpl implements _SiteMarker {
                 .equals(other._coordinates, _coordinates) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            const DeepCollectionEquality()
+                .equals(other._handleGoods, _handleGoods) &&
             const DeepCollectionEquality()
                 .equals(other._companies, _companies) &&
             const DeepCollectionEquality()
@@ -382,6 +409,7 @@ class _$SiteMarkerImpl implements _SiteMarker {
       unitType,
       const DeepCollectionEquality().hash(_coordinates),
       description,
+      const DeepCollectionEquality().hash(_handleGoods),
       const DeepCollectionEquality().hash(_companies),
       const DeepCollectionEquality().hash(_subContractors),
       const DeepCollectionEquality().hash(_staffingCompanies),
@@ -411,6 +439,7 @@ abstract class _SiteMarker implements SiteMarker {
       final UnitType? unitType,
       required final List<double> coordinates,
       required final String description,
+      final List<String>? handleGoods,
       required final List<String> companies,
       final List<String>? subContractors,
       final List<String>? staffingCompanies,
@@ -434,6 +463,8 @@ abstract class _SiteMarker implements SiteMarker {
   List<double> get coordinates;
   @override
   String get description;
+  @override
+  List<String>? get handleGoods;
   @override
   List<String> get companies;
   @override //List<Polyline>? polylinePoints,

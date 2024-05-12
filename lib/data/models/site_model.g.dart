@@ -17,6 +17,9 @@ _$SiteMarkerImpl _$$SiteMarkerImplFromJson(Map<String, dynamic> json) =>
           .map((e) => (e as num).toDouble())
           .toList(),
       description: json['description'] as String,
+      handleGoods: (json['handleGoods'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       companies:
           (json['companies'] as List<dynamic>).map((e) => e as String).toList(),
       subContractors: (json['subContractors'] as List<dynamic>?)
@@ -42,6 +45,7 @@ Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
       'unitType': _$UnitTypeEnumMap[instance.unitType],
       'coordinates': instance.coordinates,
       'description': instance.description,
+      'handleGoods': instance.handleGoods,
       'companies': instance.companies,
       'subContractors': instance.subContractors,
       'staffingCompanies': instance.staffingCompanies,

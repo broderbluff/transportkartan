@@ -16,6 +16,7 @@ class SiteMarker with _$SiteMarker {
     UnitType? unitType,
     required List<double> coordinates,
     required String description,
+    List<String>? handleGoods,
     required List<CompanyId> companies,
     //List<Polyline>? polylinePoints,
     List<CompanyId>? subContractors,
