@@ -51,6 +51,7 @@ class _MapPopupState extends State<MapPopup> {
             if (state is AllCompaniesState) {
               var companiesOnSite = getCompaniesFromCompanyIdOnSite(siteMarker!.companies, state.companyList);
               var subContractorsOnSite = getCompaniesFromCompanyIdOnSite(siteMarker!.subContractors ?? [], state.companyList);
+              var securityCompanyOnSite = getCompaniesFromCompanyIdOnSite(siteMarker!.securityCompanies ?? [], state.companyList);
               var staffingCompaniesOnSite =
                   getCompaniesFromCompanyIdOnSite(siteMarker!.staffingCompanies ?? [], state.companyList);
               return SingleChildScrollView(
@@ -78,14 +79,25 @@ class _MapPopupState extends State<MapPopup> {
                           const SizedBox(
                             height: 16,
                           ),
-                          const Divider(),
                           siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad
                               ? const SizedBox.shrink()
-                              : subContractorsOnSite.isEmpty
+                              : subContractorsOnSite.isNotEmpty
                                   ? PopupCompanyWidget(
                                       siteId: siteMarker?.id ?? '',
                                       companies: subContractorsOnSite,
                                       title: 'Underleverantör:',
+                                    )
+                                  : const SizedBox.shrink(),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad
+                              ? const SizedBox.shrink()
+                              : securityCompanyOnSite.isNotEmpty
+                                  ? PopupCompanyWidget(
+                                      siteId: siteMarker?.id ?? '',
+                                      companies: securityCompanyOnSite,
+                                      title: 'Säkerhetsbolag:',
                                     )
                                   : const SizedBox.shrink(),
                           const SizedBox(

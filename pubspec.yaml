@@ -54,6 +54,7 @@ dependencies:
   json_annotation: ^4.8.1
   firebase_auth: ^4.16.0
   formz: ^0.7.0
+  fl_chart: ^0.68.0
   
  
 

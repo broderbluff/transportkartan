@@ -11,7 +11,7 @@ _$CompanyImpl _$$CompanyImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       description: json['description'] as String,
       union: $enumDecodeNullable(_$UnionTypeEnumMap, json['union']),
-      totalEmployees: json['totalEmployees'] as int,
+      totalEmployees: (json['totalEmployees'] as num).toInt(),
       id: json['id'] as String,
       logoUrl: json['logoUrl'] as String?,
       websiteUrl: json['websiteUrl'] as String?,
@@ -56,9 +56,9 @@ const _$UnionTypeEnumMap = {
 _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
     _$WorkplaceImpl(
       siteId: json['siteId'] as String,
-      members: json['members'] as int,
-      electedOfficials: json['electedOfficials'] as int,
-      employees: json['employees'] as int,
+      members: (json['members'] as num).toInt(),
+      electedOfficials: (json['electedOfficials'] as num).toInt(),
+      employees: (json['employees'] as num).toInt(),
       companyType:
           $enumDecodeNullable(_$CompanyTypeEnumMap, json['companyType']),
     );

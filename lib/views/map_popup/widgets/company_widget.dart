@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
+import 'package:transportkartan/views/map_popup/widgets/charts/piechart_degree_of_organization.dart';
 
 class PopupCompanyWidget extends StatelessWidget {
   const PopupCompanyWidget({super.key, required this.siteId, required this.title, required this.companies});
@@ -10,56 +11,41 @@ class PopupCompanyWidget extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 1,
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
+        for (var company in companies)
+          ExpansionTile(
+            leading: company.logoUrl == null
+                ? const SizedBox(
+                    height: 25,
+                    width: 25,
+                  )
+                : Image.network(
+                    company.logoUrl!,
+                    height: 25,
+                    width: 25,
+                  ),
+            title: Text(
+              company.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             children: [
-              for (var company in companies)
-                Column(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        company.logoUrl == null
-                            ? const SizedBox(
-                                height: 25,
-                                width: 25,
-                              )
-                            : Image.network(
-                                company.logoUrl!,
-                                height: 25,
-                                width: 25,
-                              ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Text(
-                            company.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     const Divider(
                       thickness: 2,
                     ),
@@ -77,52 +63,53 @@ class PopupCompanyWidget extends StatelessWidget {
                       height: 8,
                     ),
                     const Text(
-                      'Arbetställe:',
+                      'Detta arbetställe:',
                     ),
                     const Divider(
                       endIndent: 64,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Expanded(child: Text('Kollektivare:')),
-                        Text(getCompanySite(company, siteId)?.employees.toString() ?? '0',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Expanded(child: Text('Kollektivare:')),
+                          Text(getCompanySite(company, siteId)?.employees.toString() ?? '0',
+                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Expanded(child: Text('Medlemmar:')),
-                        Text(getCompanySite(company, siteId)?.members.toString() ?? '0',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Expanded(child: Text('Medlemmar:')),
+                          Text(getCompanySite(company, siteId)?.members.toString() ?? '0',
+                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Expanded(child: Text('Förtroendevalda:')),
-                        Text(getCompanySite(company, siteId)?.electedOfficials.toString() ?? '0',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Expanded(child: Text('Förtroendevalda:')),
+                          Text(getCompanySite(company, siteId)?.electedOfficials.toString() ?? '0',
+                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Expanded(child: Text('Organisationsgrad:')),
-                        Text(
-                            '${((getCompanySite(company, siteId)?.members ?? 0) / (getCompanySite(company, siteId)?.employees ?? 1) * 100).toStringAsFixed(2)}%',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
+                    DegreeOfOrganizationPieChart(company: company, siteId: siteId),
                     const SizedBox(
                       height: 16,
                     )
                   ],
                 ),
+              ),
             ],
           ),
-        )
       ],
     );
   }

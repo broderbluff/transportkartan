@@ -11,7 +11,7 @@ _$SiteMarkerImpl _$$SiteMarkerImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       type: $enumDecode(_$SiteTypeEnumMap, json['type']),
       name: json['name'] as String,
-      unit: json['unit'] as int?,
+      unit: (json['unit'] as num?)?.toInt(),
       unitType: $enumDecodeNullable(_$UnitTypeEnumMap, json['unitType']),
       coordinates: (json['coordinates'] as List<dynamic>)
           .map((e) => (e as num).toDouble())
