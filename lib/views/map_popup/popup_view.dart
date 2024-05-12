@@ -134,6 +134,7 @@ class _MapPopupState extends State<MapPopup> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(20.0),
                                                 ),
+                                                visualDensity: VisualDensity.compact,
                                                 labelPadding: EdgeInsets.all(1.0), // Reduced padding
                                               ))
                                           .toList() ??
