@@ -15,10 +15,6 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
     description: '',
     unit: 0,
     unitType: null,
-    companies: [],
-    subContractors: [],
-    staffingCompanies: [],
-    securityCompanies: [],
   );
   CreateSiteCubit() : super(_initState);
 
@@ -46,47 +42,6 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
     emit(state.copyWith(description: description));
   }
 
-  void addCompany(CompanyId companyId, CompanyType companyType) {
-    switch (companyType) {
-      case CompanyType.mainCompany:
-        emit(state.copyWith(companies: [...state.companies, companyId]));
-        break;
-      case CompanyType.subContractor:
-        emit(state.copyWith(subContractors: [...?state.subContractors, companyId]));
-        break;
-      case CompanyType.staffingCompany:
-        emit(state.copyWith(staffingCompanies: [...?state.staffingCompanies, companyId]));
-        break;
-      case CompanyType.securityCompany:
-        emit(state.copyWith(securityCompanies: [...?state.securityCompanies, companyId]));
-        break;
-
-      case CompanyType.carrierCompany:
-        emit(state.copyWith(carrierCompanies: [...?state.carrierCompanies, companyId]));
-        break;
-    }
-  }
-
-  void removeCompany(CompanyId company, CompanyType companyType) {
-    switch (companyType) {
-      case CompanyType.mainCompany:
-        emit(state.copyWith(companies: state.companies.where((element) => element != company).toList()));
-        break;
-      case CompanyType.subContractor:
-        emit(state.copyWith(subContractors: state.subContractors?.where((element) => element != company).toList()));
-        break;
-      case CompanyType.staffingCompany:
-        emit(state.copyWith(staffingCompanies: state.staffingCompanies?.where((element) => element != company).toList()));
-        break;
-      case CompanyType.securityCompany:
-        emit(state.copyWith(securityCompanies: state.securityCompanies?.where((element) => element != company).toList()));
-        break;
-      case CompanyType.carrierCompany:
-        emit(state.copyWith(carrierCompanies: state.carrierCompanies?.where((element) => element != company).toList()));
-        break;
-    }
-  }
-
   void resetState() {
     emit(
       state.copyWith(
@@ -97,10 +52,6 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
         description: '',
         unit: 0,
         unitType: null,
-        companies: [],
-        subContractors: [],
-        staffingCompanies: [],
-        securityCompanies: [],
       ),
     );
   }

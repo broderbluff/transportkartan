@@ -165,13 +165,13 @@ class SiteInputWidget extends StatelessWidget {
               ),
               AddCompanyButton(windowSize: windowSize, companyType: CompanyType.mainCompany),
               const SizedBox(height: 16),
-              SiteCompaniesListWidget(siteMarkerState.companies, siteMarkerState.id!, CompanyType.mainCompany),
+              SiteCompaniesListWidget(siteMarkerState.id!, CompanyType.mainCompany),
               const SizedBox(
                 height: 16,
               ),
               AddCompanyButton(windowSize: windowSize, companyType: CompanyType.subContractor),
               const SizedBox(height: 16),
-              SiteCompaniesListWidget(siteMarkerState.subContractors ?? [], siteMarkerState.id!, CompanyType.subContractor),
+              SiteCompaniesListWidget(siteMarkerState.id!, CompanyType.subContractor),
               const SizedBox(
                 height: 16,
               ),

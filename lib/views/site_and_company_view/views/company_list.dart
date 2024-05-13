@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
+import 'package:transportkartan/data/models/workplace_model.dart';
 
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/views/site_and_company_view/views/widgets/company_list_item.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/create_company_dialog.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 
 class CompanyListWidget extends StatefulWidget {
   const CompanyListWidget(this.isAddingCompanyToSite, this.companyType, {super.key});
@@ -95,8 +96,11 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
                                 });
                               },
                               onTap: () {
+                                Workplace workplace = Workplace.empty();
                                 if (widget.isAddingCompanyToSite) {
-                                  context.read<CreateSiteCubit>().addCompany(company.id, widget.companyType);
+                                  context
+                                      .read<WorkplaceFirestoreCubit>()
+                                      .createWorkplace(workplace.copyWith(companyId: company.id));
                                   Navigator.pop(context);
                                 }
                                 setState(() {

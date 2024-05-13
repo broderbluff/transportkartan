@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/cubit/company_on_site_cubit.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/filter_site_cubit.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
@@ -39,10 +40,11 @@ void main() async {
           create: (context) => CreateCompanyCubit(),
         ),
         BlocProvider(
-          create: (context) => SiteFirestoreCubit(),
+          create: (context) => SiteFirestoreCubit()..fetchSites(),
         ),
+        BlocProvider(create: (context) => WorkplaceFirestoreCubit()),
         BlocProvider(
-          create: (context) => CompanyFirestoreCubit(),
+          create: (context) => CompanyFirestoreCubit()..fetchAllComapnies(),
         ),
         BlocProvider(
           create: (context) => SiteListCubit(),

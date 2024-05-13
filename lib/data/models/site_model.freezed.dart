@@ -29,12 +29,6 @@ mixin _$SiteMarker {
   String get description => throw _privateConstructorUsedError;
   List<String>? get handleGoods => throw _privateConstructorUsedError;
   List<String>? get goodsOfInterest => throw _privateConstructorUsedError;
-  List<String> get companies =>
-      throw _privateConstructorUsedError; //List<Polyline>? polylinePoints,
-  List<String>? get subContractors => throw _privateConstructorUsedError;
-  List<String>? get staffingCompanies => throw _privateConstructorUsedError;
-  List<String>? get securityCompanies => throw _privateConstructorUsedError;
-  List<String>? get carrierCompanies => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,12 +51,7 @@ abstract class $SiteMarkerCopyWith<$Res> {
       List<double> coordinates,
       String description,
       List<String>? handleGoods,
-      List<String>? goodsOfInterest,
-      List<String> companies,
-      List<String>? subContractors,
-      List<String>? staffingCompanies,
-      List<String>? securityCompanies,
-      List<String>? carrierCompanies});
+      List<String>? goodsOfInterest});
 }
 
 /// @nodoc
@@ -87,11 +76,6 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
     Object? description = null,
     Object? handleGoods = freezed,
     Object? goodsOfInterest = freezed,
-    Object? companies = null,
-    Object? subContractors = freezed,
-    Object? staffingCompanies = freezed,
-    Object? securityCompanies = freezed,
-    Object? carrierCompanies = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -130,26 +114,6 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
           ? _value.goodsOfInterest
           : goodsOfInterest // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      companies: null == companies
-          ? _value.companies
-          : companies // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      subContractors: freezed == subContractors
-          ? _value.subContractors
-          : subContractors // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      staffingCompanies: freezed == staffingCompanies
-          ? _value.staffingCompanies
-          : staffingCompanies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      securityCompanies: freezed == securityCompanies
-          ? _value.securityCompanies
-          : securityCompanies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      carrierCompanies: freezed == carrierCompanies
-          ? _value.carrierCompanies
-          : carrierCompanies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ) as $Val);
   }
 }
@@ -171,12 +135,7 @@ abstract class _$$SiteMarkerImplCopyWith<$Res>
       List<double> coordinates,
       String description,
       List<String>? handleGoods,
-      List<String>? goodsOfInterest,
-      List<String> companies,
-      List<String>? subContractors,
-      List<String>? staffingCompanies,
-      List<String>? securityCompanies,
-      List<String>? carrierCompanies});
+      List<String>? goodsOfInterest});
 }
 
 /// @nodoc
@@ -199,11 +158,6 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
     Object? description = null,
     Object? handleGoods = freezed,
     Object? goodsOfInterest = freezed,
-    Object? companies = null,
-    Object? subContractors = freezed,
-    Object? staffingCompanies = freezed,
-    Object? securityCompanies = freezed,
-    Object? carrierCompanies = freezed,
   }) {
     return _then(_$SiteMarkerImpl(
       id: freezed == id
@@ -242,26 +196,6 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
           ? _value._goodsOfInterest
           : goodsOfInterest // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      companies: null == companies
-          ? _value._companies
-          : companies // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      subContractors: freezed == subContractors
-          ? _value._subContractors
-          : subContractors // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      staffingCompanies: freezed == staffingCompanies
-          ? _value._staffingCompanies
-          : staffingCompanies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      securityCompanies: freezed == securityCompanies
-          ? _value._securityCompanies
-          : securityCompanies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      carrierCompanies: freezed == carrierCompanies
-          ? _value._carrierCompanies
-          : carrierCompanies // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ));
   }
 }
@@ -278,20 +212,10 @@ class _$SiteMarkerImpl implements _SiteMarker {
       required final List<double> coordinates,
       required this.description,
       final List<String>? handleGoods,
-      final List<String>? goodsOfInterest,
-      required final List<String> companies,
-      final List<String>? subContractors,
-      final List<String>? staffingCompanies,
-      final List<String>? securityCompanies,
-      final List<String>? carrierCompanies})
+      final List<String>? goodsOfInterest})
       : _coordinates = coordinates,
         _handleGoods = handleGoods,
-        _goodsOfInterest = goodsOfInterest,
-        _companies = companies,
-        _subContractors = subContractors,
-        _staffingCompanies = staffingCompanies,
-        _securityCompanies = securityCompanies,
-        _carrierCompanies = carrierCompanies;
+        _goodsOfInterest = goodsOfInterest;
 
   factory _$SiteMarkerImpl.fromJson(Map<String, dynamic> json) =>
       _$$SiteMarkerImplFromJson(json);
@@ -336,62 +260,9 @@ class _$SiteMarkerImpl implements _SiteMarker {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _companies;
-  @override
-  List<String> get companies {
-    if (_companies is EqualUnmodifiableListView) return _companies;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_companies);
-  }
-
-//List<Polyline>? polylinePoints,
-  final List<String>? _subContractors;
-//List<Polyline>? polylinePoints,
-  @override
-  List<String>? get subContractors {
-    final value = _subContractors;
-    if (value == null) return null;
-    if (_subContractors is EqualUnmodifiableListView) return _subContractors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<String>? _staffingCompanies;
-  @override
-  List<String>? get staffingCompanies {
-    final value = _staffingCompanies;
-    if (value == null) return null;
-    if (_staffingCompanies is EqualUnmodifiableListView)
-      return _staffingCompanies;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<String>? _securityCompanies;
-  @override
-  List<String>? get securityCompanies {
-    final value = _securityCompanies;
-    if (value == null) return null;
-    if (_securityCompanies is EqualUnmodifiableListView)
-      return _securityCompanies;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<String>? _carrierCompanies;
-  @override
-  List<String>? get carrierCompanies {
-    final value = _carrierCompanies;
-    if (value == null) return null;
-    if (_carrierCompanies is EqualUnmodifiableListView)
-      return _carrierCompanies;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   @override
   String toString() {
-    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, goodsOfInterest: $goodsOfInterest, companies: $companies, subContractors: $subContractors, staffingCompanies: $staffingCompanies, securityCompanies: $securityCompanies, carrierCompanies: $carrierCompanies)';
+    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, goodsOfInterest: $goodsOfInterest)';
   }
 
   @override
@@ -412,17 +283,7 @@ class _$SiteMarkerImpl implements _SiteMarker {
             const DeepCollectionEquality()
                 .equals(other._handleGoods, _handleGoods) &&
             const DeepCollectionEquality()
-                .equals(other._goodsOfInterest, _goodsOfInterest) &&
-            const DeepCollectionEquality()
-                .equals(other._companies, _companies) &&
-            const DeepCollectionEquality()
-                .equals(other._subContractors, _subContractors) &&
-            const DeepCollectionEquality()
-                .equals(other._staffingCompanies, _staffingCompanies) &&
-            const DeepCollectionEquality()
-                .equals(other._securityCompanies, _securityCompanies) &&
-            const DeepCollectionEquality()
-                .equals(other._carrierCompanies, _carrierCompanies));
+                .equals(other._goodsOfInterest, _goodsOfInterest));
   }
 
   @JsonKey(ignore: true)
@@ -437,12 +298,7 @@ class _$SiteMarkerImpl implements _SiteMarker {
       const DeepCollectionEquality().hash(_coordinates),
       description,
       const DeepCollectionEquality().hash(_handleGoods),
-      const DeepCollectionEquality().hash(_goodsOfInterest),
-      const DeepCollectionEquality().hash(_companies),
-      const DeepCollectionEquality().hash(_subContractors),
-      const DeepCollectionEquality().hash(_staffingCompanies),
-      const DeepCollectionEquality().hash(_securityCompanies),
-      const DeepCollectionEquality().hash(_carrierCompanies));
+      const DeepCollectionEquality().hash(_goodsOfInterest));
 
   @JsonKey(ignore: true)
   @override
@@ -468,12 +324,7 @@ abstract class _SiteMarker implements SiteMarker {
       required final List<double> coordinates,
       required final String description,
       final List<String>? handleGoods,
-      final List<String>? goodsOfInterest,
-      required final List<String> companies,
-      final List<String>? subContractors,
-      final List<String>? staffingCompanies,
-      final List<String>? securityCompanies,
-      final List<String>? carrierCompanies}) = _$SiteMarkerImpl;
+      final List<String>? goodsOfInterest}) = _$SiteMarkerImpl;
 
   factory _SiteMarker.fromJson(Map<String, dynamic> json) =
       _$SiteMarkerImpl.fromJson;
@@ -496,16 +347,6 @@ abstract class _SiteMarker implements SiteMarker {
   List<String>? get handleGoods;
   @override
   List<String>? get goodsOfInterest;
-  @override
-  List<String> get companies;
-  @override //List<Polyline>? polylinePoints,
-  List<String>? get subContractors;
-  @override
-  List<String>? get staffingCompanies;
-  @override
-  List<String>? get securityCompanies;
-  @override
-  List<String>? get carrierCompanies;
   @override
   @JsonKey(ignore: true)
   _$$SiteMarkerImplCopyWith<_$SiteMarkerImpl> get copyWith =>

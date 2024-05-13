@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/models/company_model.dart';
-import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
+import 'package:transportkartan/data/models/workplace_model.dart';
 
 class DegreeOfOrganizationPieChart extends StatelessWidget {
-  final Company company;
+  final Workplace company;
   final String siteId;
 
-  DegreeOfOrganizationPieChart({required this.company, required this.siteId});
+  const DegreeOfOrganizationPieChart({super.key, required this.company, required this.siteId});
 
   @override
   Widget build(BuildContext context) {
-    double members = getCompanySite(company, siteId)?.members.toDouble() ?? 0.0;
-    double employees = getCompanySite(company, siteId)?.employees.toDouble() ?? 1.0;
+    double members = company.members.toDouble();
+    double employees = company.employees.toDouble();
     double nonMembers = employees - members;
 
     List<PieChartSectionData> sections = [
@@ -23,11 +25,11 @@ class DegreeOfOrganizationPieChart extends StatelessWidget {
             label: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Medlemmar'),
+            const Text('Medlemmar'),
             Text('${((members / employees) * 100).toStringAsFixed(2)}%'),
           ],
         )),
-        titleStyle: TextStyle(color: Colors.blue),
+        titleStyle: const TextStyle(color: Colors.blue),
       ),
       PieChartSectionData(
         color: Colors.grey,

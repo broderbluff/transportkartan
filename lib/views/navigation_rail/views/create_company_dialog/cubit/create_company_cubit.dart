@@ -10,7 +10,6 @@ class CreateCompanyCubit extends Cubit<Company> {
     name: '',
     totalEmployees: 0,
     orgNumber: '',
-    workplaces: [],
   );
   CreateCompanyCubit() : super(_initState);
 
@@ -30,10 +29,6 @@ class CreateCompanyCubit extends Cubit<Company> {
     emit(state.copyWith(orgNumber: orgNumber));
   }
 
-  void updateCompanySites(Workplace workplace) {
-    emit(state.copyWith(workplaces: [workplace]));
-  }
-
   void updateTotalEmployees(String employees) {
     emit(state.copyWith(totalEmployees: int.tryParse(employees) ?? 0));
   }
@@ -48,7 +43,6 @@ class CreateCompanyCubit extends Cubit<Company> {
           id: const Uuid().v4(),
           name: '',
           description: '',
-          workplaces: List.empty(),
           totalEmployees: 0,
           orgNumber: '',
           union: null,

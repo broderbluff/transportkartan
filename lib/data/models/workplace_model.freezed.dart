@@ -21,8 +21,12 @@ Workplace _$WorkplaceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Workplace {
   String? get id => throw _privateConstructorUsedError;
-  String? get companyId => throw _privateConstructorUsedError;
-  String? get placeId => throw _privateConstructorUsedError;
+  String get companyId => throw _privateConstructorUsedError;
+  String get siteId => throw _privateConstructorUsedError;
+  int get members => throw _privateConstructorUsedError;
+  int get electedOfficials => throw _privateConstructorUsedError;
+  int get employees => throw _privateConstructorUsedError;
+  CompanyType? get companyType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +39,14 @@ abstract class $WorkplaceCopyWith<$Res> {
   factory $WorkplaceCopyWith(Workplace value, $Res Function(Workplace) then) =
       _$WorkplaceCopyWithImpl<$Res, Workplace>;
   @useResult
-  $Res call({String? id, String? companyId, String? placeId});
+  $Res call(
+      {String? id,
+      String companyId,
+      String siteId,
+      int members,
+      int electedOfficials,
+      int employees,
+      CompanyType? companyType});
 }
 
 /// @nodoc
@@ -52,22 +63,42 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
   @override
   $Res call({
     Object? id = freezed,
-    Object? companyId = freezed,
-    Object? placeId = freezed,
+    Object? companyId = null,
+    Object? siteId = null,
+    Object? members = null,
+    Object? electedOfficials = null,
+    Object? employees = null,
+    Object? companyType = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyId: freezed == companyId
+      companyId: null == companyId
           ? _value.companyId
           : companyId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      placeId: freezed == placeId
-          ? _value.placeId
-          : placeId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      siteId: null == siteId
+          ? _value.siteId
+          : siteId // ignore: cast_nullable_to_non_nullable
+              as String,
+      members: null == members
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as int,
+      electedOfficials: null == electedOfficials
+          ? _value.electedOfficials
+          : electedOfficials // ignore: cast_nullable_to_non_nullable
+              as int,
+      employees: null == employees
+          ? _value.employees
+          : employees // ignore: cast_nullable_to_non_nullable
+              as int,
+      companyType: freezed == companyType
+          ? _value.companyType
+          : companyType // ignore: cast_nullable_to_non_nullable
+              as CompanyType?,
     ) as $Val);
   }
 }
@@ -80,7 +111,14 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
       __$$WorkplaceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String? companyId, String? placeId});
+  $Res call(
+      {String? id,
+      String companyId,
+      String siteId,
+      int members,
+      int electedOfficials,
+      int employees,
+      CompanyType? companyType});
 }
 
 /// @nodoc
@@ -95,22 +133,42 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? companyId = freezed,
-    Object? placeId = freezed,
+    Object? companyId = null,
+    Object? siteId = null,
+    Object? members = null,
+    Object? electedOfficials = null,
+    Object? employees = null,
+    Object? companyType = freezed,
   }) {
     return _then(_$WorkplaceImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      companyId: freezed == companyId
+      companyId: null == companyId
           ? _value.companyId
           : companyId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      placeId: freezed == placeId
-          ? _value.placeId
-          : placeId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      siteId: null == siteId
+          ? _value.siteId
+          : siteId // ignore: cast_nullable_to_non_nullable
+              as String,
+      members: null == members
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as int,
+      electedOfficials: null == electedOfficials
+          ? _value.electedOfficials
+          : electedOfficials // ignore: cast_nullable_to_non_nullable
+              as int,
+      employees: null == employees
+          ? _value.employees
+          : employees // ignore: cast_nullable_to_non_nullable
+              as int,
+      companyType: freezed == companyType
+          ? _value.companyType
+          : companyType // ignore: cast_nullable_to_non_nullable
+              as CompanyType?,
     ));
   }
 }
@@ -118,7 +176,14 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$WorkplaceImpl implements _Workplace {
-  const _$WorkplaceImpl({this.id, this.companyId, this.placeId});
+  const _$WorkplaceImpl(
+      {this.id,
+      required this.companyId,
+      required this.siteId,
+      required this.members,
+      required this.electedOfficials,
+      required this.employees,
+      this.companyType});
 
   factory _$WorkplaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$WorkplaceImplFromJson(json);
@@ -126,13 +191,21 @@ class _$WorkplaceImpl implements _Workplace {
   @override
   final String? id;
   @override
-  final String? companyId;
+  final String companyId;
   @override
-  final String? placeId;
+  final String siteId;
+  @override
+  final int members;
+  @override
+  final int electedOfficials;
+  @override
+  final int employees;
+  @override
+  final CompanyType? companyType;
 
   @override
   String toString() {
-    return 'Workplace(id: $id, companyId: $companyId, placeId: $placeId)';
+    return 'Workplace(id: $id, companyId: $companyId, siteId: $siteId, members: $members, electedOfficials: $electedOfficials, employees: $employees, companyType: $companyType)';
   }
 
   @override
@@ -143,12 +216,20 @@ class _$WorkplaceImpl implements _Workplace {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.companyId, companyId) ||
                 other.companyId == companyId) &&
-            (identical(other.placeId, placeId) || other.placeId == placeId));
+            (identical(other.siteId, siteId) || other.siteId == siteId) &&
+            (identical(other.members, members) || other.members == members) &&
+            (identical(other.electedOfficials, electedOfficials) ||
+                other.electedOfficials == electedOfficials) &&
+            (identical(other.employees, employees) ||
+                other.employees == employees) &&
+            (identical(other.companyType, companyType) ||
+                other.companyType == companyType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, companyId, placeId);
+  int get hashCode => Object.hash(runtimeType, id, companyId, siteId, members,
+      electedOfficials, employees, companyType);
 
   @JsonKey(ignore: true)
   @override
@@ -167,8 +248,12 @@ class _$WorkplaceImpl implements _Workplace {
 abstract class _Workplace implements Workplace {
   const factory _Workplace(
       {final String? id,
-      final String? companyId,
-      final String? placeId}) = _$WorkplaceImpl;
+      required final String companyId,
+      required final String siteId,
+      required final int members,
+      required final int electedOfficials,
+      required final int employees,
+      final CompanyType? companyType}) = _$WorkplaceImpl;
 
   factory _Workplace.fromJson(Map<String, dynamic> json) =
       _$WorkplaceImpl.fromJson;
@@ -176,9 +261,17 @@ abstract class _Workplace implements Workplace {
   @override
   String? get id;
   @override
-  String? get companyId;
+  String get companyId;
   @override
-  String? get placeId;
+  String get siteId;
+  @override
+  int get members;
+  @override
+  int get electedOfficials;
+  @override
+  int get employees;
+  @override
+  CompanyType? get companyType;
   @override
   @JsonKey(ignore: true)
   _$$WorkplaceImplCopyWith<_$WorkplaceImpl> get copyWith =>

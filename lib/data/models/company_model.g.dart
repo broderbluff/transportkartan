@@ -19,9 +19,6 @@ _$CompanyImpl _$$CompanyImplFromJson(Map<String, dynamic> json) =>
       linkedInUrl: json['linkedInUrl'] as String?,
       orgNumber: json['orgNumber'] as String,
       headquarterAddress: json['headquarterAddress'] as String?,
-      workplaces: (json['workplaces'] as List<dynamic>?)
-          ?.map((e) => Workplace.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$$CompanyImplToJson(_$CompanyImpl instance) =>
@@ -37,7 +34,6 @@ Map<String, dynamic> _$$CompanyImplToJson(_$CompanyImpl instance) =>
       'linkedInUrl': instance.linkedInUrl,
       'orgNumber': instance.orgNumber,
       'headquarterAddress': instance.headquarterAddress,
-      'workplaces': instance.workplaces,
     };
 
 const _$UnionTypeEnumMap = {
@@ -52,60 +48,3 @@ const _$UnionTypeEnumMap = {
   UnionType.byggnads: 'byggnads',
   UnionType.elektriker: 'elektriker',
 };
-
-_$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
-    _$WorkplaceImpl(
-      siteId: json['siteId'] as String,
-      members: (json['members'] as num).toInt(),
-      electedOfficials: (json['electedOfficials'] as num).toInt(),
-      employees: (json['employees'] as num).toInt(),
-      companyType:
-          $enumDecodeNullable(_$CompanyTypeEnumMap, json['companyType']),
-    );
-
-Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
-    <String, dynamic>{
-      'siteId': instance.siteId,
-      'members': instance.members,
-      'electedOfficials': instance.electedOfficials,
-      'employees': instance.employees,
-      'companyType': _$CompanyTypeEnumMap[instance.companyType],
-    };
-
-const _$CompanyTypeEnumMap = {
-  CompanyType.mainCompany: 'mainCompany',
-  CompanyType.subContractor: 'subContractor',
-  CompanyType.staffingCompany: 'staffingCompany',
-  CompanyType.carrierCompany: 'carrierCompany',
-  CompanyType.securityCompany: 'securityCompany',
-};
-
-_$CompanyListModelImpl _$$CompanyListModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CompanyListModelImpl(
-      mainCompanies: (json['mainCompanies'] as List<dynamic>?)
-          ?.map((e) => Company.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      subContractors: (json['subContractors'] as List<dynamic>?)
-          ?.map((e) => Company.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staffingCompanies: (json['staffingCompanies'] as List<dynamic>?)
-          ?.map((e) => Company.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      securityCompanies: (json['securityCompanies'] as List<dynamic>?)
-          ?.map((e) => Company.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      carrierCompanies: (json['carrierCompanies'] as List<dynamic>?)
-          ?.map((e) => Company.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$CompanyListModelImplToJson(
-        _$CompanyListModelImpl instance) =>
-    <String, dynamic>{
-      'mainCompanies': instance.mainCompanies,
-      'subContractors': instance.subContractors,
-      'staffingCompanies': instance.staffingCompanies,
-      'securityCompanies': instance.securityCompanies,
-      'carrierCompanies': instance.carrierCompanies,
-    };

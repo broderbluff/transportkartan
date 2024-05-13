@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
+import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
+import 'package:transportkartan/data/models/workplace_firestore_state.dart';
+import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
 import 'package:transportkartan/helpers/letter_to_color.dart';
 import 'package:transportkartan/helpers/number_formatter.dart';
@@ -25,37 +29,46 @@ class MapPopup extends StatefulWidget {
 
 class _MapPopupState extends State<MapPopup> {
   late SiteMarker? siteMarker;
+  late List<Workplace> companiesOnSite;
+  late List<Workplace> subContractorsOnSite;
+  late List<Workplace> securityCompanyOnSite;
+  late List<Workplace> staffingCompaniesOnSite;
+
   @override
   void initState() {
     siteMarker = findSiteMarkerByKey(widget.marker.key!, widget.listOfMarker);
-    context.read<CompanyFirestoreCubit>().fetchAllComapnies();
     context.read<SiteListCubit>().setSelectedIndex(widget.listOfMarker.indexOf(siteMarker!));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      surfaceTintColor: Colors.white,
-      elevation: 25,
-      child: SizedBox(
-        width: 400,
-        height: siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad ? null : 600,
-        child: BlocBuilder<CompanyFirestoreCubit, CompanyFirestoreState>(
-          builder: (context, state) {
-            if (state is InitialState) {
-              return const LoadingWidget();
-            }
-            if (state is AllCompaniesState) {
-              var companiesOnSite = getCompaniesFromCompanyIdOnSite(siteMarker!.companies, state.companyList);
-              var subContractorsOnSite = getCompaniesFromCompanyIdOnSite(siteMarker!.subContractors ?? [], state.companyList);
-              var securityCompanyOnSite = getCompaniesFromCompanyIdOnSite(siteMarker!.securityCompanies ?? [], state.companyList);
-              var staffingCompaniesOnSite =
-                  getCompaniesFromCompanyIdOnSite(siteMarker!.staffingCompanies ?? [], state.companyList);
-              return SingleChildScrollView(
+    return BlocBuilder<WorkplaceFirestoreCubit, WorkplaceFirestoreState>(
+      builder: (context, state) {
+        if (state is AllWorkplaces) {
+          companiesOnSite = context
+              .read<WorkplaceFirestoreCubit>()
+              .findWorkplacesBySiteId(siteMarker!.id!, companyType: CompanyType.mainCompany);
+          subContractorsOnSite = context
+              .read<WorkplaceFirestoreCubit>()
+              .findWorkplacesBySiteId(siteMarker!.id!, companyType: CompanyType.subContractor);
+          securityCompanyOnSite = context
+              .read<WorkplaceFirestoreCubit>()
+              .findWorkplacesBySiteId(siteMarker!.id!, companyType: CompanyType.securityCompany);
+          staffingCompaniesOnSite = context
+              .read<WorkplaceFirestoreCubit>()
+              .findWorkplacesBySiteId(siteMarker!.id!, companyType: CompanyType.staffingCompany);
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            surfaceTintColor: Colors.white,
+            elevation: 25,
+            child: SizedBox(
+              width: 400,
+              height:
+                  siteMarker!.type == SiteType.measuringPointRail || siteMarker!.type == SiteType.measuringPointRoad ? null : 600,
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -135,7 +148,7 @@ class _MapPopupState extends State<MapPopup> {
                                                   borderRadius: BorderRadius.circular(20.0),
                                                 ),
                                                 visualDensity: VisualDensity.compact,
-                                                labelPadding: EdgeInsets.all(1.0), // Reduced padding
+                                                labelPadding: const EdgeInsets.all(1.0), // Reduced padding
                                               ))
                                           .toList() ??
                                       [],
@@ -161,7 +174,7 @@ class _MapPopupState extends State<MapPopup> {
                                                   borderRadius: BorderRadius.circular(20.0),
                                                 ),
                                                 visualDensity: VisualDensity.compact,
-                                                labelPadding: EdgeInsets.all(1.0), // Reduced padding
+                                                labelPadding: const EdgeInsets.all(1.0), // Reduced padding
                                               ))
                                           .toList() ??
                                       [],
@@ -202,12 +215,13 @@ class _MapPopupState extends State<MapPopup> {
                     )
                   ],
                 ),
-              );
-            }
-            return const LoadingWidget();
-          },
-        ),
-      ),
+              ),
+            ),
+          );
+        } else {
+          return const LoadingWidget();
+        }
+      },
     );
   }
 }

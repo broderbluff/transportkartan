@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:transportkartan/constants/colors.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});

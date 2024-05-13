@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
-import 'package:transportkartan/data/models/company_model.dart';
+import 'package:transportkartan/data/models/workplace_model.dart';
 
 class CompanyOnSiteRowCubit extends Cubit<Workplace> {
   static const Workplace _initState = Workplace(
+    id: '',
+    companyId: '',
     siteId: '',
     members: 0,
     electedOfficials: 0,

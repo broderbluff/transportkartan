@@ -23,20 +23,6 @@ _$SiteMarkerImpl _$$SiteMarkerImplFromJson(Map<String, dynamic> json) =>
       goodsOfInterest: (json['goodsOfInterest'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      companies:
-          (json['companies'] as List<dynamic>).map((e) => e as String).toList(),
-      subContractors: (json['subContractors'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      staffingCompanies: (json['staffingCompanies'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      securityCompanies: (json['securityCompanies'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      carrierCompanies: (json['carrierCompanies'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
     );
 
 Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
@@ -50,11 +36,6 @@ Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
       'description': instance.description,
       'handleGoods': instance.handleGoods,
       'goodsOfInterest': instance.goodsOfInterest,
-      'companies': instance.companies,
-      'subContractors': instance.subContractors,
-      'staffingCompanies': instance.staffingCompanies,
-      'securityCompanies': instance.securityCompanies,
-      'carrierCompanies': instance.carrierCompanies,
     };
 
 const _$SiteTypeEnumMap = {

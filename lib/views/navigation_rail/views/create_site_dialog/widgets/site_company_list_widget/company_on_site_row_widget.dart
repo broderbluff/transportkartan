@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
-import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
+import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/cubit/company_on_site_cubit.dart';
 
@@ -32,10 +32,10 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
         itemCount: widget.companyList?.length ?? 0,
         itemBuilder: (context, index) {
           final company = widget.companyList![index];
-          // final companySite = company.sites?.firstWhere((element) => element.siteId == siteId,
-          //     orElse: () => Site(siteId: siteId, members: 0, electedOfficials: 0, employees: 0));
-          final companySite = getCompanySite(company, widget.siteId);
-          context.read<CompanyOnSiteRowCubit>().updateState(companySite!);
+
+          Workplace workplace = context.read<WorkplaceFirestoreCubit>().findWorkplaceById(company.id, widget.siteId);
+
+          context.read<CompanyOnSiteRowCubit>().updateState(workplace);
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
@@ -64,7 +64,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                         children: [
                           const Text('Lokalt anställda'),
                           Text(
-                            '${companySite.employees}',
+                            '${workplace.employees}',
                           ),
                         ],
                       ),
@@ -75,7 +75,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text('Medlemmar'),
-                          Text('${companySite.members}'),
+                          Text('${workplace.members}'),
                         ],
                       ),
                       const SizedBox(
@@ -83,7 +83,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [const Text('Förtroendevalda'), Text('${companySite.electedOfficials}')],
+                        children: [const Text('Förtroendevalda'), Text('${workplace.electedOfficials}')],
                       ),
                     ],
                   ),
@@ -93,7 +93,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                   IconButton(
                     icon: const Icon(Icons.edit),
                     onPressed: () {
-                      showEditDialog(context, company, companySite);
+                      showEditDialog(context, company, workplace);
                     },
                   ),
                   const SizedBox(
@@ -102,7 +102,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                   IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      context.read<CreateSiteCubit>().removeCompany(company.id, widget.companyType);
+                      context.read<WorkplaceFirestoreCubit>().deleteWorkplace(company.id);
                     },
                   ),
                 ],
@@ -114,7 +114,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
     );
   }
 
-  Future<dynamic> showEditDialog(BuildContext context, Company company, Workplace companySite) {
+  Future<dynamic> showEditDialog(BuildContext context, Company company, Workplace workplace) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -127,7 +127,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                 decoration: const InputDecoration(
                   labelText: 'Lokalt anställda',
                 ),
-                controller: TextEditingController(text: '${companySite.employees}'),
+                controller: TextEditingController(text: '${workplace.employees}'),
               ),
               const SizedBox(
                 height: 16,
@@ -136,7 +136,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                 decoration: const InputDecoration(
                   labelText: 'Medlemmar',
                 ),
-                controller: TextEditingController(text: '${companySite.members}'),
+                controller: TextEditingController(text: '${workplace.members}'),
               ),
               const SizedBox(
                 height: 16,
@@ -145,7 +145,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                 decoration: const InputDecoration(
                   labelText: 'Förtroendevalda',
                 ),
-                controller: TextEditingController(text: '${companySite.electedOfficials}'),
+                controller: TextEditingController(text: '${workplace.electedOfficials}'),
               ),
             ],
           ),
@@ -161,27 +161,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
             TextButton(
               child: const Text('Spara'),
               onPressed: () async {
-                companySite = companySite.copyWith(employees: 30);
-
-                DocumentReference docRef = FirebaseFirestore.instance.collection('company').doc(company.id);
-
-                FirebaseFirestore.instance.runTransaction((transaction) async {
-                  DocumentSnapshot snapshot = await transaction.get(docRef);
-
-                  if (snapshot.exists) {
-                    Company comp = Company.fromJson(snapshot.data() as Map<String, dynamic>);
-                    List<dynamic> yourArrayField = List.from(comp.workplaces ?? []);
-
-                    // Find the index of the item you want to update
-                    int indexToUpdate = yourArrayField.indexWhere((item) => item['siteId'] == companySite.siteId);
-
-                    // Update the item
-                    yourArrayField[indexToUpdate] = companySite;
-
-                    // Write the updated array back to the document
-                    transaction.update(docRef, {'workplaces': yourArrayField});
-                  }
-                });
+                context.read<WorkplaceFirestoreCubit>().updateWorkplace(workplace);
                 // Save the changes here
                 Navigator.of(context).pop();
               },

@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:transportkartan/authentication/login_state.dart';
 import 'package:transportkartan/data/models/formz_models.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginState.initial());
+  LoginCubit() : super(const LoginState.initial());
 
   void emailChanged(String value) {
     final email = EmailInput.dirty(value);
