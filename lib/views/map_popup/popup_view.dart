@@ -143,6 +143,32 @@ class _MapPopupState extends State<MapPopup> {
                               ),
                             ],
                           ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Expanded(
+                                  flex: 1, child: Text('Stridbart gods:', style: TextStyle(fontWeight: FontWeight.bold))),
+                              Expanded(
+                                flex: 2,
+                                child: Wrap(
+                                  spacing: 4.0, // gap between adjacent chips
+                                  runSpacing: 4.0, // gap between lines
+                                  children: siteMarker?.goodsOfInterest
+                                          ?.map((good) => Chip(
+                                                label: Text(good),
+                                                backgroundColor: getColorBasedOnFirstCharacter(good),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(20.0),
+                                                ),
+                                                visualDensity: VisualDensity.compact,
+                                                labelPadding: EdgeInsets.all(1.0), // Reduced padding
+                                              ))
+                                          .toList() ??
+                                      [],
+                                ),
+                              ),
+                            ],
+                          ),
                           const SizedBox(
                             height: 16,
                           ),

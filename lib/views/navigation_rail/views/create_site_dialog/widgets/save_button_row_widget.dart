@@ -5,9 +5,12 @@ import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/c
 import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
 class ButtonRowWidget extends StatelessWidget {
-  const ButtonRowWidget({
+  const ButtonRowWidget(
+    this.isNew, {
     super.key,
   });
+
+  final bool isNew;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +57,12 @@ class ButtonRowWidget extends StatelessWidget {
             return ElevatedButton(
               onPressed: () {
                 var siteMarkerState = context.read<CreateSiteCubit>().state;
-                context.read<SiteFirestoreCubit>().createSite(siteMarkerState);
+
+                isNew
+                    ? context.read<SiteFirestoreCubit>().createSite(siteMarkerState)
+                    : context.read<SiteFirestoreCubit>().updateSite(siteMarkerState);
               },
-              child: const Text('Skapa'),
+              child: Text(isNew ? 'Skapa' : 'Uppdatera'),
             );
           },
         )

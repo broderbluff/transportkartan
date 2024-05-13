@@ -29,7 +29,7 @@ class CreateSiteDialog extends StatelessWidget {
             children: [
               TitleRowWidget(isNew),
               const Expanded(child: SiteInputWidget()),
-              const ButtonRowWidget(),
+              ButtonRowWidget(isNew),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/cubit/company_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/site_model.dart';
@@ -56,6 +57,20 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
           .collection('sites')
           .doc(markerModel.id) // Set documentId to SiteMarker.id
           .set(markerModel.toJson());
+
+      emit(CreateSuccess());
+      emit(InitialState());
+    } catch (e) {
+      emit(CreateFailure(e));
+    }
+  }
+
+  void updateSite(SiteMarker markerModel) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('sites')
+          .doc(markerModel.id) // Use SiteMarker.id as documentId
+          .update(markerModel.toJson());
 
       emit(CreateSuccess());
       emit(InitialState());
