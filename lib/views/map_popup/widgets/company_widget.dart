@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/cubit/company_firestore_cubit.dart';
-import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
-import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/map_popup/widgets/charts/piechart_degree_of_organization.dart';
 

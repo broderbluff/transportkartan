@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/cubit/company_firestore_cubit.dart';
 import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
@@ -10,7 +11,7 @@ import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/w
 class CompanyOnSiteListWidget extends StatefulWidget {
   final String siteId;
   final CompanyType companyType;
-  final List<Company>? companyList;
+  final List<Workplace>? companyList;
 
   const CompanyOnSiteListWidget({
     super.key,
@@ -33,9 +34,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
         itemBuilder: (context, index) {
           final company = widget.companyList![index];
 
-          Workplace workplace = context.read<WorkplaceFirestoreCubit>().findWorkplaceById(company.id, widget.siteId);
-
-          context.read<CompanyOnSiteRowCubit>().updateState(workplace);
+          context.read<CompanyOnSiteRowCubit>().updateState(company);
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
@@ -50,12 +49,14 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                   SizedBox(
                     width: 40,
                     height: 40,
-                    child: company.logoUrl!.isEmpty ? const Icon(Icons.business_sharp) : Image.network(company.logoUrl!),
+                    child: context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).logoUrl!.isEmpty
+                        ? const Icon(Icons.business_sharp)
+                        : Image.network(context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).logoUrl!),
                   ),
                   const SizedBox(
                     width: 4,
                   ),
-                  Text(company.name),
+                  Text(context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).name),
                   const Spacer(),
                   Row(
                     children: [
@@ -64,7 +65,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                         children: [
                           const Text('Lokalt anställda'),
                           Text(
-                            '${workplace.employees}',
+                            '${company.employees}',
                           ),
                         ],
                       ),
@@ -75,7 +76,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text('Medlemmar'),
-                          Text('${workplace.members}'),
+                          Text('${company.members}'),
                         ],
                       ),
                       const SizedBox(
@@ -83,7 +84,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [const Text('Förtroendevalda'), Text('${workplace.electedOfficials}')],
+                        children: [const Text('Förtroendevalda'), Text('${company.electedOfficials}')],
                       ),
                     ],
                   ),
@@ -93,7 +94,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                   IconButton(
                     icon: const Icon(Icons.edit),
                     onPressed: () {
-                      showEditDialog(context, company, workplace);
+                      showEditDialog(context, context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId), company);
                     },
                   ),
                   const SizedBox(
@@ -102,7 +103,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                   IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      context.read<WorkplaceFirestoreCubit>().deleteWorkplace(company.id);
+                      context.read<WorkplaceFirestoreCubit>().deleteWorkplace(company.id!);
                     },
                   ),
                 ],
@@ -161,6 +162,8 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
             TextButton(
               child: const Text('Spara'),
               onPressed: () async {
+                context.read<CompanyOnSiteRowCubit>().updateState(workplace);
+
                 context.read<WorkplaceFirestoreCubit>().updateWorkplace(workplace);
                 // Save the changes here
                 Navigator.of(context).pop();
