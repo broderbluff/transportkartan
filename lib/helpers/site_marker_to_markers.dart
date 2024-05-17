@@ -36,7 +36,7 @@ import 'package:transportkartan/helpers/site_type_icon.dart';
 //   return arrangedMarkers;
 // }
 
-List<Marker> siteMarkerToMarkers(List<SiteMarker> listOfMarker) {
+List<Marker> siteMarkerToMarkers(List<Site> listOfMarker) {
   return listOfMarker.map((site) {
     return Marker(
       key: ValueKey(site.id),

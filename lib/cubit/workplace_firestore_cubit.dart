@@ -1,18 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
-import 'package:transportkartan/data/models/workplace_firestore_state.dart';
+import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 
 class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
-  WorkplaceFirestoreCubit() : super(const InitialState()) {
+  WorkplaceFirestoreCubit() : super(const WorkplaceInitialState()) {
     fetchAllWorkplaces();
-    print('hej');
   }
 
   void fetchAllWorkplaces() async {
-    print('hej');
-    emit(const LoadingState());
+    emit(const WorkplaceLoadingState());
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('workplaces').get();
 
@@ -26,7 +24,7 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
       }
       emit(AllWorkplaces(workplaces));
     } catch (e) {
-      emit(Failure(e));
+      emit(WorkplaceFailure(e));
     }
   }
 
@@ -37,10 +35,10 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
           .doc(workplace.id) // Set documentId to SiteMarker.id
           .set(workplace.toJson());
 
-      emit(const CreateSuccess());
-      emit(const InitialState());
+      emit(const WorkplaceCreateSuccess());
+      fetchAllWorkplaces();
     } catch (e) {
-      emit(Failure(e));
+      emit(WorkplaceFailure(e));
     }
   }
 
@@ -48,10 +46,10 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
     try {
       await FirebaseFirestore.instance.collection('workplaces').doc(workplaceId).delete();
 
-      emit(const CreateSuccess());
-      emit(const InitialState());
+      emit(const WorkplaceCreateSuccess());
+      fetchAllWorkplaces();
     } catch (e) {
-      emit(Failure(e));
+      emit(WorkplaceFailure(e));
     }
   }
 
@@ -62,10 +60,10 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
           .doc(workplace.id) // Set documentId to SiteMarker.id
           .update(workplace.toJson());
 
-      emit(const CreateSuccess());
-      emit(const InitialState());
+      emit(const WorkplaceCreateSuccess());
+      fetchAllWorkplaces();
     } catch (e) {
-      emit(Failure(e));
+      emit(WorkplaceFailure(e));
     }
   }
 

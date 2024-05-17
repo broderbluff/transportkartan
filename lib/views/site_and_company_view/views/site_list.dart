@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:transportkartan/constants/colors.dart';
+import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/filter_site_cubit.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/cubit/site_firestore_cubit.dart';
@@ -25,15 +26,15 @@ class SiteListMainWidget extends StatelessWidget {
             return BlocBuilder<SiteFirestoreCubit, SiteFirestoreState>(
               bloc: context.read<SiteFirestoreCubit>()..fetchSites(sortByType: true, siteTypes: state.selectedSiteTypes.toList()),
               builder: (context, state) {
-                if (state is InitialState) {
+                if (state is SiteInitialState) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                if (state is SitesList) {
+                if (state is AllSites) {
                   return ListView.builder(
-                    itemCount: state.markersList.length,
+                    itemCount: state.sitesList.length,
                     itemBuilder: (context, index) {
-                      var siteMarkers = state.markersList;
+                      var siteMarkers = state.sitesList;
                       var siteMarker = siteMarkers[index];
 
                       bool selected = siteState.selectedIndex == index;
@@ -41,7 +42,7 @@ class SiteListMainWidget extends StatelessWidget {
                       //   siteContext.read<SiteListCubit>().setSelectedIndex(index);
                       // }
                       bool hover = siteState.hoverIndex == index;
-                      List<Marker> sortedMarkers = siteMarkerToMarkers(state.markersList);
+                      List<Marker> sortedMarkers = siteMarkerToMarkers(state.sitesList);
 
                       return BlocBuilder<MapControllerCubit, MapState>(
                         builder: (context, state) {

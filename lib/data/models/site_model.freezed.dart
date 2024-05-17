@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-SiteMarker _$SiteMarkerFromJson(Map<String, dynamic> json) {
+Site _$SiteFromJson(Map<String, dynamic> json) {
   return _SiteMarker.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SiteMarker {
+mixin _$Site {
   String? get id => throw _privateConstructorUsedError;
   SiteType get type => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -32,15 +32,13 @@ mixin _$SiteMarker {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SiteMarkerCopyWith<SiteMarker> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SiteCopyWith<Site> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SiteMarkerCopyWith<$Res> {
-  factory $SiteMarkerCopyWith(
-          SiteMarker value, $Res Function(SiteMarker) then) =
-      _$SiteMarkerCopyWithImpl<$Res, SiteMarker>;
+abstract class $SiteCopyWith<$Res> {
+  factory $SiteCopyWith(Site value, $Res Function(Site) then) =
+      _$SiteCopyWithImpl<$Res, Site>;
   @useResult
   $Res call(
       {String? id,
@@ -55,9 +53,9 @@ abstract class $SiteMarkerCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
-    implements $SiteMarkerCopyWith<$Res> {
-  _$SiteMarkerCopyWithImpl(this._value, this._then);
+class _$SiteCopyWithImpl<$Res, $Val extends Site>
+    implements $SiteCopyWith<$Res> {
+  _$SiteCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -119,8 +117,7 @@ class _$SiteMarkerCopyWithImpl<$Res, $Val extends SiteMarker>
 }
 
 /// @nodoc
-abstract class _$$SiteMarkerImplCopyWith<$Res>
-    implements $SiteMarkerCopyWith<$Res> {
+abstract class _$$SiteMarkerImplCopyWith<$Res> implements $SiteCopyWith<$Res> {
   factory _$$SiteMarkerImplCopyWith(
           _$SiteMarkerImpl value, $Res Function(_$SiteMarkerImpl) then) =
       __$$SiteMarkerImplCopyWithImpl<$Res>;
@@ -140,7 +137,7 @@ abstract class _$$SiteMarkerImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SiteMarkerImplCopyWithImpl<$Res>
-    extends _$SiteMarkerCopyWithImpl<$Res, _$SiteMarkerImpl>
+    extends _$SiteCopyWithImpl<$Res, _$SiteMarkerImpl>
     implements _$$SiteMarkerImplCopyWith<$Res> {
   __$$SiteMarkerImplCopyWithImpl(
       _$SiteMarkerImpl _value, $Res Function(_$SiteMarkerImpl) _then)
@@ -262,7 +259,7 @@ class _$SiteMarkerImpl implements _SiteMarker {
 
   @override
   String toString() {
-    return 'SiteMarker(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, goodsOfInterest: $goodsOfInterest)';
+    return 'Site(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, goodsOfInterest: $goodsOfInterest)';
   }
 
   @override
@@ -314,7 +311,7 @@ class _$SiteMarkerImpl implements _SiteMarker {
   }
 }
 
-abstract class _SiteMarker implements SiteMarker {
+abstract class _SiteMarker implements Site {
   const factory _SiteMarker(
       {final String? id,
       required final SiteType type,

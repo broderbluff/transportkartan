@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
+import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 
 class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
-  SiteFirestoreCubit() : super(InitialState());
+  SiteFirestoreCubit() : super(const SiteInitialState());
 
   void fetchSites({bool sortByType = false, List<SiteType>? siteTypes}) async {
     try {
@@ -19,18 +19,18 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
 
       QuerySnapshot querySnapshot = await query.get();
 
-      List<SiteMarker> markerModels = [];
+      List<Site> markerModels = [];
       for (var doc in querySnapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
 
-        SiteMarker markerModel;
-        markerModel = SiteMarker.fromJson(data);
+        Site markerModel;
+        markerModel = Site.fromJson(data);
 
         markerModels.add(markerModel);
       }
-      emit(SitesList(markerModels));
+      emit(AllSites(markerModels));
     } catch (e) {
-      emit(CreateFailure(e));
+      emit(SiteFailure(e));
     }
   }
 
@@ -49,61 +49,31 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   //   emit(SitesList(markerModels));
   // }
 
-  void createSite(SiteMarker markerModel) async {
+  void createSite(Site markerModel) async {
     try {
       await FirebaseFirestore.instance
           .collection('sites')
           .doc(markerModel.id) // Set documentId to SiteMarker.id
           .set(markerModel.toJson());
 
-      emit(CreateSuccess());
-      emit(InitialState());
+      emit(SiteCreateSuccess());
+      fetchSites();
     } catch (e) {
-      emit(CreateFailure(e));
+      emit(SiteFailure(e));
     }
   }
 
-  void updateSite(SiteMarker markerModel) async {
+  void updateSite(Site markerModel) async {
     try {
       await FirebaseFirestore.instance
           .collection('sites')
           .doc(markerModel.id) // Use SiteMarker.id as documentId
           .update(markerModel.toJson());
 
-      emit(CreateSuccess());
-      emit(InitialState());
+      emit(SiteCreateSuccess());
+      fetchSites();
     } catch (e) {
-      emit(CreateFailure(e));
+      emit(SiteFailure(e));
     }
   }
-}
-
-class CreateFailure extends SiteFirestoreState {
-  final dynamic error;
-
-  CreateFailure(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-abstract class SiteFirestoreState extends Equatable {}
-
-class InitialState extends SiteFirestoreState {
-  @override
-  List<Object?> get props => [];
-}
-
-class SitesList extends SiteFirestoreState {
-  final List<SiteMarker> markersList;
-
-  SitesList(this.markersList);
-
-  @override
-  List<Object?> get props => [markersList];
-}
-
-class CreateSuccess extends SiteFirestoreState {
-  @override
-  List<Object?> get props => [];
 }

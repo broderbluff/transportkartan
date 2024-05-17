@@ -22,7 +22,7 @@ class MapControllerCubit extends Cubit<MapState> {
     emit(MapState(mapController, popupController));
   }
 
-  void triggerControllers(LatLng latLng, Marker marker, List<SiteMarker> listOfMarker) {
+  void triggerControllers(LatLng latLng, Marker marker, List<Site> listOfMarker) {
     popupController.hideAllPopups();
     // var polypoints = findSiteMarkerByKey(marker.key!, listOfMarker)?.polylinePoints ?? [];
     emit(MapState(state.mapController, popupController));

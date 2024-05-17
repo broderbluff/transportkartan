@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
@@ -24,7 +25,7 @@ class ButtonRowWidget extends StatelessWidget {
             child: const Text('Rensa')),
         BlocConsumer<SiteFirestoreCubit, SiteFirestoreState>(
           listener: (context, state) {
-            if (state is CreateSuccess) {
+            if (state is SiteCreateSuccess) {
               context.read<CreateSiteCubit>().resetState();
 
               context.read<NavigationRailCubit>().changeIndex(0);
@@ -39,7 +40,7 @@ class ButtonRowWidget extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (state is CreateFailure) {
+            } else if (state is SiteFailure) {
               // Handle CreateFailure state
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

@@ -5,6 +5,7 @@ import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_ti
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
 import 'package:transportkartan/views/map_popup/popup_view.dart';
@@ -63,15 +64,15 @@ class _MapWidgetState extends State<MapWidget> {
                 BlocBuilder<SiteFirestoreCubit, SiteFirestoreState>(
                   bloc: context.read<SiteFirestoreCubit>()..fetchSites(),
                   builder: (context, firestoreState) {
-                    if (firestoreState is InitialState) {
+                    if (firestoreState is SiteInitialState) {
                       return const Center(child: CircularProgressIndicator());
                     }
 
-                    if (firestoreState is SitesList) {
+                    if (firestoreState is AllSites) {
                       return PopupMarkerLayer(
                         options: PopupMarkerLayerOptions(
                           popupController: state.popupController,
-                          markers: siteMarkerToMarkers(firestoreState.markersList),
+                          markers: siteMarkerToMarkers(firestoreState.sitesList),
                           markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
                           markerCenterAnimation:
                               const MarkerCenterAnimation(curve: Curves.easeOut, duration: Duration(milliseconds: 300)),
@@ -100,7 +101,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     ],
                                   ),
                                 ),
-                                MapPopup(marker, firestoreState.markersList),
+                                MapPopup(marker, firestoreState.sitesList),
                               ],
                             ),
                           ),

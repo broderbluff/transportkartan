@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:transportkartan/cubit/company_firestore_cubit.dart';
 import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
-import 'package:transportkartan/data/models/workplace_firestore_state.dart';
+import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
-import 'package:transportkartan/helpers/company_on_site_fetcher.dart';
 import 'package:transportkartan/helpers/letter_to_color.dart';
 import 'package:transportkartan/helpers/number_formatter.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
@@ -19,7 +17,7 @@ import 'package:transportkartan/views/map_popup/widgets/title_row_widget.dart';
 
 class MapPopup extends StatefulWidget {
   final Marker marker;
-  final List<SiteMarker> listOfMarker;
+  final List<Site> listOfMarker;
 
   const MapPopup(this.marker, this.listOfMarker, {super.key});
 
@@ -28,7 +26,7 @@ class MapPopup extends StatefulWidget {
 }
 
 class _MapPopupState extends State<MapPopup> {
-  late SiteMarker? siteMarker;
+  late Site? siteMarker;
   late List<Workplace> companiesOnSite;
   late List<Workplace> subContractorsOnSite;
   late List<Workplace> securityCompanyOnSite;
@@ -133,8 +131,7 @@ class _MapPopupState extends State<MapPopup> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Expanded(
-                                  flex: 1, child: Text('Hanterar gods åt:', style: TextStyle(fontWeight: FontWeight.bold))),
+                              const Expanded(flex: 1, child: Text('Lastägare:', style: TextStyle(fontWeight: FontWeight.bold))),
                               Expanded(
                                 flex: 2,
                                 child: Wrap(

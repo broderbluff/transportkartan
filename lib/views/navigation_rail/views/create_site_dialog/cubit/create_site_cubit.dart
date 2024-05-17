@@ -1,13 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
-import 'package:transportkartan/data/typedefs/company_id.dart';
 import 'package:uuid/uuid.dart';
 
-class CreateSiteCubit extends Cubit<SiteMarker> {
-  static final SiteMarker _initState = SiteMarker(
+class CreateSiteCubit extends Cubit<Site> {
+  static final Site _initState = Site(
     type: SiteType.combiTerminal,
     name: '',
     id: const Uuid().v4(),
@@ -56,7 +54,7 @@ class CreateSiteCubit extends Cubit<SiteMarker> {
     );
   }
 
-  void openSite(SiteMarker marker) {
+  void openSite(Site marker) {
     emit(marker);
   }
 }

@@ -1,14 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/enums/unit_type.dart';
-import 'package:transportkartan/data/typedefs/company_id.dart';
 
 part 'site_model.freezed.dart';
 part 'site_model.g.dart';
 
 @freezed
-class SiteMarker with _$SiteMarker {
-  const factory SiteMarker({
+class Site with _$Site {
+  const factory Site({
     String? id,
     required SiteType type,
     required String name,
@@ -21,5 +20,5 @@ class SiteMarker with _$SiteMarker {
     //List<Polyline>? polylinePoints,
   }) = _SiteMarker;
 
-  factory SiteMarker.fromJson(Map<String, dynamic> json) => _$SiteMarkerFromJson(json);
+  factory Site.fromJson(Map<String, dynamic> json) => _$SiteFromJson(json);
 }

@@ -46,29 +46,29 @@ mixin _$WorkplaceFirestoreState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
+    required TResult Function(WorkplaceInitialState value) initial,
+    required TResult Function(WorkplaceLoadingState value) loading,
     required TResult Function(AllWorkplaces value) allWorkplaces,
-    required TResult Function(CreateSuccess value) createSuccess,
-    required TResult Function(Failure value) failure,
+    required TResult Function(WorkplaceCreateSuccess value) createSuccess,
+    required TResult Function(WorkplaceFailure value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialState value)? initial,
-    TResult? Function(LoadingState value)? loading,
+    TResult? Function(WorkplaceInitialState value)? initial,
+    TResult? Function(WorkplaceLoadingState value)? loading,
     TResult? Function(AllWorkplaces value)? allWorkplaces,
-    TResult? Function(CreateSuccess value)? createSuccess,
-    TResult? Function(Failure value)? failure,
+    TResult? Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult? Function(WorkplaceFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
+    TResult Function(WorkplaceInitialState value)? initial,
+    TResult Function(WorkplaceLoadingState value)? loading,
     TResult Function(AllWorkplaces value)? allWorkplaces,
-    TResult Function(CreateSuccess value)? createSuccess,
-    TResult Function(Failure value)? failure,
+    TResult Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult Function(WorkplaceFailure value)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -94,25 +94,27 @@ class _$WorkplaceFirestoreStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$InitialStateImplCopyWith<$Res> {
-  factory _$$InitialStateImplCopyWith(
-          _$InitialStateImpl value, $Res Function(_$InitialStateImpl) then) =
-      __$$InitialStateImplCopyWithImpl<$Res>;
+abstract class _$$WorkplaceInitialStateImplCopyWith<$Res> {
+  factory _$$WorkplaceInitialStateImplCopyWith(
+          _$WorkplaceInitialStateImpl value,
+          $Res Function(_$WorkplaceInitialStateImpl) then) =
+      __$$WorkplaceInitialStateImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InitialStateImplCopyWithImpl<$Res>
-    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res, _$InitialStateImpl>
-    implements _$$InitialStateImplCopyWith<$Res> {
-  __$$InitialStateImplCopyWithImpl(
-      _$InitialStateImpl _value, $Res Function(_$InitialStateImpl) _then)
+class __$$WorkplaceInitialStateImplCopyWithImpl<$Res>
+    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res,
+        _$WorkplaceInitialStateImpl>
+    implements _$$WorkplaceInitialStateImplCopyWith<$Res> {
+  __$$WorkplaceInitialStateImplCopyWithImpl(_$WorkplaceInitialStateImpl _value,
+      $Res Function(_$WorkplaceInitialStateImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$InitialStateImpl implements InitialState {
-  const _$InitialStateImpl();
+class _$WorkplaceInitialStateImpl implements WorkplaceInitialState {
+  const _$WorkplaceInitialStateImpl();
 
   @override
   String toString() {
@@ -122,7 +124,8 @@ class _$InitialStateImpl implements InitialState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialStateImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$WorkplaceInitialStateImpl);
   }
 
   @override
@@ -171,11 +174,11 @@ class _$InitialStateImpl implements InitialState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
+    required TResult Function(WorkplaceInitialState value) initial,
+    required TResult Function(WorkplaceLoadingState value) loading,
     required TResult Function(AllWorkplaces value) allWorkplaces,
-    required TResult Function(CreateSuccess value) createSuccess,
-    required TResult Function(Failure value) failure,
+    required TResult Function(WorkplaceCreateSuccess value) createSuccess,
+    required TResult Function(WorkplaceFailure value) failure,
   }) {
     return initial(this);
   }
@@ -183,11 +186,11 @@ class _$InitialStateImpl implements InitialState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialState value)? initial,
-    TResult? Function(LoadingState value)? loading,
+    TResult? Function(WorkplaceInitialState value)? initial,
+    TResult? Function(WorkplaceLoadingState value)? loading,
     TResult? Function(AllWorkplaces value)? allWorkplaces,
-    TResult? Function(CreateSuccess value)? createSuccess,
-    TResult? Function(Failure value)? failure,
+    TResult? Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult? Function(WorkplaceFailure value)? failure,
   }) {
     return initial?.call(this);
   }
@@ -195,11 +198,11 @@ class _$InitialStateImpl implements InitialState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
+    TResult Function(WorkplaceInitialState value)? initial,
+    TResult Function(WorkplaceLoadingState value)? loading,
     TResult Function(AllWorkplaces value)? allWorkplaces,
-    TResult Function(CreateSuccess value)? createSuccess,
-    TResult Function(Failure value)? failure,
+    TResult Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult Function(WorkplaceFailure value)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -209,30 +212,32 @@ class _$InitialStateImpl implements InitialState {
   }
 }
 
-abstract class InitialState implements WorkplaceFirestoreState {
-  const factory InitialState() = _$InitialStateImpl;
+abstract class WorkplaceInitialState implements WorkplaceFirestoreState {
+  const factory WorkplaceInitialState() = _$WorkplaceInitialStateImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadingStateImplCopyWith<$Res> {
-  factory _$$LoadingStateImplCopyWith(
-          _$LoadingStateImpl value, $Res Function(_$LoadingStateImpl) then) =
-      __$$LoadingStateImplCopyWithImpl<$Res>;
+abstract class _$$WorkplaceLoadingStateImplCopyWith<$Res> {
+  factory _$$WorkplaceLoadingStateImplCopyWith(
+          _$WorkplaceLoadingStateImpl value,
+          $Res Function(_$WorkplaceLoadingStateImpl) then) =
+      __$$WorkplaceLoadingStateImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingStateImplCopyWithImpl<$Res>
-    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res, _$LoadingStateImpl>
-    implements _$$LoadingStateImplCopyWith<$Res> {
-  __$$LoadingStateImplCopyWithImpl(
-      _$LoadingStateImpl _value, $Res Function(_$LoadingStateImpl) _then)
+class __$$WorkplaceLoadingStateImplCopyWithImpl<$Res>
+    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res,
+        _$WorkplaceLoadingStateImpl>
+    implements _$$WorkplaceLoadingStateImplCopyWith<$Res> {
+  __$$WorkplaceLoadingStateImplCopyWithImpl(_$WorkplaceLoadingStateImpl _value,
+      $Res Function(_$WorkplaceLoadingStateImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingStateImpl implements LoadingState {
-  const _$LoadingStateImpl();
+class _$WorkplaceLoadingStateImpl implements WorkplaceLoadingState {
+  const _$WorkplaceLoadingStateImpl();
 
   @override
   String toString() {
@@ -242,7 +247,8 @@ class _$LoadingStateImpl implements LoadingState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingStateImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$WorkplaceLoadingStateImpl);
   }
 
   @override
@@ -291,11 +297,11 @@ class _$LoadingStateImpl implements LoadingState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
+    required TResult Function(WorkplaceInitialState value) initial,
+    required TResult Function(WorkplaceLoadingState value) loading,
     required TResult Function(AllWorkplaces value) allWorkplaces,
-    required TResult Function(CreateSuccess value) createSuccess,
-    required TResult Function(Failure value) failure,
+    required TResult Function(WorkplaceCreateSuccess value) createSuccess,
+    required TResult Function(WorkplaceFailure value) failure,
   }) {
     return loading(this);
   }
@@ -303,11 +309,11 @@ class _$LoadingStateImpl implements LoadingState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialState value)? initial,
-    TResult? Function(LoadingState value)? loading,
+    TResult? Function(WorkplaceInitialState value)? initial,
+    TResult? Function(WorkplaceLoadingState value)? loading,
     TResult? Function(AllWorkplaces value)? allWorkplaces,
-    TResult? Function(CreateSuccess value)? createSuccess,
-    TResult? Function(Failure value)? failure,
+    TResult? Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult? Function(WorkplaceFailure value)? failure,
   }) {
     return loading?.call(this);
   }
@@ -315,11 +321,11 @@ class _$LoadingStateImpl implements LoadingState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
+    TResult Function(WorkplaceInitialState value)? initial,
+    TResult Function(WorkplaceLoadingState value)? loading,
     TResult Function(AllWorkplaces value)? allWorkplaces,
-    TResult Function(CreateSuccess value)? createSuccess,
-    TResult Function(Failure value)? failure,
+    TResult Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult Function(WorkplaceFailure value)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -329,8 +335,8 @@ class _$LoadingStateImpl implements LoadingState {
   }
 }
 
-abstract class LoadingState implements WorkplaceFirestoreState {
-  const factory LoadingState() = _$LoadingStateImpl;
+abstract class WorkplaceLoadingState implements WorkplaceFirestoreState {
+  const factory WorkplaceLoadingState() = _$WorkplaceLoadingStateImpl;
 }
 
 /// @nodoc
@@ -445,11 +451,11 @@ class _$AllWorkplacesImpl implements AllWorkplaces {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
+    required TResult Function(WorkplaceInitialState value) initial,
+    required TResult Function(WorkplaceLoadingState value) loading,
     required TResult Function(AllWorkplaces value) allWorkplaces,
-    required TResult Function(CreateSuccess value) createSuccess,
-    required TResult Function(Failure value) failure,
+    required TResult Function(WorkplaceCreateSuccess value) createSuccess,
+    required TResult Function(WorkplaceFailure value) failure,
   }) {
     return allWorkplaces(this);
   }
@@ -457,11 +463,11 @@ class _$AllWorkplacesImpl implements AllWorkplaces {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialState value)? initial,
-    TResult? Function(LoadingState value)? loading,
+    TResult? Function(WorkplaceInitialState value)? initial,
+    TResult? Function(WorkplaceLoadingState value)? loading,
     TResult? Function(AllWorkplaces value)? allWorkplaces,
-    TResult? Function(CreateSuccess value)? createSuccess,
-    TResult? Function(Failure value)? failure,
+    TResult? Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult? Function(WorkplaceFailure value)? failure,
   }) {
     return allWorkplaces?.call(this);
   }
@@ -469,11 +475,11 @@ class _$AllWorkplacesImpl implements AllWorkplaces {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
+    TResult Function(WorkplaceInitialState value)? initial,
+    TResult Function(WorkplaceLoadingState value)? loading,
     TResult Function(AllWorkplaces value)? allWorkplaces,
-    TResult Function(CreateSuccess value)? createSuccess,
-    TResult Function(Failure value)? failure,
+    TResult Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult Function(WorkplaceFailure value)? failure,
     required TResult orElse(),
   }) {
     if (allWorkplaces != null) {
@@ -494,25 +500,28 @@ abstract class AllWorkplaces implements WorkplaceFirestoreState {
 }
 
 /// @nodoc
-abstract class _$$CreateSuccessImplCopyWith<$Res> {
-  factory _$$CreateSuccessImplCopyWith(
-          _$CreateSuccessImpl value, $Res Function(_$CreateSuccessImpl) then) =
-      __$$CreateSuccessImplCopyWithImpl<$Res>;
+abstract class _$$WorkplaceCreateSuccessImplCopyWith<$Res> {
+  factory _$$WorkplaceCreateSuccessImplCopyWith(
+          _$WorkplaceCreateSuccessImpl value,
+          $Res Function(_$WorkplaceCreateSuccessImpl) then) =
+      __$$WorkplaceCreateSuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateSuccessImplCopyWithImpl<$Res>
-    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res, _$CreateSuccessImpl>
-    implements _$$CreateSuccessImplCopyWith<$Res> {
-  __$$CreateSuccessImplCopyWithImpl(
-      _$CreateSuccessImpl _value, $Res Function(_$CreateSuccessImpl) _then)
+class __$$WorkplaceCreateSuccessImplCopyWithImpl<$Res>
+    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res,
+        _$WorkplaceCreateSuccessImpl>
+    implements _$$WorkplaceCreateSuccessImplCopyWith<$Res> {
+  __$$WorkplaceCreateSuccessImplCopyWithImpl(
+      _$WorkplaceCreateSuccessImpl _value,
+      $Res Function(_$WorkplaceCreateSuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateSuccessImpl implements CreateSuccess {
-  const _$CreateSuccessImpl();
+class _$WorkplaceCreateSuccessImpl implements WorkplaceCreateSuccess {
+  const _$WorkplaceCreateSuccessImpl();
 
   @override
   String toString() {
@@ -522,7 +531,8 @@ class _$CreateSuccessImpl implements CreateSuccess {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CreateSuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$WorkplaceCreateSuccessImpl);
   }
 
   @override
@@ -571,11 +581,11 @@ class _$CreateSuccessImpl implements CreateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
+    required TResult Function(WorkplaceInitialState value) initial,
+    required TResult Function(WorkplaceLoadingState value) loading,
     required TResult Function(AllWorkplaces value) allWorkplaces,
-    required TResult Function(CreateSuccess value) createSuccess,
-    required TResult Function(Failure value) failure,
+    required TResult Function(WorkplaceCreateSuccess value) createSuccess,
+    required TResult Function(WorkplaceFailure value) failure,
   }) {
     return createSuccess(this);
   }
@@ -583,11 +593,11 @@ class _$CreateSuccessImpl implements CreateSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialState value)? initial,
-    TResult? Function(LoadingState value)? loading,
+    TResult? Function(WorkplaceInitialState value)? initial,
+    TResult? Function(WorkplaceLoadingState value)? loading,
     TResult? Function(AllWorkplaces value)? allWorkplaces,
-    TResult? Function(CreateSuccess value)? createSuccess,
-    TResult? Function(Failure value)? failure,
+    TResult? Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult? Function(WorkplaceFailure value)? failure,
   }) {
     return createSuccess?.call(this);
   }
@@ -595,11 +605,11 @@ class _$CreateSuccessImpl implements CreateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
+    TResult Function(WorkplaceInitialState value)? initial,
+    TResult Function(WorkplaceLoadingState value)? loading,
     TResult Function(AllWorkplaces value)? allWorkplaces,
-    TResult Function(CreateSuccess value)? createSuccess,
-    TResult Function(Failure value)? failure,
+    TResult Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult Function(WorkplaceFailure value)? failure,
     required TResult orElse(),
   }) {
     if (createSuccess != null) {
@@ -609,25 +619,25 @@ class _$CreateSuccessImpl implements CreateSuccess {
   }
 }
 
-abstract class CreateSuccess implements WorkplaceFirestoreState {
-  const factory CreateSuccess() = _$CreateSuccessImpl;
+abstract class WorkplaceCreateSuccess implements WorkplaceFirestoreState {
+  const factory WorkplaceCreateSuccess() = _$WorkplaceCreateSuccessImpl;
 }
 
 /// @nodoc
-abstract class _$$FailureImplCopyWith<$Res> {
-  factory _$$FailureImplCopyWith(
-          _$FailureImpl value, $Res Function(_$FailureImpl) then) =
-      __$$FailureImplCopyWithImpl<$Res>;
+abstract class _$$WorkplaceFailureImplCopyWith<$Res> {
+  factory _$$WorkplaceFailureImplCopyWith(_$WorkplaceFailureImpl value,
+          $Res Function(_$WorkplaceFailureImpl) then) =
+      __$$WorkplaceFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({dynamic error});
 }
 
 /// @nodoc
-class __$$FailureImplCopyWithImpl<$Res>
-    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res, _$FailureImpl>
-    implements _$$FailureImplCopyWith<$Res> {
-  __$$FailureImplCopyWithImpl(
-      _$FailureImpl _value, $Res Function(_$FailureImpl) _then)
+class __$$WorkplaceFailureImplCopyWithImpl<$Res>
+    extends _$WorkplaceFirestoreStateCopyWithImpl<$Res, _$WorkplaceFailureImpl>
+    implements _$$WorkplaceFailureImplCopyWith<$Res> {
+  __$$WorkplaceFailureImplCopyWithImpl(_$WorkplaceFailureImpl _value,
+      $Res Function(_$WorkplaceFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -635,7 +645,7 @@ class __$$FailureImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$FailureImpl(
+    return _then(_$WorkplaceFailureImpl(
       freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -646,8 +656,8 @@ class __$$FailureImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FailureImpl implements Failure {
-  const _$FailureImpl(this.error);
+class _$WorkplaceFailureImpl implements WorkplaceFailure {
+  const _$WorkplaceFailureImpl(this.error);
 
   @override
   final dynamic error;
@@ -661,7 +671,7 @@ class _$FailureImpl implements Failure {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FailureImpl &&
+            other is _$WorkplaceFailureImpl &&
             const DeepCollectionEquality().equals(other.error, error));
   }
 
@@ -672,8 +682,9 @@ class _$FailureImpl implements Failure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      __$$FailureImplCopyWithImpl<_$FailureImpl>(this, _$identity);
+  _$$WorkplaceFailureImplCopyWith<_$WorkplaceFailureImpl> get copyWith =>
+      __$$WorkplaceFailureImplCopyWithImpl<_$WorkplaceFailureImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -718,11 +729,11 @@ class _$FailureImpl implements Failure {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
+    required TResult Function(WorkplaceInitialState value) initial,
+    required TResult Function(WorkplaceLoadingState value) loading,
     required TResult Function(AllWorkplaces value) allWorkplaces,
-    required TResult Function(CreateSuccess value) createSuccess,
-    required TResult Function(Failure value) failure,
+    required TResult Function(WorkplaceCreateSuccess value) createSuccess,
+    required TResult Function(WorkplaceFailure value) failure,
   }) {
     return failure(this);
   }
@@ -730,11 +741,11 @@ class _$FailureImpl implements Failure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitialState value)? initial,
-    TResult? Function(LoadingState value)? loading,
+    TResult? Function(WorkplaceInitialState value)? initial,
+    TResult? Function(WorkplaceLoadingState value)? loading,
     TResult? Function(AllWorkplaces value)? allWorkplaces,
-    TResult? Function(CreateSuccess value)? createSuccess,
-    TResult? Function(Failure value)? failure,
+    TResult? Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult? Function(WorkplaceFailure value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -742,11 +753,11 @@ class _$FailureImpl implements Failure {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
+    TResult Function(WorkplaceInitialState value)? initial,
+    TResult Function(WorkplaceLoadingState value)? loading,
     TResult Function(AllWorkplaces value)? allWorkplaces,
-    TResult Function(CreateSuccess value)? createSuccess,
-    TResult Function(Failure value)? failure,
+    TResult Function(WorkplaceCreateSuccess value)? createSuccess,
+    TResult Function(WorkplaceFailure value)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -756,11 +767,11 @@ class _$FailureImpl implements Failure {
   }
 }
 
-abstract class Failure implements WorkplaceFirestoreState {
-  const factory Failure(final dynamic error) = _$FailureImpl;
+abstract class WorkplaceFailure implements WorkplaceFirestoreState {
+  const factory WorkplaceFailure(final dynamic error) = _$WorkplaceFailureImpl;
 
   dynamic get error;
   @JsonKey(ignore: true)
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
+  _$$WorkplaceFailureImplCopyWith<_$WorkplaceFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

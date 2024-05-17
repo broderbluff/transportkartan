@@ -22,7 +22,7 @@ class SiteInputWidget extends StatelessWidget {
     MapController mapController = MapController();
     var windowSize = MediaQuery.of(context).size;
 
-    return BlocBuilder<CreateSiteCubit, SiteMarker>(
+    return BlocBuilder<CreateSiteCubit, Site>(
       builder: (context, siteMarkerState) {
         TextEditingController siteNameController = TextEditingController(text: siteMarkerState.name);
         TextEditingController siteDescriptionController = TextEditingController(text: siteMarkerState.description);

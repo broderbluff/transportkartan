@@ -12,7 +12,7 @@ class PopupTitleRowWidget extends StatelessWidget {
     required this.siteMarker,
   });
 
-  final SiteMarker? siteMarker;
+  final Site? siteMarker;
 
   @override
   Widget build(BuildContext context) {

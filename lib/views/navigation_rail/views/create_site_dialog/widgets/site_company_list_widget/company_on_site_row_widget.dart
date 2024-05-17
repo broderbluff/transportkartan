@@ -5,7 +5,6 @@ import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/cubit/company_on_site_cubit.dart';
 
 class CompanyOnSiteListWidget extends StatefulWidget {
