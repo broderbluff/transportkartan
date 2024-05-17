@@ -6,7 +6,7 @@ import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/filter_site_cubit.dart';
 import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
-import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/crud/site_firestore_cubit.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
@@ -24,7 +24,8 @@ class SiteListMainWidget extends StatelessWidget {
         return BlocBuilder<FilterSiteCubit, SiteTypesState>(
           builder: (context, state) {
             return BlocBuilder<SiteFirestoreCubit, SiteFirestoreState>(
-              bloc: context.read<SiteFirestoreCubit>()..fetchSites(sortByType: true, siteTypes: state.selectedSiteTypes.toList()),
+              bloc: context.read<SiteFirestoreCubit>()
+                ..fetchAllSites(sortByType: true, siteTypes: state.selectedSiteTypes.toList()),
               builder: (context, state) {
                 if (state is SiteInitialState) {
                   return const Center(child: CircularProgressIndicator());

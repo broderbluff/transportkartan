@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/crud/site_firestore_cubit.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
@@ -29,7 +29,7 @@ class ButtonRowWidget extends StatelessWidget {
               context.read<CreateSiteCubit>().resetState();
 
               context.read<NavigationRailCubit>().changeIndex(0);
-              context.read<SiteFirestoreCubit>().fetchSites();
+              context.read<SiteFirestoreCubit>().fetchAllSites();
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(

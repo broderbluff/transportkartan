@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/models/company_model.dart';
+import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 
 class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
-  CompanyFirestoreCubit() : super(InitialState());
+  CompanyFirestoreCubit() : super(CompanyInitialState());
 
   void fetchAllComapnies() async {
-    emit(LoadingState());
+    emit(CompanyLoadingState());
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('company').get();
 
@@ -19,9 +20,9 @@ class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
 
         companies.add(company);
       }
-      emit(AllCompaniesState(companies));
+      emit(AllCompanies(companies));
     } catch (e) {
-      emit(Failure(e));
+      emit(CompanyFailure(e));
     }
   }
 
@@ -32,10 +33,10 @@ class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
           .doc(company.id) // Set documentId to SiteMarker.id
           .set(company.toJson());
 
-      emit(CreateSuccess());
-      emit(InitialState());
+      emit(CompanyCreateSuccess());
+      fetchAllComapnies();
     } catch (e) {
-      emit(Failure(e));
+      emit(CompanyFailure(e));
     }
   }
 
@@ -46,53 +47,18 @@ class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
           .doc(company.id) // Set documentId to SiteMarker.id
           .update(company.toJson());
 
-      emit(CreateSuccess());
-      emit(InitialState());
+      emit(CompanyCreateSuccess());
+      fetchAllComapnies();
     } catch (e) {
-      emit(Failure(e));
+      emit(CompanyFailure(e));
     }
   }
 
   Company findCompanyById(String companyId) {
     final state = this.state;
-    if (state is AllCompaniesState) {
+    if (state is AllCompanies) {
       return state.companyList.firstWhere((company) => company.id == companyId, orElse: () => Company.empty());
     }
     return Company.empty();
   }
-}
-
-class Failure extends CompanyFirestoreState {
-  final dynamic error;
-
-  Failure(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-abstract class CompanyFirestoreState extends Equatable {}
-
-class InitialState extends CompanyFirestoreState {
-  @override
-  List<Object?> get props => [];
-}
-
-class LoadingState extends CompanyFirestoreState {
-  @override
-  List<Object?> get props => [];
-}
-
-class AllCompaniesState extends CompanyFirestoreState {
-  final List<Company> companyList;
-
-  AllCompaniesState(this.companyList);
-
-  @override
-  List<Object?> get props => [companyList];
-}
-
-class CreateSuccess extends CompanyFirestoreState {
-  @override
-  List<Object?> get props => [];
 }

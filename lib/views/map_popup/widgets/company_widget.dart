@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/crud/company_firestore_cubit.dart';
+import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/map_popup/widgets/charts/piechart_degree_of_organization.dart';
 
@@ -14,13 +15,13 @@ class PopupCompanyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CompanyFirestoreCubit, CompanyFirestoreState>(
       builder: (context, state) {
-        if (state is InitialState) {
+        if (state is CompanyInitialState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state is AllCompaniesState) {
+        if (state is AllCompanies) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,

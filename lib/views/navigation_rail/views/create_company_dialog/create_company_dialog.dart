@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/cubit/company_firestore_cubit.dart';
+import 'package:transportkartan/crud/company_firestore_cubit.dart';
+import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
 
 import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/widgets/company_input_widget.dart';
@@ -50,7 +51,7 @@ class CreateCompanyDialog extends StatelessWidget {
                   TextButton(onPressed: () {}, child: const Text('Rensa')),
                   BlocConsumer<CompanyFirestoreCubit, CompanyFirestoreState>(
                     listener: (context, state) {
-                      if (state is CreateSuccess) {
+                      if (state is CompanyCreateSuccess) {
                         context.read<CreateCompanyCubit>().resetState();
 
                         context.read<NavigationRailCubit>().changeIndex(0);
@@ -64,7 +65,7 @@ class CreateCompanyDialog extends StatelessWidget {
                             ),
                           ),
                         );
-                      } else if (state is Failure) {
+                      } else if (state is CompanyFailure) {
                         // Handle CreateFailure state
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

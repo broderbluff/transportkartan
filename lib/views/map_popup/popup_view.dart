@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:transportkartan/cubit/workplace_firestore_cubit.dart';
+import 'package:transportkartan/crud/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';

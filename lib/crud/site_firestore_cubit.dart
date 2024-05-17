@@ -7,7 +7,7 @@ import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   SiteFirestoreCubit() : super(const SiteInitialState());
 
-  void fetchSites({bool sortByType = false, List<SiteType>? siteTypes}) async {
+  void fetchAllSites({bool sortByType = false, List<SiteType>? siteTypes}) async {
     try {
       Query query = FirebaseFirestore.instance.collection('sites');
 
@@ -57,7 +57,7 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
           .set(markerModel.toJson());
 
       emit(SiteCreateSuccess());
-      fetchSites();
+      fetchAllSites();
     } catch (e) {
       emit(SiteFailure(e));
     }
@@ -71,7 +71,8 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
           .update(markerModel.toJson());
 
       emit(SiteCreateSuccess());
-      fetchSites();
+
+      fetchAllSites();
     } catch (e) {
       emit(SiteFailure(e));
     }

@@ -4,7 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:transportkartan/cubit/site_firestore_cubit.dart';
+import 'package:transportkartan/crud/site_firestore_cubit.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
@@ -62,7 +62,7 @@ class _MapWidgetState extends State<MapWidget> {
                 //   polylines: state.polylinePoints,
                 // ),
                 BlocBuilder<SiteFirestoreCubit, SiteFirestoreState>(
-                  bloc: context.read<SiteFirestoreCubit>()..fetchSites(),
+                  bloc: context.read<SiteFirestoreCubit>()..fetchAllSites(),
                   builder: (context, firestoreState) {
                     if (firestoreState is SiteInitialState) {
                       return const Center(child: CircularProgressIndicator());
