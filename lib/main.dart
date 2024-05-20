@@ -1,22 +1,25 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/authentication/auth_cubit.dart';
+import 'package:transportkartan/authentication/auth_state.dart';
 import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/crud/company_firestore_cubit.dart';
 import 'package:transportkartan/crud/workplace_firestore_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/cubit/company_on_site_cubit.dart';
-import 'package:transportkartan/views/site_and_company_view/cubit/filter_site_cubit.dart';
-import 'package:transportkartan/views/site_and_company_view/cubit/selected_site_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/logged_in_view.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_site_dialog/widgets/site_company_list_widget/cubit/company_on_site_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/cubit/filter_site_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/crud/site_firestore_cubit.dart';
-import 'package:transportkartan/views/map/cubit/map_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/firebase_options.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
-import 'package:transportkartan/views/navigation_rail/cubit/navigation_rail_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_company_dialog/cubit/create_company_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
-import 'package:transportkartan/views/navigation_rail/left_navigation_bar.dart';
-import 'package:transportkartan/views/site_and_company_view/site_and_company_view.dart';
-import 'package:transportkartan/views/map/map_view.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/left_navigation_bar.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/site_and_company_view.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/map/map_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -55,6 +58,9 @@ void main() async {
         BlocProvider(
           create: (context) => CompanyOnSiteRowCubit(),
         ),
+        BlocProvider(
+          create: (context) => AuthCubit(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -88,19 +94,16 @@ class MyApp extends StatelessWidget {
         Locale('sv'),
       ],
       home: Scaffold(
-        body: Stack(
-          children: [
-            Row(
-              children: [
-                const LeftNavigationBar(),
-                Container(width: 140, height: double.infinity, color: mainColor),
-                const Expanded(
-                  child: MapWidget(),
-                ),
-              ],
-            ),
-            const LogisticsHubsWidget(),
-          ],
+        body: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is AuthLoggedOut) {
+              return const Center(
+                child: Text('Du är inte inloggad'),
+              );
+            } else {
+              return LoggedInView();
+            }
+          },
         ),
       ),
     );
