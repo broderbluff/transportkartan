@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_company_dialog/create_company_dialog.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_site_dialog/create_site_dialog.dart';
+import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/create_company_dialog.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/create_site_dialog.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
 class LeftNavigationBar extends StatelessWidget {
@@ -42,6 +43,10 @@ class LeftNavigationBar extends StatelessWidget {
               icon: Icon(Icons.settings),
               label: Text('Inställningar'),
             ),
+            NavigationRailDestination(
+              icon: Icon(Icons.logout),
+              label: Text('Logga ut'),
+            ),
           ],
           selectedIndex: state,
           onDestinationSelected: (int index) {
@@ -65,6 +70,9 @@ class LeftNavigationBar extends StatelessWidget {
                   return const CreateSiteDialog(true);
                 },
               );
+            }
+            if (index == 4) {
+              context.read<AuthCubit>().signOut();
             }
           },
         );

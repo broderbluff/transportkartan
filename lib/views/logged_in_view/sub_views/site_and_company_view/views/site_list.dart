@@ -6,12 +6,12 @@ import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/cubit/filter_site_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/cubit/selected_site_cubit.dart';
-import 'package:transportkartan/crud/site_firestore_cubit.dart';
+import 'package:transportkartan/bloc/crud/site_firestore_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_site_dialog/create_site_dialog.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/views/create_site_dialog/cubit/create_site_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/create_site_dialog.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 
 class SiteListMainWidget extends StatelessWidget {
   const SiteListMainWidget({super.key});

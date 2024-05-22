@@ -4,11 +4,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:transportkartan/crud/site_firestore_cubit.dart';
+import 'package:transportkartan/bloc/crud/site_firestore_cubit.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cubit.dart';
 import 'package:transportkartan/helpers/site_marker_to_markers.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/popup_view.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/popup_view.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({super.key});
@@ -101,7 +101,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     ],
                                   ),
                                 ),
-                                MapPopup(marker, firestoreState.sitesList),
+                                TransportPopup(marker, firestoreState.sitesList),
                               ],
                             ),
                           ),
