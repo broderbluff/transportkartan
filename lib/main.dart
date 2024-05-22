@@ -40,9 +40,6 @@ void main() async {
         BlocProvider(
           create: (context) => CreateCompanyCubit(),
         ),
-        BlocProvider(
-          create: (context) => SiteFirestoreCubit()..fetchAllSites(),
-        ),
         BlocProvider(create: (context) => WorkplaceFirestoreCubit()),
         BlocProvider(
           create: (context) => CompanyFirestoreCubit()..fetchAllComapnies(),
@@ -58,6 +55,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => AuthCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SiteFirestoreCubit(context.read<AuthCubit>()),
         ),
       ],
       child: const MyApp(),
@@ -95,17 +95,17 @@ class MyApp extends StatelessWidget {
         body: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             if (state is AuthStateInitial) {
-              return Center(
+              return const Center(
                 child: Text('SPLASHSCREEN'),
-              ); // Replace with your splash screen widget
+              );
             } else if (state is AuthStateLoggedIn) {
-              return LoggedInView(); // Replace with your home page widget
+              return const LoggedInView();
             } else if (state is AuthStateLoggedOut) {
-              return LoginView(); // Replace with your login page widget
+              return LoginView();
             } else if (state is AuthStateFailure) {
-              return Center(
+              return const Center(
                 child: Text('ERROR'),
-              ); // Replace with your splash screen widget
+              );
             }
             return Container();
           },

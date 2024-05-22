@@ -121,6 +121,11 @@ class SiteListMainWidget extends StatelessWidget {
                     },
                   );
                 }
+
+                if (state is SiteFailure) {
+                  String error = state.error.toString();
+                  return Text(error);
+                }
                 return const Text('ERRROR');
               },
             );

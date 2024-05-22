@@ -17,6 +17,7 @@ class Site with _$Site {
     required String description,
     List<String>? handleGoods,
     List<String>? goodsOfInterest,
+    bool? isITF,
     //List<Polyline>? polylinePoints,
   }) = _SiteMarker;
 

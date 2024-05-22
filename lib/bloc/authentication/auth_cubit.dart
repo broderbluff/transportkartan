@@ -29,6 +29,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  UserModel? get currentUser {
+    final state = this.state;
+    if (state is AuthStateLoggedIn) {
+      return state.user;
+    }
+    return null;
+  }
+
   Future<void> signOut() async {
     try {
       await _auth.signOut();

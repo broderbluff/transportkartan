@@ -13,3 +13,9 @@ class UserModel with _$UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 }
+
+
+//USERLEVEL 0 = ADMIN TRANSPORT
+//USERLEVEL 1 = ADMIN ITF
+//USERLEVEL 2 = GUEST TRANSPORT 
+//USERLEVEL 3 = GUEST ITF

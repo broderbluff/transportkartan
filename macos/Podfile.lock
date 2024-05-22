@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (4.17.3):
+  - cloud_firestore (4.17.4):
     - Firebase/CoreOnly (~> 10.25.0)
     - Firebase/Firestore (~> 10.25.0)
     - firebase_core
@@ -12,12 +12,12 @@ PODS:
   - Firebase/Firestore (10.25.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.25.0)
-  - firebase_auth (4.19.5):
+  - firebase_auth (4.19.6):
     - Firebase/Auth (~> 10.25.0)
     - Firebase/CoreOnly (~> 10.25.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (2.31.0):
+  - firebase_core (2.31.1):
     - Firebase/CoreOnly (~> 10.25.0)
     - FlutterMacOS
   - FirebaseAppCheckInterop (10.25.0)
@@ -137,10 +137,10 @@ CHECKOUT OPTIONS:
     :tag: 10.25.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: e9533a69290a167590302619e0dfa4896a3a451a
+  cloud_firestore: cfc248aab1db38c157b53de67750343a98ffc607
   Firebase: 0312a2352584f782ea56f66d91606891d4607f06
-  firebase_auth: 88f0918ad5a62cae02f4bdbc1da7ec848fe9ba1c
-  firebase_core: fdf12e0c4349815c2e832d9dcad59fbff0ff394b
+  firebase_auth: bd1035d255f4fcea641d3ba2d7df44429e94423b
+  firebase_core: 9d3e68f556bda55d5b2a778a39fdba1747e8f294
   FirebaseAppCheckInterop: 5da5ce93e8797a215e3f677fb0654b74e736c8b8
   FirebaseAuth: c0f93dcc570c9da2bffb576969d793e95c344fbb
   FirebaseCore: 7ec4d0484817f12c3373955bc87762d96842d483

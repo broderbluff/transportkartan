@@ -23,6 +23,7 @@ _$SiteMarkerImpl _$$SiteMarkerImplFromJson(Map<String, dynamic> json) =>
       goodsOfInterest: (json['goodsOfInterest'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      isITF: json['isITF'] as bool?,
     );
 
 Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$SiteMarkerImplToJson(_$SiteMarkerImpl instance) =>
       'description': instance.description,
       'handleGoods': instance.handleGoods,
       'goodsOfInterest': instance.goodsOfInterest,
+      'isITF': instance.isITF,
     };
 
 const _$SiteTypeEnumMap = {

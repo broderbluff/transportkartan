@@ -1,16 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
+import 'package:transportkartan/data/models/user_model.dart';
 
 class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
-  SiteFirestoreCubit() : super(const SiteInitialState());
+  final AuthCubit _authCubit;
+  SiteFirestoreCubit(this._authCubit) : super(const SiteInitialState());
 
-  void fetchAllSites({bool sortByType = false, List<SiteType>? siteTypes}) async {
+  void fetchAllSites({bool sortByType = false, List<SiteType>? siteTypes, int? userLevel}) async {
+    UserModel? user = _authCubit.currentUser;
     try {
       Query query = FirebaseFirestore.instance.collection('sites');
-
+      if (user!.userLevel == 1) {
+        query = query.where('ITF', isEqualTo: true);
+      }
       if (sortByType && siteTypes != null && siteTypes.isNotEmpty) {
         query = query.where('type', whereIn: siteTypes.map((type) => type.returnLast()).toList());
       }
