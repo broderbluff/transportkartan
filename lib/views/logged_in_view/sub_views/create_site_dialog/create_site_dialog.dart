@@ -22,15 +22,20 @@ class CreateSiteDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
         child: Container(
           color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           height: windowSize.height * 0.8,
           width: windowSize.width * 0.6,
-          child: Column(
-            children: [
-              TitleRowWidget(isNew),
-              const Expanded(child: SiteInputWidget()),
-              ButtonRowWidget(isNew),
-            ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TitleRowWidget(isNew),
+                  SiteInputWidget(),
+                  ButtonRowWidget(isNew),
+                ],
+              ),
+            ),
           ),
         ),
       ),
