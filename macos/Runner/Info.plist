@@ -28,5 +28,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSLocationUsageDescription</key>
+<string>Kartan behöver veta din position för snabbare kunna hjälpa dig lägga till nya platser.</string>
 </dict>
 </plist>

@@ -16,7 +16,7 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
     try {
       Query query = FirebaseFirestore.instance.collection('sites');
       if (user!.userLevel == 1) {
-        query = query.where('ITF', isEqualTo: true);
+        query = query.where('isITF', isEqualTo: true);
       }
       if (sortByType && siteTypes != null && siteTypes.isNotEmpty) {
         query = query.where('type', whereIn: siteTypes.map((type) => type.returnLast()).toList());
@@ -57,6 +57,11 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   // }
 
   void createSite(Site markerModel) async {
+    UserModel? user = _authCubit.currentUser;
+
+    if (user!.userLevel == 1) {
+      markerModel = markerModel.copyWith(isITF: true);
+    }
     try {
       await FirebaseFirestore.instance
           .collection('sites')

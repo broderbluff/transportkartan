@@ -31,7 +31,7 @@ class CreateSiteDialog extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TitleRowWidget(isNew),
-                  SiteInputWidget(),
+                  const SiteInputWidget(),
                   ButtonRowWidget(isNew),
                 ],
               ),

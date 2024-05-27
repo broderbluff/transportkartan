@@ -32,12 +32,12 @@ class LeftNavigationBar extends StatelessWidget {
               label: Text('Hem'),
             ),
             NavigationRailDestination(
-              icon: Icon(Icons.business),
-              label: Text('Nytt företag'),
-            ),
-            NavigationRailDestination(
               icon: Icon(Icons.add_location),
               label: Text('Ny plats'),
+            ),
+            NavigationRailDestination(
+              icon: Icon(Icons.business),
+              label: Text('Nytt företag'),
             ),
             NavigationRailDestination(
               icon: Icon(Icons.settings),
@@ -52,7 +52,7 @@ class LeftNavigationBar extends StatelessWidget {
           onDestinationSelected: (int index) {
             navigationRailCubit.changeIndex(index);
 
-            if (index == 1) {
+            if (index == 2) {
               showDialog(
                 barrierDismissible: false,
                 context: context,
@@ -62,7 +62,7 @@ class LeftNavigationBar extends StatelessWidget {
               );
             }
 
-            if (index == 2) {
+            if (index == 1) {
               showDialog(
                 barrierDismissible: false,
                 context: context,

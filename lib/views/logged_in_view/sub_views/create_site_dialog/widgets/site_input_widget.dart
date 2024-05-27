@@ -93,17 +93,18 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                 width: double.infinity,
 
                 child: FlutterLocationPicker(
-                  selectLocationButtonText: 'Välj plats',
+                  selectLocationButtonText: 'Bekräfta plats',
                   initZoom: 5,
                   minZoomLevel: 5,
                   showSearchBar: true,
-                  initPosition: LatLong(62.3875, 16.325556),
+                  initPosition: const LatLong(62.3875, 16.325556),
                   maxZoomLevel: 13,
                   countryFilter: 'SE',
                   trackMyPosition: false,
+                  markerIconOffset: !positionSelected ? 50 : 50,
                   markerIcon: Icon(
-                    Icons.location_on,
-                    size: 32,
+                    !positionSelected ? Icons.location_on : Icons.location_on,
+                    size: 50,
                     color: !positionSelected ? Colors.blue : Colors.green,
                   ),
                   urlTemplate:
@@ -121,17 +122,14 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                     });
                     print(pickedData.latLong.latitude);
                     print(pickedData.latLong.longitude);
-                    print(pickedData.address);
-                    print(pickedData.addressData);
                   },
                   onChanged: (pickedData) {
                     setState(() {
                       positionSelected = false;
                     });
-                    print(pickedData.latLong.latitude);
-                    print(pickedData.latLong.longitude);
-                    print(pickedData.address);
-                    print(pickedData.addressData);
+                    context
+                        .read<CreateSiteCubit>()
+                        .updateSiteCoordinates([pickedData.latLong.latitude, pickedData.latLong.longitude]);
                   },
                   showContributorBadgeForOSM: false,
                 ),

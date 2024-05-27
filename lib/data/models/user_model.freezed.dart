@@ -22,6 +22,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+
+  ///
   int get userLevel => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -128,6 +130,8 @@ class _$UserModelImpl implements _UserModel {
   final String id;
   @override
   final String name;
+
+  ///
   @override
   final int userLevel;
 
@@ -179,6 +183,8 @@ abstract class _UserModel implements UserModel {
   @override
   String get name;
   @override
+
+  ///
   int get userLevel;
   @override
   @JsonKey(ignore: true)
