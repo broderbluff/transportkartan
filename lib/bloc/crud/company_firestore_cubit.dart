@@ -1,15 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/state/company_firestore_state.dart';
+import 'package:transportkartan/data/models/user_model.dart';
 
 class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
-  CompanyFirestoreCubit() : super(const CompanyInitialState());
+  final AuthCubit _authCubit;
+
+  CompanyFirestoreCubit(this._authCubit) : super(const CompanyInitialState());
 
   void fetchAllComapnies() async {
     emit(const CompanyLoadingState());
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('company').get();
+      UserModel? user = _authCubit.currentUser;
+
+      Query query = FirebaseFirestore.instance.collection('company');
+      if (user!.userLevel == 1 || user.userLevel == 3) {
+        query = query.where('isITF', isEqualTo: true);
+      }
+
+      query = query.orderBy('name');
+
+      QuerySnapshot querySnapshot = await query.get();
 
       List<Company> companies = [];
       for (var doc in querySnapshot.docs) {
@@ -26,6 +39,11 @@ class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
   }
 
   void createCompany(Company company) async {
+    UserModel? user = _authCubit.currentUser;
+
+    if (user!.userLevel == 1) {
+      company = company.copyWith(isITF: true);
+    }
     try {
       await FirebaseFirestore.instance
           .collection('company')

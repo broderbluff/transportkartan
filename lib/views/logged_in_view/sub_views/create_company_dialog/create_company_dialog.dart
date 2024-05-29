@@ -23,7 +23,7 @@ class CreateCompanyDialog extends StatelessWidget {
         child: Container(
           color: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          height: windowSize.height * 0.6,
+          height: windowSize.height * 0.7,
           width: windowSize.width * 0.6,
           child: Column(
             children: [

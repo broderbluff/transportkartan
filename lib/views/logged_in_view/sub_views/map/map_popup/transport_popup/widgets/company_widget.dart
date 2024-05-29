@@ -4,6 +4,7 @@ import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
 import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/widgets/charts/piechart_degree_of_organization.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 
 class PopupCompanyWidget extends StatelessWidget {
   const PopupCompanyWidget({super.key, required this.siteId, required this.title, required this.companies});
@@ -34,16 +35,9 @@ class PopupCompanyWidget extends StatelessWidget {
               ),
               for (var company in companies)
                 ExpansionTile(
-                  leading: context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).logoUrl == null
-                      ? const SizedBox(
-                          height: 25,
-                          width: 25,
-                        )
-                      : Image.network(
-                          context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).logoUrl!,
-                          height: 25,
-                          width: 25,
-                        ),
+                  leading: LogoWidget(
+                    company: context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId),
+                  ),
                   title: Text(
                     context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).name,
                     style: const TextStyle(

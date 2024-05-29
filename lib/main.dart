@@ -29,6 +29,9 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => AuthCubit(),
+        ),
+        BlocProvider(
           create: (context) => MapControllerCubit(),
         ),
         BlocProvider(
@@ -42,7 +45,7 @@ void main() async {
         ),
         BlocProvider(create: (context) => WorkplaceFirestoreCubit()),
         BlocProvider(
-          create: (context) => CompanyFirestoreCubit()..fetchAllComapnies(),
+          create: (context) => CompanyFirestoreCubit(context.read<AuthCubit>()),
         ),
         BlocProvider(
           create: (context) => SiteListCubit(),
@@ -52,9 +55,6 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => CompanyOnSiteRowCubit(),
-        ),
-        BlocProvider(
-          create: (context) => AuthCubit(),
         ),
         BlocProvider(
           create: (context) => SiteFirestoreCubit(context.read<AuthCubit>()),

@@ -15,6 +15,7 @@ class Company with _$Company {
     String? logoUrl,
     String? websiteUrl,
     String? facebookUrl,
+    bool? isITF,
     String? linkedInUrl,
     required String orgNumber,
     String? headquarterAddress,

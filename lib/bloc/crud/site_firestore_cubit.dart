@@ -11,11 +11,14 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   final AuthCubit _authCubit;
   SiteFirestoreCubit(this._authCubit) : super(const SiteInitialState());
 
-  void fetchAllSites({bool sortByType = false, List<SiteType>? siteTypes, int? userLevel}) async {
+  void fetchAllSites({
+    bool sortByType = false,
+    List<SiteType>? siteTypes,
+  }) async {
     UserModel? user = _authCubit.currentUser;
     try {
       Query query = FirebaseFirestore.instance.collection('sites');
-      if (user!.userLevel == 1) {
+      if (user!.userLevel == 1 || user.userLevel == 3) {
         query = query.where('isITF', isEqualTo: true);
       }
       if (sortByType && siteTypes != null && siteTypes.isNotEmpty) {

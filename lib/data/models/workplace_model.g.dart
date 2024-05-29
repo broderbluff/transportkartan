@@ -8,7 +8,7 @@ part of 'workplace_model.dart';
 
 _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
     _$WorkplaceImpl(
-      id: json['id'] as String?,
+      id: json['id'] as String,
       companyId: json['companyId'] as String,
       siteId: json['siteId'] as String,
       members: (json['members'] as num).toInt(),

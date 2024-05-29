@@ -28,6 +28,7 @@ mixin _$Company {
   String? get logoUrl => throw _privateConstructorUsedError;
   String? get websiteUrl => throw _privateConstructorUsedError;
   String? get facebookUrl => throw _privateConstructorUsedError;
+  bool? get isITF => throw _privateConstructorUsedError;
   String? get linkedInUrl => throw _privateConstructorUsedError;
   String get orgNumber => throw _privateConstructorUsedError;
   String? get headquarterAddress => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $CompanyCopyWith<$Res> {
       String? logoUrl,
       String? websiteUrl,
       String? facebookUrl,
+      bool? isITF,
       String? linkedInUrl,
       String orgNumber,
       String? headquarterAddress});
@@ -77,6 +79,7 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
     Object? logoUrl = freezed,
     Object? websiteUrl = freezed,
     Object? facebookUrl = freezed,
+    Object? isITF = freezed,
     Object? linkedInUrl = freezed,
     Object? orgNumber = null,
     Object? headquarterAddress = freezed,
@@ -114,6 +117,10 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
           ? _value.facebookUrl
           : facebookUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      isITF: freezed == isITF
+          ? _value.isITF
+          : isITF // ignore: cast_nullable_to_non_nullable
+              as bool?,
       linkedInUrl: freezed == linkedInUrl
           ? _value.linkedInUrl
           : linkedInUrl // ignore: cast_nullable_to_non_nullable
@@ -146,6 +153,7 @@ abstract class _$$CompanyImplCopyWith<$Res> implements $CompanyCopyWith<$Res> {
       String? logoUrl,
       String? websiteUrl,
       String? facebookUrl,
+      bool? isITF,
       String? linkedInUrl,
       String orgNumber,
       String? headquarterAddress});
@@ -170,6 +178,7 @@ class __$$CompanyImplCopyWithImpl<$Res>
     Object? logoUrl = freezed,
     Object? websiteUrl = freezed,
     Object? facebookUrl = freezed,
+    Object? isITF = freezed,
     Object? linkedInUrl = freezed,
     Object? orgNumber = null,
     Object? headquarterAddress = freezed,
@@ -207,6 +216,10 @@ class __$$CompanyImplCopyWithImpl<$Res>
           ? _value.facebookUrl
           : facebookUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      isITF: freezed == isITF
+          ? _value.isITF
+          : isITF // ignore: cast_nullable_to_non_nullable
+              as bool?,
       linkedInUrl: freezed == linkedInUrl
           ? _value.linkedInUrl
           : linkedInUrl // ignore: cast_nullable_to_non_nullable
@@ -235,6 +248,7 @@ class _$CompanyImpl implements _Company {
       this.logoUrl,
       this.websiteUrl,
       this.facebookUrl,
+      this.isITF,
       this.linkedInUrl,
       required this.orgNumber,
       this.headquarterAddress});
@@ -259,6 +273,8 @@ class _$CompanyImpl implements _Company {
   @override
   final String? facebookUrl;
   @override
+  final bool? isITF;
+  @override
   final String? linkedInUrl;
   @override
   final String orgNumber;
@@ -267,7 +283,7 @@ class _$CompanyImpl implements _Company {
 
   @override
   String toString() {
-    return 'Company(name: $name, description: $description, union: $union, totalEmployees: $totalEmployees, id: $id, logoUrl: $logoUrl, websiteUrl: $websiteUrl, facebookUrl: $facebookUrl, linkedInUrl: $linkedInUrl, orgNumber: $orgNumber, headquarterAddress: $headquarterAddress)';
+    return 'Company(name: $name, description: $description, union: $union, totalEmployees: $totalEmployees, id: $id, logoUrl: $logoUrl, websiteUrl: $websiteUrl, facebookUrl: $facebookUrl, isITF: $isITF, linkedInUrl: $linkedInUrl, orgNumber: $orgNumber, headquarterAddress: $headquarterAddress)';
   }
 
   @override
@@ -287,6 +303,7 @@ class _$CompanyImpl implements _Company {
                 other.websiteUrl == websiteUrl) &&
             (identical(other.facebookUrl, facebookUrl) ||
                 other.facebookUrl == facebookUrl) &&
+            (identical(other.isITF, isITF) || other.isITF == isITF) &&
             (identical(other.linkedInUrl, linkedInUrl) ||
                 other.linkedInUrl == linkedInUrl) &&
             (identical(other.orgNumber, orgNumber) ||
@@ -307,6 +324,7 @@ class _$CompanyImpl implements _Company {
       logoUrl,
       websiteUrl,
       facebookUrl,
+      isITF,
       linkedInUrl,
       orgNumber,
       headquarterAddress);
@@ -335,6 +353,7 @@ abstract class _Company implements Company {
       final String? logoUrl,
       final String? websiteUrl,
       final String? facebookUrl,
+      final bool? isITF,
       final String? linkedInUrl,
       required final String orgNumber,
       final String? headquarterAddress}) = _$CompanyImpl;
@@ -357,6 +376,8 @@ abstract class _Company implements Company {
   String? get websiteUrl;
   @override
   String? get facebookUrl;
+  @override
+  bool? get isITF;
   @override
   String? get linkedInUrl;
   @override

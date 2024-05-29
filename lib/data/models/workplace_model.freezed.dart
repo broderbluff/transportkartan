@@ -20,7 +20,7 @@ Workplace _$WorkplaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Workplace {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get companyId => throw _privateConstructorUsedError;
   String get siteId => throw _privateConstructorUsedError;
   int get members => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $WorkplaceCopyWith<$Res> {
       _$WorkplaceCopyWithImpl<$Res, Workplace>;
   @useResult
   $Res call(
-      {String? id,
+      {String id,
       String companyId,
       String siteId,
       int members,
@@ -62,7 +62,7 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? companyId = null,
     Object? siteId = null,
     Object? members = null,
@@ -71,10 +71,10 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? companyType = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       companyId: null == companyId
           ? _value.companyId
           : companyId // ignore: cast_nullable_to_non_nullable
@@ -112,7 +112,7 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
+      {String id,
       String companyId,
       String siteId,
       int members,
@@ -132,7 +132,7 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? companyId = null,
     Object? siteId = null,
     Object? members = null,
@@ -141,10 +141,10 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? companyType = freezed,
   }) {
     return _then(_$WorkplaceImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       companyId: null == companyId
           ? _value.companyId
           : companyId // ignore: cast_nullable_to_non_nullable
@@ -177,7 +177,7 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$WorkplaceImpl implements _Workplace {
   const _$WorkplaceImpl(
-      {this.id,
+      {required this.id,
       required this.companyId,
       required this.siteId,
       required this.members,
@@ -189,7 +189,7 @@ class _$WorkplaceImpl implements _Workplace {
       _$$WorkplaceImplFromJson(json);
 
   @override
-  final String? id;
+  final String id;
   @override
   final String companyId;
   @override
@@ -247,7 +247,7 @@ class _$WorkplaceImpl implements _Workplace {
 
 abstract class _Workplace implements Workplace {
   const factory _Workplace(
-      {final String? id,
+      {required final String id,
       required final String companyId,
       required final String siteId,
       required final int members,
@@ -259,7 +259,7 @@ abstract class _Workplace implements Workplace {
       _$WorkplaceImpl.fromJson;
 
   @override
-  String? get id;
+  String get id;
   @override
   String get companyId;
   @override

@@ -90,7 +90,9 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
     final state = this.state;
     if (state is AllWorkplaces) {
       return state.workplaceList
-          .where((workplace) => workplace.siteId == siteId && (companyType == null || workplace.companyType == companyType))
+          .where((workplace) =>
+              workplace.siteId == siteId &&
+              workplace.companyType == companyType) //&& (companyType == null || workplace.companyType == companyType) s
           .toList();
     }
     return [];

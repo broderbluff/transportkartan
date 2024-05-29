@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/company_list.dart';
 
-class AddCompanyButton extends StatelessWidget {
+class AddCompanyButton extends StatefulWidget {
   const AddCompanyButton({
     super.key,
     required this.windowSize,
@@ -12,6 +12,11 @@ class AddCompanyButton extends StatelessWidget {
   final Size windowSize;
   final CompanyType companyType;
 
+  @override
+  State<AddCompanyButton> createState() => _AddCompanyButtonState();
+}
+
+class _AddCompanyButtonState extends State<AddCompanyButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,11 +33,11 @@ class AddCompanyButton extends StatelessWidget {
                     child: Container(
                       color: Colors.white,
                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      height: windowSize.height * 0.8,
-                      width: windowSize.width * 0.6,
+                      height: widget.windowSize.height * 0.8,
+                      width: widget.windowSize.width * 0.6,
                       child: Column(
                         children: [
-                          Expanded(flex: 1, child: CompanyListWidget(true, companyType)),
+                          Expanded(flex: 1, child: CompanyListWidget(true, widget.companyType)),
                         ],
                       ),
                     ),
@@ -42,7 +47,7 @@ class AddCompanyButton extends StatelessWidget {
             );
           },
           icon: const Icon(Icons.add),
-          label: Text('Lägg till ${companyType.name}'),
+          label: Text('Lägg till ${widget.companyType.name}'),
         ),
       ],
     );
