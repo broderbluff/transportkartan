@@ -30,10 +30,17 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
 
   void createWorkplace(Workplace workplace) async {
     try {
-      await FirebaseFirestore.instance
+      final querySnapshot = await FirebaseFirestore.instance
           .collection('workplaces')
-          .doc(workplace.id) // Set documentId to SiteMarker.id
-          .set(workplace.toJson());
+          .where('siteId', isEqualTo: workplace.siteId)
+          .where('companyType', isEqualTo: workplace.companyType)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        throw Exception('Workplace with the same siteId and companyType already exists');
+      }
+
+      await FirebaseFirestore.instance.collection('workplaces').doc(workplace.id).set(workplace.toJson());
 
       emit(const WorkplaceCreateSuccess());
       fetchAllWorkplaces();
@@ -55,6 +62,15 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
 
   void updateWorkplace(Workplace workplace) async {
     try {
+      final docRef = FirebaseFirestore.instance.collection('workplaces').doc(workplace.id);
+      final docSnapshot = await docRef.get();
+
+      if (!docSnapshot.exists) {
+        throw Exception('Workplace does not exist');
+      }
+
+      workplace = workplace.copyWith(updatedAt: DateTime.now().toIso8601String()); // Add this line to set the timestamp
+
       await FirebaseFirestore.instance
           .collection('workplaces')
           .doc(workplace.id) // Set documentId to SiteMarker.id

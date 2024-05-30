@@ -7,6 +7,7 @@ class CompanyOnSiteRowCubit extends Cubit<Workplace> {
     id: '',
     companyId: '',
     siteId: '',
+    updatedAt: '',
     members: 0,
     electedOfficials: 0,
     employees: 0,

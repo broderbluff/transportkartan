@@ -15,7 +15,8 @@ class Workplace with _$Workplace {
     required int members,
     required int electedOfficials,
     required int employees,
-    CompanyType? companyType,
+    required CompanyType? companyType,
+    required String updatedAt,
   }) = _Workplace;
 
   factory Workplace.fromJson(Map<String, dynamic> json) => _$WorkplaceFromJson(json);
@@ -28,5 +29,6 @@ class Workplace with _$Workplace {
         electedOfficials: 0,
         employees: 0,
         companyType: null,
+        updatedAt: '',
       );
 }

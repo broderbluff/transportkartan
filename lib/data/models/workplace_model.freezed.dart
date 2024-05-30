@@ -27,6 +27,7 @@ mixin _$Workplace {
   int get electedOfficials => throw _privateConstructorUsedError;
   int get employees => throw _privateConstructorUsedError;
   CompanyType? get companyType => throw _privateConstructorUsedError;
+  String get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $WorkplaceCopyWith<$Res> {
       int members,
       int electedOfficials,
       int employees,
-      CompanyType? companyType});
+      CompanyType? companyType,
+      String updatedAt});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? electedOfficials = null,
     Object? employees = null,
     Object? companyType = freezed,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +102,10 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
           ? _value.companyType
           : companyType // ignore: cast_nullable_to_non_nullable
               as CompanyType?,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -118,7 +125,8 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
       int members,
       int electedOfficials,
       int employees,
-      CompanyType? companyType});
+      CompanyType? companyType,
+      String updatedAt});
 }
 
 /// @nodoc
@@ -139,6 +147,7 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? electedOfficials = null,
     Object? employees = null,
     Object? companyType = freezed,
+    Object? updatedAt = null,
   }) {
     return _then(_$WorkplaceImpl(
       id: null == id
@@ -169,6 +178,10 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
           ? _value.companyType
           : companyType // ignore: cast_nullable_to_non_nullable
               as CompanyType?,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -183,7 +196,8 @@ class _$WorkplaceImpl implements _Workplace {
       required this.members,
       required this.electedOfficials,
       required this.employees,
-      this.companyType});
+      required this.companyType,
+      required this.updatedAt});
 
   factory _$WorkplaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$WorkplaceImplFromJson(json);
@@ -202,10 +216,12 @@ class _$WorkplaceImpl implements _Workplace {
   final int employees;
   @override
   final CompanyType? companyType;
+  @override
+  final String updatedAt;
 
   @override
   String toString() {
-    return 'Workplace(id: $id, companyId: $companyId, siteId: $siteId, members: $members, electedOfficials: $electedOfficials, employees: $employees, companyType: $companyType)';
+    return 'Workplace(id: $id, companyId: $companyId, siteId: $siteId, members: $members, electedOfficials: $electedOfficials, employees: $employees, companyType: $companyType, updatedAt: $updatedAt)';
   }
 
   @override
@@ -223,13 +239,15 @@ class _$WorkplaceImpl implements _Workplace {
             (identical(other.employees, employees) ||
                 other.employees == employees) &&
             (identical(other.companyType, companyType) ||
-                other.companyType == companyType));
+                other.companyType == companyType) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, companyId, siteId, members,
-      electedOfficials, employees, companyType);
+      electedOfficials, employees, companyType, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +271,8 @@ abstract class _Workplace implements Workplace {
       required final int members,
       required final int electedOfficials,
       required final int employees,
-      final CompanyType? companyType}) = _$WorkplaceImpl;
+      required final CompanyType? companyType,
+      required final String updatedAt}) = _$WorkplaceImpl;
 
   factory _Workplace.fromJson(Map<String, dynamic> json) =
       _$WorkplaceImpl.fromJson;
@@ -272,6 +291,8 @@ abstract class _Workplace implements Workplace {
   int get employees;
   @override
   CompanyType? get companyType;
+  @override
+  String get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$WorkplaceImplCopyWith<_$WorkplaceImpl> get copyWith =>

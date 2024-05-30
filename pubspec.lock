@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  dart_earcut:
+    dependency: transitive
+    description:
+      name: dart_earcut
+      sha256: "41b493147e30a051efb2da1e3acb7f38fe0db60afba24ac1ea5684cee272721e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   dart_style:
     dependency: transitive
     description:
@@ -342,14 +350,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.0"
-  flutter_floating_map_marker_titles_core:
-    dependency: transitive
-    description:
-      name: flutter_floating_map_marker_titles_core
-      sha256: "701d6ebcd9905f15135b0503c9225c36dd70d1f2c4c581a7d4faa2250903dd6b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -367,41 +367,34 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_map
-      sha256: "87cc8349b8fa5dccda5af50018c7374b6645334a0d680931c1fe11bce88fa5bb"
+      sha256: ead3532d99548140346684cf737a4c0a6f59f02f62ee4e406597f8364afbf1a2
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.1"
+    version: "7.0.0"
   flutter_map_cancellable_tile_provider:
     dependency: "direct main"
     description:
       name: flutter_map_cancellable_tile_provider
-      sha256: ae18dd59faf74f3eca1d28f83e59b47741bbff962e123bbebe9335c04d432f44
+      sha256: "3841389102c4b05a6d6449ede6d4319b2a191dcd6a2631775d6d9ef632113adc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
-  flutter_map_floating_marker_titles:
-    dependency: "direct main"
-    description:
-      name: flutter_map_floating_marker_titles
-      sha256: "9f8f833f9abf5cb1f60ab80dabbd0d612b5c431f77acd083c5e3e7622386b5b3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
+    version: "3.0.0-dev.1"
   flutter_map_location_marker:
     dependency: transitive
     description:
       name: flutter_map_location_marker
-      sha256: c880c0ce6e6f64ade72f72d4d95b54ea75827818350af5596b301e0cbb350dcd
+      sha256: fa21753e7134d8a1f0b7b979d053c5cc43126e11685fe63c4c49da7b7416e1ae
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.5"
+    version: "9.0.0"
   flutter_map_marker_popup:
     dependency: "direct main"
     description:
-      name: flutter_map_marker_popup
-      sha256: ec563bcbae24a18ac16815fb75ac5ab33ccba609e14db70e252a67de19c6639c
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "05092aa6cc1d9d1fb5a427275fcd53098904d47b"
+      url: "https://github.com/broderbluff/flutter_map_marker_popup.git"
+    source: git
     version: "6.1.2"
   flutter_svg:
     dependency: "direct main"
@@ -454,13 +447,13 @@ packages:
     source: hosted
     version: "4.0.0"
   geolocator:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: geolocator
-      sha256: f4efb8d3c4cdcad2e226af9661eb1a0dd38c71a9494b22526f9da80ab79520e5
+      sha256: "149876cc5207a0f5daf4fdd3bfcf0a0f27258b3fe95108fa084f527ad0568f1b"
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.1"
+    version: "12.0.0"
   geolocator_android:
     dependency: transitive
     description:
@@ -489,10 +482,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_web
-      sha256: "102e7da05b48ca6bf0a5bda0010f886b171d1a08059f01bfe02addd0175ebece"
+      sha256: "7a22f400d831f924a89d931ba126a10e6b8b437f31e6b9311320435f3e1571bd"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "4.0.0"
   geolocator_windows:
     dependency: transitive
     description:
@@ -632,11 +625,12 @@ packages:
   location_picker_flutter_map:
     dependency: "direct main"
     description:
-      name: location_picker_flutter_map
-      sha256: f120dff8807f4b4b1c47934ea08ed56b8b88a174c5124efffeaa0b5703674bd6
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.1"
+      path: "."
+      ref: HEAD
+      resolved-ref: "302ac1b76907efba2130845b4bb95a616b1196d0"
+      url: "https://github.com/broderbluff/location_picker_flutter_map.git"
+    source: git
+    version: "3.0.2"
   logger:
     dependency: transitive
     description:
@@ -906,14 +900,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:

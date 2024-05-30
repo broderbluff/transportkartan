@@ -96,7 +96,9 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                   initZoom: 5,
                   minZoomLevel: 5,
                   showSearchBar: true,
-                  initPosition: const LatLong(62.3875, 16.325556),
+                  initPosition: siteMarkerState.coordinates[0] != 0 && siteMarkerState.coordinates[1] != 0
+                      ? LatLong(siteMarkerState.coordinates[0], siteMarkerState.coordinates[1])
+                      : LatLong(62.3875, 16.325556),
                   maxZoomLevel: 13,
                   countryFilter: 'SE',
                   trackMyPosition: false,

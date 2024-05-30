@@ -158,6 +158,11 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
               onPressed: () async {
                 context.read<CompanyOnSiteRowCubit>().updateState(workplace);
 
+                workplace = workplace.copyWith(
+                  employees: int.parse(context.read<CompanyOnSiteRowCubit>().state.employees.toString()),
+                  members: int.parse(context.read<CompanyOnSiteRowCubit>().state.members.toString()),
+                  electedOfficials: int.parse(context.read<CompanyOnSiteRowCubit>().state.electedOfficials.toString()),
+                );
                 context.read<WorkplaceFirestoreCubit>().updateWorkplace(workplace);
                 // Save the changes here
                 Navigator.of(context).pop();

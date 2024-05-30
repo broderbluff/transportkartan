@@ -16,6 +16,7 @@ _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
       employees: (json['employees'] as num).toInt(),
       companyType:
           $enumDecodeNullable(_$CompanyTypeEnumMap, json['companyType']),
+      updatedAt: json['updatedAt'] as String,
     );
 
 Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
@@ -27,6 +28,7 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
       'electedOfficials': instance.electedOfficials,
       'employees': instance.employees,
       'companyType': _$CompanyTypeEnumMap[instance.companyType],
+      'updatedAt': instance.updatedAt,
     };
 
 const _$CompanyTypeEnumMap = {
