@@ -1,27 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/bloc/crud/workplace_repository.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 
 class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
-  WorkplaceFirestoreCubit() : super(const WorkplaceInitialState()) {
+  final WorkplaceRepository repository;
+  WorkplaceFirestoreCubit(this.repository) : super(const WorkplaceInitialState()) {
     fetchAllWorkplaces();
   }
 
   void fetchAllWorkplaces() async {
     emit(const WorkplaceLoadingState());
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('workplaces').get();
-
-      List<Workplace> workplaces = [];
-      for (var doc in querySnapshot.docs) {
-        final data = doc.data() as Map<String, dynamic>;
-        Workplace workplace;
-        workplace = Workplace.fromJson(data);
-
-        workplaces.add(workplace);
-      }
+      List<Workplace> workplaces = await repository.fetchAllWorkplaces();
       emit(AllWorkplaces(workplaces));
     } catch (e) {
       emit(WorkplaceFailure(e));
@@ -30,18 +22,7 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
 
   void createWorkplace(Workplace workplace) async {
     try {
-      final querySnapshot = await FirebaseFirestore.instance
-          .collection('workplaces')
-          .where('siteId', isEqualTo: workplace.siteId)
-          .where('companyType', isEqualTo: workplace.companyType)
-          .get();
-
-      if (querySnapshot.docs.isNotEmpty) {
-        throw Exception('Workplace with the same siteId and companyType already exists');
-      }
-
-      await FirebaseFirestore.instance.collection('workplaces').doc(workplace.id).set(workplace.toJson());
-
+      await repository.createWorkplace(workplace);
       emit(const WorkplaceCreateSuccess());
       fetchAllWorkplaces();
     } catch (e) {
@@ -51,8 +32,7 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
 
   void deleteWorkplace(String workplaceId) async {
     try {
-      await FirebaseFirestore.instance.collection('workplaces').doc(workplaceId).delete();
-
+      await repository.deleteWorkplace(workplaceId);
       emit(const WorkplaceCreateSuccess());
       fetchAllWorkplaces();
     } catch (e) {
@@ -62,20 +42,7 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
 
   void updateWorkplace(Workplace workplace) async {
     try {
-      final docRef = FirebaseFirestore.instance.collection('workplaces').doc(workplace.id);
-      final docSnapshot = await docRef.get();
-
-      if (!docSnapshot.exists) {
-        throw Exception('Workplace does not exist');
-      }
-
-      workplace = workplace.copyWith(updatedAt: DateTime.now().toIso8601String()); // Add this line to set the timestamp
-
-      await FirebaseFirestore.instance
-          .collection('workplaces')
-          .doc(workplace.id) // Set documentId to SiteMarker.id
-          .update(workplace.toJson());
-
+      await repository.updateWorkplace(workplace);
       emit(const WorkplaceCreateSuccess());
       fetchAllWorkplaces();
     } catch (e) {

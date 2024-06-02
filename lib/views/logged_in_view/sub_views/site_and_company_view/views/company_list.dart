@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
-import 'package:transportkartan/bloc/crud/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
@@ -12,7 +11,6 @@ import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cub
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/create_company_dialog.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/cubit/create_company_cubit.dart';
-import 'package:uuid/uuid.dart';
 
 class CompanyListWidget extends StatefulWidget {
   const CompanyListWidget(this.isAddingCompanyToSite, this.companyType, {super.key});
@@ -101,13 +99,7 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
                               onTap: () {
                                 Workplace workplace = Workplace.empty();
                                 if (widget.isAddingCompanyToSite) {
-                                  context.read<WorkplaceFirestoreCubit>().createWorkplace(
-                                        workplace.copyWith(
-                                            companyId: company.id,
-                                            siteId: context.read<CreateSiteCubit>().state.id!,
-                                            id: const Uuid().v4(),
-                                            companyType: widget.companyType),
-                                      );
+                                  var newSite = context.read<CreateSiteCubit>().state;
 
                                   // context.read<CreateSiteCubit>().addCompanyToSite(company);
                                   Navigator.pop(context);

@@ -97,7 +97,7 @@ class _CompanyOnSiteListWidgetState extends State<CompanyOnSiteListWidget> {
                   IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      context.read<WorkplaceFirestoreCubit>().deleteWorkplace(company.id!);
+                      context.read<WorkplaceFirestoreCubit>().deleteWorkplace(company.id);
                     },
                   ),
                 ],

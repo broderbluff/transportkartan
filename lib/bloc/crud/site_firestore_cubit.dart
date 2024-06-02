@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
+import 'package:transportkartan/bloc/crud/site_repository.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/data/models/user_model.dart';
 
 class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
+  final SiteRepository repository;
   final AuthCubit _authCubit;
-  SiteFirestoreCubit(this._authCubit) : super(const SiteInitialState());
+  SiteFirestoreCubit(this.repository, this._authCubit) : super(const SiteInitialState());
 
   void fetchAllSites({
     bool sortByType = false,
@@ -17,27 +17,12 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   }) async {
     UserModel? user = _authCubit.currentUser;
     try {
-      Query query = FirebaseFirestore.instance.collection('sites');
-      if (user!.userLevel == 1 || user.userLevel == 3) {
-        query = query.where('isITF', isEqualTo: true);
-      }
-      if (sortByType && siteTypes != null && siteTypes.isNotEmpty) {
-        query = query.where('type', whereIn: siteTypes.map((type) => type.returnLast()).toList());
-      }
+      List<Site> markerModels = await repository.fetchAllSites(
+        user!.userLevel,
+        siteTypes,
+        sortByType,
+      );
 
-      query = query.orderBy('name');
-
-      QuerySnapshot querySnapshot = await query.get();
-
-      List<Site> markerModels = [];
-      for (var doc in querySnapshot.docs) {
-        final data = doc.data() as Map<String, dynamic>;
-
-        Site markerModel;
-        markerModel = Site.fromJson(data);
-
-        markerModels.add(markerModel);
-      }
       emit(AllSites(markerModels));
     } catch (e) {
       emit(SiteFailure(e));
@@ -62,15 +47,8 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
   void createSite(Site markerModel) async {
     UserModel? user = _authCubit.currentUser;
 
-    if (user!.userLevel == 1) {
-      markerModel = markerModel.copyWith(isITF: true);
-    }
     try {
-      await FirebaseFirestore.instance
-          .collection('sites')
-          .doc(markerModel.id) // Set documentId to SiteMarker.id
-          .set(markerModel.toJson());
-
+      repository.createSite(markerModel, user!.userLevel);
       emit(const SiteCreateSuccess());
       fetchAllSites();
     } catch (e) {
@@ -80,10 +58,7 @@ class SiteFirestoreCubit extends Cubit<SiteFirestoreState> {
 
   void updateSite(Site markerModel) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('sites')
-          .doc(markerModel.id) // Use SiteMarker.id as documentId
-          .update(markerModel.toJson());
+      repository.updateSite(markerModel);
 
       emit(const SiteCreateSuccess());
 

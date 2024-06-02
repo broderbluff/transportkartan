@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
-import 'package:transportkartan/data/enums/unit_type.dart';
-import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_state.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/add_company_button.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/site_company_list_widget/workplaces_list_widget.dart';
@@ -27,15 +25,57 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
 
   bool positionSelected = false;
 
+  TextEditingController siteNameController = TextEditingController();
+  TextEditingController siteDescriptionController = TextEditingController();
+  TextEditingController siteUnitController = TextEditingController();
+  SiteType? siteType;
+  LatLng position = const LatLng(62.3875, 16.325556);
+
+  @override
+  void initState() {
+    super.initState();
+
+    siteNameController.addListener(_updateSiteName);
+    siteDescriptionController.addListener(_updateSiteDescription);
+    siteUnitController.addListener(_updateSiteUnit);
+  }
+
+  @override
+  void dispose() {
+    siteNameController.dispose();
+    siteDescriptionController.dispose();
+    siteUnitController.dispose();
+
+    super.dispose();
+  }
+
+  void _updateSiteName() {
+    context.read<CreateSiteCubit>().updateSiteBName(siteNameController.text);
+  }
+
+  void _updateSiteDescription() {
+    // Update your state with the new site description here.
+  }
+
+  void _updateSiteUnit() {
+    // Update your state with the new site unit here.
+  }
+
   @override
   Widget build(BuildContext context) {
     var windowSize = MediaQuery.of(context).size;
 
-    return BlocBuilder<CreateSiteCubit, Site>(
+    return BlocBuilder<CreateSiteCubit, CreateSiteState>(
       builder: (context, siteMarkerState) {
-        TextEditingController siteNameController = TextEditingController(text: siteMarkerState.name);
-        TextEditingController siteDescriptionController = TextEditingController(text: siteMarkerState.description);
-        TextEditingController siteUnitController = TextEditingController(text: siteMarkerState.unit.toString());
+        siteNameController.text = siteMarkerState.site.name;
+        siteDescriptionController.text = siteMarkerState.site.description;
+        siteUnitController.text = siteMarkerState.site.unit.toString();
+
+        siteType = siteMarkerState.site.type;
+        if (siteMarkerState.site.coordinates.isNotEmpty) {
+          position = LatLng(siteMarkerState.site.coordinates[0], siteMarkerState.site.coordinates[1]);
+          positionSelected = true;
+        }
 
         return Column(
           children: [
@@ -48,16 +88,17 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                     decoration: const InputDecoration(
                       labelText: 'Namn',
                     ),
-                    onTapOutside: (event) => context.read<CreateSiteCubit>().updateSiteName(siteNameController.text),
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: DropdownButtonFormField<SiteType>(
                     borderRadius: BorderRadius.circular(16),
-                    value: siteMarkerState.type,
+                    value: siteType,
                     onChanged: (SiteType? newValue) {
-                      context.read<CreateSiteCubit>().updateSiteType(newValue!);
+                      setState(() {
+                        siteType = newValue;
+                      });
                     },
                     items: SiteType.values.map((SiteType siteType) {
                       return DropdownMenuItem<SiteType>(
@@ -96,9 +137,7 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                   initZoom: 5,
                   minZoomLevel: 5,
                   showSearchBar: true,
-                  initPosition: siteMarkerState.coordinates[0] != 0 && siteMarkerState.coordinates[1] != 0
-                      ? LatLong(siteMarkerState.coordinates[0], siteMarkerState.coordinates[1])
-                      : LatLong(62.3875, 16.325556),
+                  initPosition: LatLong(position.latitude, position.longitude),
                   maxZoomLevel: 13,
                   countryFilter: 'SE',
                   trackMyPosition: false,
@@ -120,15 +159,13 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                   onPicked: (pickedData) {
                     setState(() {
                       positionSelected = true;
+                      position = LatLng(pickedData.latLong.latitude, pickedData.latLong.longitude);
                     });
                   },
                   onChanged: (pickedData) {
                     setState(() {
                       positionSelected = false;
                     });
-                    context
-                        .read<CreateSiteCubit>()
-                        .updateSiteCoordinates([pickedData.latLong.latitude, pickedData.latLong.longitude]);
                   },
                   showContributorBadgeForOSM: false,
                 ),
@@ -180,20 +217,19 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
               decoration: const InputDecoration(
                 labelText: 'Beskrivning',
               ),
-              onTapOutside: (value) => context.read<CreateSiteCubit>().updateSiteDescription(siteDescriptionController.text),
             ),
             const SizedBox(
               height: 16,
             ),
             AddCompanyButton(windowSize: windowSize, companyType: CompanyType.mainCompany),
             const SizedBox(height: 16),
-            WorkplacesMainListWidget(siteMarkerState.id!, CompanyType.mainCompany),
+            WorkplacesMainListWidget(siteMarkerState.site.id!, CompanyType.mainCompany),
             const SizedBox(
               height: 16,
             ),
             AddCompanyButton(windowSize: windowSize, companyType: CompanyType.subContractor),
             const SizedBox(height: 16),
-            WorkplacesMainListWidget(siteMarkerState.id!, CompanyType.subContractor),
+            WorkplacesMainListWidget(siteMarkerState.site.id!, CompanyType.subContractor),
             const SizedBox(
               height: 16,
             ),

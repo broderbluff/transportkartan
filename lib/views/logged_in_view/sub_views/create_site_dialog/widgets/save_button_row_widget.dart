@@ -32,11 +32,11 @@ class ButtonRowWidget extends StatelessWidget {
               context.read<SiteFirestoreCubit>().fetchAllSites();
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   backgroundColor: Colors.green,
                   content: Text(
-                    'Plats skapad!',
-                    style: TextStyle(color: Colors.white),
+                    isNew ? 'Plats skapad!' : 'Plats uppdaterad!',
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               );
@@ -60,9 +60,9 @@ class ButtonRowWidget extends StatelessWidget {
                 var siteMarkerState = context.read<CreateSiteCubit>().state;
 
                 isNew
-                    ? context.read<SiteFirestoreCubit>().createSite(siteMarkerState)
-                    : context.read<SiteFirestoreCubit>().updateSite(siteMarkerState);
-              },
+                    ? context.read<SiteFirestoreCubit>().createSite(siteMarkerState.site)
+                    : context.read<SiteFirestoreCubit>().updateSite(siteMarkerState.site);
+                            },
               child: Text(isNew ? 'Skapa' : 'Uppdatera'),
             );
           },

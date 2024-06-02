@@ -69,6 +69,7 @@ class SiteListMainWidget extends StatelessWidget {
                                   }
                                 },
                                 onLongPress: () {
+                                  print(siteMarker.name);
                                   context.read<CreateSiteCubit>().openSite(siteMarker);
                                   context.read<MapControllerCubit>().hidePopup();
 

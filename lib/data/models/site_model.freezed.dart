@@ -30,6 +30,7 @@ mixin _$Site {
   List<String>? get handleGoods => throw _privateConstructorUsedError;
   List<String>? get goodsOfInterest => throw _privateConstructorUsedError;
   bool? get isITF => throw _privateConstructorUsedError;
+  String? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $SiteCopyWith<$Res> {
       String description,
       List<String>? handleGoods,
       List<String>? goodsOfInterest,
-      bool? isITF});
+      bool? isITF,
+      String? updatedAt});
 }
 
 /// @nodoc
@@ -77,6 +79,7 @@ class _$SiteCopyWithImpl<$Res, $Val extends Site>
     Object? handleGoods = freezed,
     Object? goodsOfInterest = freezed,
     Object? isITF = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -119,6 +122,10 @@ class _$SiteCopyWithImpl<$Res, $Val extends Site>
           ? _value.isITF
           : isITF // ignore: cast_nullable_to_non_nullable
               as bool?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -140,7 +147,8 @@ abstract class _$$SiteMarkerImplCopyWith<$Res> implements $SiteCopyWith<$Res> {
       String description,
       List<String>? handleGoods,
       List<String>? goodsOfInterest,
-      bool? isITF});
+      bool? isITF,
+      String? updatedAt});
 }
 
 /// @nodoc
@@ -164,6 +172,7 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
     Object? handleGoods = freezed,
     Object? goodsOfInterest = freezed,
     Object? isITF = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$SiteMarkerImpl(
       id: freezed == id
@@ -206,6 +215,10 @@ class __$$SiteMarkerImplCopyWithImpl<$Res>
           ? _value.isITF
           : isITF // ignore: cast_nullable_to_non_nullable
               as bool?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -223,7 +236,8 @@ class _$SiteMarkerImpl implements _SiteMarker {
       required this.description,
       final List<String>? handleGoods,
       final List<String>? goodsOfInterest,
-      this.isITF})
+      this.isITF,
+      this.updatedAt})
       : _coordinates = coordinates,
         _handleGoods = handleGoods,
         _goodsOfInterest = goodsOfInterest;
@@ -273,10 +287,12 @@ class _$SiteMarkerImpl implements _SiteMarker {
 
   @override
   final bool? isITF;
+  @override
+  final String? updatedAt;
 
   @override
   String toString() {
-    return 'Site(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, goodsOfInterest: $goodsOfInterest, isITF: $isITF)';
+    return 'Site(id: $id, type: $type, name: $name, unit: $unit, unitType: $unitType, coordinates: $coordinates, description: $description, handleGoods: $handleGoods, goodsOfInterest: $goodsOfInterest, isITF: $isITF, updatedAt: $updatedAt)';
   }
 
   @override
@@ -298,7 +314,9 @@ class _$SiteMarkerImpl implements _SiteMarker {
                 .equals(other._handleGoods, _handleGoods) &&
             const DeepCollectionEquality()
                 .equals(other._goodsOfInterest, _goodsOfInterest) &&
-            (identical(other.isITF, isITF) || other.isITF == isITF));
+            (identical(other.isITF, isITF) || other.isITF == isITF) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -314,7 +332,8 @@ class _$SiteMarkerImpl implements _SiteMarker {
       description,
       const DeepCollectionEquality().hash(_handleGoods),
       const DeepCollectionEquality().hash(_goodsOfInterest),
-      isITF);
+      isITF,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -341,7 +360,8 @@ abstract class _SiteMarker implements Site {
       required final String description,
       final List<String>? handleGoods,
       final List<String>? goodsOfInterest,
-      final bool? isITF}) = _$SiteMarkerImpl;
+      final bool? isITF,
+      final String? updatedAt}) = _$SiteMarkerImpl;
 
   factory _SiteMarker.fromJson(Map<String, dynamic> json) =
       _$SiteMarkerImpl.fromJson;
@@ -366,6 +386,8 @@ abstract class _SiteMarker implements Site {
   List<String>? get goodsOfInterest;
   @override
   bool? get isITF;
+  @override
+  String? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$SiteMarkerImplCopyWith<_$SiteMarkerImpl> get copyWith =>

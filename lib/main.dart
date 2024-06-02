@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
 import 'package:transportkartan/bloc/authentication/auth_state.dart';
+import 'package:transportkartan/bloc/crud/site_repository.dart';
+import 'package:transportkartan/bloc/crud/workplace_repository.dart';
 import 'package:transportkartan/constants/colors.dart';
 import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
 import 'package:transportkartan/bloc/crud/workplace_firestore_cubit.dart';
@@ -38,12 +40,9 @@ void main() async {
           create: (context) => NavigationRailCubit(),
         ),
         BlocProvider(
-          create: (context) => CreateSiteCubit(),
-        ),
-        BlocProvider(
           create: (context) => CreateCompanyCubit(),
         ),
-        BlocProvider(create: (context) => WorkplaceFirestoreCubit()),
+        BlocProvider(create: (context) => WorkplaceFirestoreCubit(WorkplaceRepository())),
         BlocProvider(
           create: (context) => CompanyFirestoreCubit(context.read<AuthCubit>()),
         ),
@@ -57,7 +56,10 @@ void main() async {
           create: (context) => CompanyOnSiteRowCubit(),
         ),
         BlocProvider(
-          create: (context) => SiteFirestoreCubit(context.read<AuthCubit>()),
+          create: (context) => SiteFirestoreCubit(SiteRepository(), context.read<AuthCubit>()),
+        ),
+        BlocProvider(
+          create: (context) => CreateSiteCubit(),
         ),
       ],
       child: const MyApp(),

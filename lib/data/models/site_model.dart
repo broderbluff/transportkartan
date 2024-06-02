@@ -18,6 +18,7 @@ class Site with _$Site {
     List<String>? handleGoods,
     List<String>? goodsOfInterest,
     bool? isITF,
+    String? updatedAt,
     //List<Polyline>? polylinePoints,
   }) = _SiteMarker;
 
