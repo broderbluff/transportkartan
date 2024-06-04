@@ -47,9 +47,20 @@ class CreateSiteCubit extends Cubit<CreateSiteState> {
 
   void addWorkplace(Workplace workplace) {
     CreateSiteState currentState = state;
+    Workplace work = workplace.copyWith(
+      siteId: state.site.id!,
+    );
+
+    // Check if a workplace with the same company id and company type already exists
+    bool isDuplicate = currentState.workplaces.any((w) => w.companyId == work.companyId && w.companyType == work.companyType);
+
+    if (isDuplicate) {
+      return;
+    }
+
     emit(
       currentState.copyWith(
-        workplaces: [...currentState.workplaces, workplace],
+        workplaces: [...currentState.workplaces, work],
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/crud/site_firestore_cubit.dart';
+import 'package:transportkartan/bloc/crud/workplace_firestore_cubit.dart';
 import 'package:transportkartan/data/models/state/site_firestore_state.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/cubit/navigation_rail_cubit.dart';
@@ -59,10 +60,11 @@ class ButtonRowWidget extends StatelessWidget {
               onPressed: () {
                 var siteMarkerState = context.read<CreateSiteCubit>().state;
 
+                context.read<WorkplaceFirestoreCubit>().updateWorkplaces(siteMarkerState.workplaces);
                 isNew
                     ? context.read<SiteFirestoreCubit>().createSite(siteMarkerState.site)
                     : context.read<SiteFirestoreCubit>().updateSite(siteMarkerState.site);
-                            },
+              },
               child: Text(isNew ? 'Skapa' : 'Uppdatera'),
             );
           },

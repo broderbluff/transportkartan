@@ -50,6 +50,16 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
     }
   }
 
+  void updateWorkplaces(List<Workplace> workplaces) async {
+    try {
+      await repository.updateWorkplaces(workplaces);
+      emit(const WorkplaceCreateSuccess());
+      fetchAllWorkplaces();
+    } catch (e) {
+      emit(WorkplaceFailure(e));
+    }
+  }
+
   Workplace findWorkplaceById(String companyId, String siteId) {
     final state = this.state;
     if (state is AllWorkplaces) {

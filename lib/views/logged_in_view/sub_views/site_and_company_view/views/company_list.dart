@@ -11,6 +11,7 @@ import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cub
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/create_company_dialog.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/cubit/create_company_cubit.dart';
+import 'package:uuid/uuid.dart';
 
 class CompanyListWidget extends StatefulWidget {
   const CompanyListWidget(this.isAddingCompanyToSite, this.companyType, {super.key});
@@ -97,11 +98,18 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
                                 });
                               },
                               onTap: () {
-                                Workplace workplace = Workplace.empty();
                                 if (widget.isAddingCompanyToSite) {
-                                  var newSite = context.read<CreateSiteCubit>().state;
+                                  Workplace workplace = Workplace(
+                                      companyId: company.id,
+                                      companyType: widget.companyType,
+                                      id: Uuid().v4(),
+                                      siteId: '',
+                                      members: 0,
+                                      electedOfficials: 0,
+                                      employees: 0,
+                                      updatedAt: DateTime.now().toString());
 
-                                  // context.read<CreateSiteCubit>().addCompanyToSite(company);
+                                  context.read<CreateSiteCubit>().addWorkplace(workplace);
                                   Navigator.pop(context);
                                 }
                                 setState(() {

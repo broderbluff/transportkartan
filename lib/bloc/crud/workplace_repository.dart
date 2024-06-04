@@ -41,6 +41,19 @@ class WorkplaceRepository {
         .update(workplace.toJson());
   }
 
+  Future<void> updateWorkplaces(List<Workplace> workplaces) async {
+    for (Workplace workplace in workplaces) {
+      final docRef = FirebaseFirestore.instance.collection('workplaces').doc(workplace.id);
+      final docSnapshot = await docRef.get();
+      if (docSnapshot.exists) {
+        workplace = workplace.copyWith(updatedAt: DateTime.now().toIso8601String());
+        await docRef.update(workplace.toJson());
+      } else {
+        await docRef.set(workplace.toJson());
+      }
+    }
+  }
+
   Future<List<Workplace>> fetchAllWorkplaces() async {
     final querySnapshot = await firestore.collection('workplaces').get();
     return querySnapshot.docs.map((doc) => Workplace.fromJson(doc.data())).toList();
