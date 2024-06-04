@@ -6,9 +6,7 @@ import 'package:transportkartan/data/models/workplace_model.dart';
 
 class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
   final WorkplaceRepository repository;
-  WorkplaceFirestoreCubit(this.repository) : super(const WorkplaceInitialState()) {
-    fetchAllWorkplaces();
-  }
+  WorkplaceFirestoreCubit(this.repository) : super(const WorkplaceInitialState());
 
   void fetchAllWorkplaces() async {
     emit(const WorkplaceLoadingState());
@@ -79,15 +77,13 @@ class WorkplaceFirestoreCubit extends Cubit<WorkplaceFirestoreState> {
     return [];
   }
 
-  List<Workplace> findWorkplacesBySiteId(String siteId, {CompanyType? companyType}) {
-    final state = this.state;
-    if (state is AllWorkplaces) {
-      return state.workplaceList
-          .where((workplace) =>
-              workplace.siteId == siteId &&
-              workplace.companyType == companyType) //&& (companyType == null || workplace.companyType == companyType) s
-          .toList();
+  void findWorkplacesBySiteId(String siteId, {CompanyType? companyType}) async {
+    List<Workplace> workplaces = await repository.fetchWorkplacesBySiteId(siteId);
+
+    if (workplaces.isEmpty) {
+      emit(const WorkplaceFirestoreState.failure('No workplaces found'));
+    } else {
+      emit(AllWorkplaces(workplaces));
     }
-    return [];
   }
 }

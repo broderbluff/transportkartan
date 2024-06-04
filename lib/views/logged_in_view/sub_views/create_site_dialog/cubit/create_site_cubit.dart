@@ -75,7 +75,6 @@ class CreateSiteCubit extends Cubit<CreateSiteState> {
   }
 
   void openSite(Site site) async {
-    print('Site name: ${site.name}');
     emit(CreateSiteState(site: site, workplaces: []));
 
     List<Workplace> workplaces = await repository.fetchWorkplacesBySiteId(site.id!);

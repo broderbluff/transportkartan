@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
+import 'package:transportkartan/bloc/crud/workplace_firestore_cubit.dart';
+import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/state/company_firestore_state.dart';
+import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/widgets/charts/piechart_degree_of_organization.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 
 class PopupCompanyWidget extends StatelessWidget {
-  const PopupCompanyWidget({super.key, required this.siteId, required this.title, required this.companies});
+  const PopupCompanyWidget({
+    super.key,
+    required this.siteId,
+    required this.title,
+    required this.type,
+  });
 
   final String siteId;
-  final List<Workplace> companies;
   final String title;
+  final CompanyType type;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CompanyFirestoreCubit, CompanyFirestoreState>(
+    return BlocBuilder<WorkplaceFirestoreCubit, WorkplaceFirestoreState>(
+      bloc: context.read<WorkplaceFirestoreCubit>()..findWorkplacesBySiteId(siteId),
       builder: (context, state) {
-        if (state is CompanyInitialState) {
+        if (state is WorkplaceInitialState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state is AllCompanies) {
+        if (state is AllWorkplaces) {
+          print(state.workplaceList.first.companyId);
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +43,7 @@ class PopupCompanyWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              for (var company in companies)
+              for (var company in state.workplaceList.where((element) => element.companyType == type))
                 ExpansionTile(
                   leading: LogoWidget(
                     company: context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId),
@@ -122,7 +132,7 @@ class PopupCompanyWidget extends StatelessWidget {
           );
         } else {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Text('ERRROR'),
           );
         }
       },

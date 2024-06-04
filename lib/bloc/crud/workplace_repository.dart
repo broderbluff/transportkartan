@@ -59,7 +59,9 @@ class WorkplaceRepository {
     return querySnapshot.docs.map((doc) => Workplace.fromJson(doc.data())).toList();
   }
 
-  Future<List<Workplace>> fetchWorkplacesBySiteId(String siteId) async {
+  Future<List<Workplace>> fetchWorkplacesBySiteId(
+    String siteId,
+  ) async {
     final querySnapshot = await firestore.collection('workplaces').where('siteId', isEqualTo: siteId).get();
     if (querySnapshot.docs.isEmpty) {
       return [];
