@@ -24,10 +24,6 @@ class TransportPopup extends StatefulWidget {
 
 class _TransportPopupState extends State<TransportPopup> {
   late Site? siteMarker;
-  late List<Workplace> companiesOnSite;
-  late List<Workplace> subContractorsOnSite;
-  late List<Workplace> securityCompanyOnSite;
-  late List<Workplace> staffingCompaniesOnSite;
 
   @override
   void initState() {

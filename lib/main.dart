@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
 import 'package:transportkartan/bloc/authentication/auth_state.dart';
+import 'package:transportkartan/bloc/crud/company_repository.dart';
 import 'package:transportkartan/bloc/crud/site_repository.dart';
 import 'package:transportkartan/bloc/crud/workplace_repository.dart';
 import 'package:transportkartan/constants/colors.dart';
@@ -44,7 +45,7 @@ void main() async {
         ),
         BlocProvider(create: (context) => WorkplaceFirestoreCubit(WorkplaceRepository())),
         BlocProvider(
-          create: (context) => CompanyFirestoreCubit(context.read<AuthCubit>()),
+          create: (context) => CompanyFirestoreCubit(context.read<AuthCubit>(), CompanyRepository()),
         ),
         BlocProvider(
           create: (context) => SiteListCubit(),

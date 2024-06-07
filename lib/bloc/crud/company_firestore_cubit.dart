@@ -1,37 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
+import 'package:transportkartan/bloc/crud/company_repository.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/data/models/user_model.dart';
 
 class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
   final AuthCubit _authCubit;
+  final CompanyRepository repository;
 
-  CompanyFirestoreCubit(this._authCubit) : super(const CompanyInitialState());
+  CompanyFirestoreCubit(this._authCubit, this.repository) : super(const CompanyInitialState());
 
   void fetchAllComapnies() async {
     emit(const CompanyLoadingState());
+    UserModel? user = _authCubit.currentUser;
+
     try {
-      UserModel? user = _authCubit.currentUser;
-
-      Query query = FirebaseFirestore.instance.collection('company');
-      if (user!.userLevel == 1 || user.userLevel == 3) {
-        query = query.where('isITF', isEqualTo: true);
-      }
-
-      query = query.orderBy('name');
-
-      QuerySnapshot querySnapshot = await query.get();
-
-      List<Company> companies = [];
-      for (var doc in querySnapshot.docs) {
-        final data = doc.data() as Map<String, dynamic>;
-        Company company;
-        company = Company.fromJson(data);
-
-        companies.add(company);
-      }
+      List<Company> companies = await repository.fetchAllCompanies(user!.userLevel);
       emit(AllCompanies(companies));
     } catch (e) {
       emit(CompanyFailure(e));
@@ -45,10 +31,7 @@ class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
       company = company.copyWith(isITF: true);
     }
     try {
-      await FirebaseFirestore.instance
-          .collection('company')
-          .doc(company.id) // Set documentId to SiteMarker.id
-          .set(company.toJson());
+      await repository.createCompany(company, user.userLevel);
 
       emit(const CompanyCreateSuccess());
       fetchAllComapnies();
@@ -59,10 +42,7 @@ class CompanyFirestoreCubit extends Cubit<CompanyFirestoreState> {
 
   void updateCompany(Company company) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('company')
-          .doc(company.id) // Set documentId to SiteMarker.id
-          .update(company.toJson());
+      await repository.updateCompany(company);
 
       emit(const CompanyCreateSuccess());
       fetchAllComapnies();

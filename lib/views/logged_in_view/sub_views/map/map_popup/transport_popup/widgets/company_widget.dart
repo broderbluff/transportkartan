@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
+import 'package:transportkartan/bloc/crud/company_repository.dart';
 import 'package:transportkartan/bloc/crud/workplace_firestore_cubit.dart';
+import 'package:transportkartan/bloc/crud/workplace_repository.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
+import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/widgets/charts/piechart_degree_of_organization.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 
-class PopupCompanyWidget extends StatelessWidget {
+class PopupCompanyWidget extends StatefulWidget {
   const PopupCompanyWidget({
     super.key,
     required this.siteId,
@@ -20,36 +23,57 @@ class PopupCompanyWidget extends StatelessWidget {
   final String siteId;
   final String title;
   final CompanyType type;
+
+  @override
+  State<PopupCompanyWidget> createState() => _PopupCompanyWidgetState();
+}
+
+class _PopupCompanyWidgetState extends State<PopupCompanyWidget> {
+  @override
+  List<Workplace> workplaces = [];
+  List<Company> listOfCompanies = [];
+  void initState() {
+    super.initState();
+    _fetchCompanies();
+  }
+
+  void _fetchCompanies() async {
+    final workplaceRepository = WorkplaceRepository();
+    final companyRepository = CompanyRepository();
+
+    workplaces = await workplaceRepository.fetchWorkplacesBySiteId(
+      widget.siteId,
+    );
+    if (workplaces.isNotEmpty) {
+      for (var workplace in workplaces) {
+        listOfCompanies.add(await companyRepository.fetchCompanyById(workplace.companyId));
+        print(workplace.companyId);
+        print(listOfCompanies.last.id);
+      }
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WorkplaceFirestoreCubit, WorkplaceFirestoreState>(
-      bloc: context.read<WorkplaceFirestoreCubit>()..findWorkplacesBySiteId(siteId),
-      builder: (context, state) {
-        if (state is WorkplaceInitialState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        if (state is AllWorkplaces) {
-          print(state.workplaceList.first.companyId);
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              for (var company in state.workplaceList.where((element) => element.companyType == type))
-                ExpansionTile(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        for (var workplace in workplaces)
+          listOfCompanies.isNotEmpty
+              ? ExpansionTile(
                   leading: LogoWidget(
-                    company: context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId),
+                    company: listOfCompanies.firstWhere((element) => element.id == workplace.companyId),
                   ),
                   title: Text(
-                    context.read<CompanyFirestoreCubit>().findCompanyById(company.companyId).name,
+                    listOfCompanies.firstWhere((element) => element.id == workplace.companyId).name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -69,9 +93,8 @@ class PopupCompanyWidget extends StatelessWidget {
                             children: [
                               const Expanded(child: Text('Anställda i hela företaget:')),
                               Text(
-                                  context
-                                      .read<CompanyFirestoreCubit>()
-                                      .findCompanyById(company.companyId)
+                                  listOfCompanies
+                                      .firstWhere((element) => element.id == workplace.companyId)
                                       .totalEmployees
                                       .toString(),
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -95,7 +118,7 @@ class PopupCompanyWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 const Expanded(child: Text('Kollektivare:')),
-                                Text(company.employees.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                                Text(workplace.employees.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ),
@@ -105,7 +128,7 @@ class PopupCompanyWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 const Expanded(child: Text('Medlemmar:')),
-                                Text(company.members.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                                Text(workplace.members.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ),
@@ -115,11 +138,11 @@ class PopupCompanyWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 const Expanded(child: Text('Förtroendevalda:')),
-                                Text(company.electedOfficials.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                                Text(workplace.electedOfficials.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ),
-                          DegreeOfOrganizationPieChart(company: company, siteId: siteId),
+                          DegreeOfOrganizationPieChart(company: workplace, siteId: widget.siteId),
                           const SizedBox(
                             height: 16,
                           )
@@ -127,15 +150,9 @@ class PopupCompanyWidget extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-            ],
-          );
-        } else {
-          return const Center(
-            child: Text('ERRROR'),
-          );
-        }
-      },
+                )
+              : CircularProgressIndicator.adaptive(),
+      ],
     );
   }
 }
