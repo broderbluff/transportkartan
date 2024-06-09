@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/site_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/create_site_dialog.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/cubit/selected_site_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cubit.dart';
 
@@ -45,6 +48,24 @@ class PopupTitleRowWidget extends StatelessWidget {
               ),
             ),
             const Spacer(),
+            context.read<AuthCubit>().currentUser!.userLevel <= 1
+                ? IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.white),
+                    onPressed: () {
+                      context.read<CreateSiteCubit>().openSite(siteMarker!);
+                      context.read<MapControllerCubit>().hidePopup();
+
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const CreateSiteDialog(false);
+                        },
+                      );
+                      context.read<SiteListCubit>().setSelectedIndex(-1);
+                    },
+                  )
+                : const SizedBox.shrink(),
             CloseButton(
                 color: Colors.white,
                 onPressed: () {

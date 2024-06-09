@@ -68,20 +68,6 @@ class SiteListMainWidget extends StatelessWidget {
                                         .setHoverIndex(index); // Update the selectedIndex when a ListTile is tapped
                                   }
                                 },
-                                onLongPress: () {
-                                  print(siteMarker.name);
-                                  context.read<CreateSiteCubit>().openSite(siteMarker);
-                                  context.read<MapControllerCubit>().hidePopup();
-
-                                  showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return const CreateSiteDialog(false);
-                                    },
-                                  );
-                                  siteContext.read<SiteListCubit>().setSelectedIndex(index);
-                                },
                                 onTap: () {
                                   context.read<MapControllerCubit>().triggerControllers(
                                       LatLng(siteMarker.coordinates[0], siteMarker.coordinates[1]),

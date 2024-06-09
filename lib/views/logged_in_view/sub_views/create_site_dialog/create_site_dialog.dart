@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/save_button_row_widget.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/site_input_widget.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/title_row_widget.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
 class CreateSiteDialog extends StatelessWidget {
   const CreateSiteDialog(
@@ -20,23 +23,37 @@ class CreateSiteDialog extends StatelessWidget {
       elevation: 24,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16.0),
-        child: Container(
-          color: Colors.white,
-          height: windowSize.height * 0.8,
-          width: windowSize.width * 0.6,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TitleRowWidget(isNew),
-                  const SiteInputWidget(),
-                  ButtonRowWidget(isNew),
-                ],
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.white,
+              height: windowSize.height * 0.8,
+              width: windowSize.width * 0.6,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TitleRowWidget(isNew),
+                      const SiteInputWidget(),
+                      ButtonRowWidget(isNew),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+            Positioned(
+              right: 0,
+              child: CloseButton(
+                onPressed: () {
+                  context.read<NavigationRailCubit>().changeIndex(0);
+                  context.read<CreateSiteCubit>().resetState();
+                  Navigator.of(context).pop();
+                },
+              ),
+            )
+          ],
         ),
       ),
     );

@@ -12,7 +12,6 @@ class TitleRowWidget extends StatelessWidget {
   final bool isNew;
   @override
   Widget build(BuildContext context) {
-    var siteCubit = context.read<CreateSiteCubit>();
     return Row(
       children: [
         Text(
@@ -20,13 +19,6 @@ class TitleRowWidget extends StatelessWidget {
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const Spacer(),
-        CloseButton(
-          onPressed: () {
-            context.read<NavigationRailCubit>().changeIndex(0);
-            siteCubit.resetState();
-            Navigator.of(context).pop();
-          },
-        )
       ],
     );
   }
