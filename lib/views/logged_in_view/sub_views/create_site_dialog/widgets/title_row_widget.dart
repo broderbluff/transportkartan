@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/cubit/navigation_rail_cubit.dart';
 
-class TitleRowWidget extends StatelessWidget {
-  const TitleRowWidget(
+class CreateSiteTitleRowWidget extends StatelessWidget {
+  const CreateSiteTitleRowWidget(
     this.isNew, {
     super.key,
   });
