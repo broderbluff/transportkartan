@@ -4,9 +4,11 @@ import 'package:transportkartan/data/models/workplace_model.dart';
 
 class DegreeOfOrganizationPieChart extends StatelessWidget {
   final Workplace company;
-  final String siteId;
 
-  const DegreeOfOrganizationPieChart({super.key, required this.company, required this.siteId});
+  const DegreeOfOrganizationPieChart({
+    super.key,
+    required this.company,
+  });
 
   @override
   Widget build(BuildContext context) {

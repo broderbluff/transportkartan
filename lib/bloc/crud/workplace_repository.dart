@@ -68,4 +68,14 @@ class WorkplaceRepository {
     }
     return querySnapshot.docs.map((doc) => Workplace.fromJson(doc.data())).toList();
   }
+
+  Future<List<Workplace>> fetchWorkplacesByCompanyId(
+    String companyId,
+  ) async {
+    final querySnapshot = await firestore.collection('workplaces').where('companyId', isEqualTo: companyId).get();
+    if (querySnapshot.docs.isEmpty) {
+      return [];
+    }
+    return querySnapshot.docs.map((doc) => Workplace.fromJson(doc.data())).toList();
+  }
 }

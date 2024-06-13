@@ -63,7 +63,7 @@ class SiteRepository {
   }
 
   Future<Site> fetchSiteById(String siteId) async {
-    final querySnapshot = await firestore.collection('site').doc(siteId).get();
+    final querySnapshot = await firestore.collection('sites').doc(siteId).get();
     if (querySnapshot.exists) {
       return Site.fromJson(querySnapshot.data() as Map<String, dynamic>);
     } else {

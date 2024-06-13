@@ -47,8 +47,6 @@ class _PopupCompanyWidgetState extends State<PopupCompanyWidget> {
     if (workplaces.isNotEmpty) {
       for (var workplace in workplaces) {
         listOfCompanies.add(await companyRepository.fetchCompanyById(workplace.companyId));
-        print(workplace.companyId);
-        print(listOfCompanies.last.id);
       }
     }
     setState(() {});
@@ -142,7 +140,9 @@ class _PopupCompanyWidgetState extends State<PopupCompanyWidget> {
                               ],
                             ),
                           ),
-                          DegreeOfOrganizationPieChart(company: workplace, siteId: widget.siteId),
+                          DegreeOfOrganizationPieChart(
+                            company: workplace,
+                          ),
                           const SizedBox(
                             height: 16,
                           )

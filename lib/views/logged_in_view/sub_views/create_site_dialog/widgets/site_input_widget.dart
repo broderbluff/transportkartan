@@ -10,6 +10,7 @@ import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialo
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/add_company_button.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/site_company_list_widget/workplaces_list_widget.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/tag_input_widget.dart';
 
 class SiteInputWidget extends StatefulWidget {
   const SiteInputWidget({
@@ -211,12 +212,9 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
             const SizedBox(
               height: 16,
             ),
-            TextField(
-              controller: siteDescriptionController,
-              maxLines: 2,
-              decoration: const InputDecoration(
-                labelText: 'Beskrivning',
-              ),
+            SizedBox(
+              child: StringMultilineTags(),
+              height: 150,
             ),
             const SizedBox(
               height: 16,

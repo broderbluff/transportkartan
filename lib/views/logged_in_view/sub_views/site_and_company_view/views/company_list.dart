@@ -8,6 +8,7 @@ import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/cubit/create_site_cubit.dart';
 
 import 'package:transportkartan/views/logged_in_view/sub_views/map/cubit/map_cubit.dart';
+import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/company_stat_view/company_stat_view.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/create_company_dialog.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/cubit/create_company_cubit.dart';
@@ -16,7 +17,7 @@ import 'package:uuid/uuid.dart';
 class CompanyListWidget extends StatefulWidget {
   const CompanyListWidget(this.isAddingCompanyToSite, this.companyType, {super.key});
 
-  final bool isAddingCompanyToSite;
+  final isAddingCompanyToSite;
   final CompanyType companyType;
   @override
   State<CompanyListWidget> createState() => _CompanyListWidgetState();
@@ -111,6 +112,16 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
 
                                   context.read<CreateSiteCubit>().addWorkplace(workplace);
                                   Navigator.pop(context);
+                                } else {
+                                  context.read<CreateCompanyCubit>().openCompany(company);
+
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const CompanyStatsDialog();
+                                    },
+                                  );
                                 }
                                 setState(() {
                                   selectedIndex = index; // Update the selectedIndex when a ListTile is tapped

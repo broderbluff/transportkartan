@@ -59,14 +59,13 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_native_splash: ^2.4.0
   flutter_launcher_icons: ^0.13.1
-geolocator: ^10.1.1  
+  textfield_tags: ^3.0.1
+  geolocator: ^10.1.1  
  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_launcher_icons: "^0.13.1"
 
 flutter_launcher_icons:
   android: "launcher_icon"
