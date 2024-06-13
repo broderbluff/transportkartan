@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
-import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/helpers/letter_to_color.dart';
 import 'package:transportkartan/helpers/number_formatter.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/cubit/selected_site_cubit.dart';

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
-import 'package:transportkartan/data/models/state/company_firestore_state.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/cubit/create_company_cubit.dart';
 
-import 'package:transportkartan/views/logged_in_view/sub_views/create_company_dialog/widgets/company_input_widget.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/widgets/company_widget.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/navigation_rail/cubit/navigation_rail_cubit.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/company_stat_view/widgets/company_info_widget.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/company_stat_view/widgets/company_workplace_widget.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
+import 'package:transportkartan/views/shared_widgets/company_logo_widget.dart';
 
 class CompanyStatsDialog extends StatelessWidget {
   const CompanyStatsDialog({

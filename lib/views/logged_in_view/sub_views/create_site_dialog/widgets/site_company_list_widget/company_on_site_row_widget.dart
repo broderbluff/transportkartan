@@ -6,7 +6,7 @@ import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/create_site_dialog/widgets/site_company_list_widget/cubit/company_on_site_cubit.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
+import 'package:transportkartan/views/shared_widgets/company_logo_widget.dart';
 
 class CompanyOnSiteListWidget extends StatefulWidget {
   final String siteId;

@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
-import 'package:transportkartan/data/models/site_model.dart';
 
 class CompanyRepository {
   FirebaseFirestore firestore = FirebaseFirestore.instance;

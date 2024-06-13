@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transportkartan/bloc/crud/company_firestore_cubit.dart';
-import 'package:transportkartan/bloc/crud/company_repository.dart';
 import 'package:transportkartan/bloc/crud/site_repository.dart';
-import 'package:transportkartan/bloc/crud/workplace_firestore_cubit.dart';
 import 'package:transportkartan/bloc/crud/workplace_repository.dart';
-import 'package:transportkartan/data/enums/company_type.dart';
-import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/site_model.dart';
-import 'package:transportkartan/data/models/state/company_firestore_state.dart';
-import 'package:transportkartan/data/models/state/workplace_firestore_state.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
 import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/widgets/charts/piechart_degree_of_organization.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/site_and_company_view/views/widgets/company_list_item.dart';
 
 class CompanyWorkplaceWidget extends StatefulWidget {
   const CompanyWorkplaceWidget({

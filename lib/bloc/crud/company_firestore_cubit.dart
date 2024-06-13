@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/bloc/authentication/auth_cubit.dart';
 import 'package:transportkartan/bloc/crud/company_repository.dart';
