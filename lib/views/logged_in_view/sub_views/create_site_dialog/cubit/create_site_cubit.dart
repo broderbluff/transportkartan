@@ -17,7 +17,7 @@ class CreateSiteCubit extends Cubit<CreateSiteState> {
     unitType: null,
   );
   WorkplaceRepository repository = WorkplaceRepository();
-  CreateSiteCubit() : super(CreateSiteState(site: _initState, workplaces: []));
+  CreateSiteCubit() : super(CreateSiteState(site: _initState, workplaces: [], showDuplicateWorkplaceDialog: false));
 
   // void updateSiteType(SiteType type) {
   //   emit(state.copyWith(type: type));
@@ -55,6 +55,8 @@ class CreateSiteCubit extends Cubit<CreateSiteState> {
     bool isDuplicate = currentState.workplaces.any((w) => w.companyId == work.companyId && w.companyType == work.companyType);
 
     if (isDuplicate) {
+      emit(currentState.copyWith(showDuplicateWorkplaceDialog: true));
+
       return;
     }
 
@@ -69,17 +71,22 @@ class CreateSiteCubit extends Cubit<CreateSiteState> {
     emit(
       CreateSiteState(
         site: _initState,
+        showDuplicateWorkplaceDialog: false,
         workplaces: [],
       ),
     );
   }
 
   void openSite(Site site) async {
-    emit(CreateSiteState(site: site, workplaces: []));
+    emit(CreateSiteState(site: site, workplaces: [], showDuplicateWorkplaceDialog: false));
 
     List<Workplace> workplaces = await repository.fetchWorkplacesBySiteId(site.id!);
 
     CreateSiteState currentState = state;
     emit(currentState.copyWith(site: site, workplaces: workplaces));
+  }
+
+  void resetDuplicateWorkplaceDialog() {
+    emit(state.copyWith(showDuplicateWorkplaceDialog: false));
   }
 }

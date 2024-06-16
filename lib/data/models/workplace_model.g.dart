@@ -13,6 +13,7 @@ _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
       siteId: json['siteId'] as String,
       members: (json['members'] as num).toInt(),
       electedOfficials: (json['electedOfficials'] as num).toInt(),
+      otherUnion: (json['otherUnion'] as num).toInt(),
       employees: (json['employees'] as num).toInt(),
       companyType:
           $enumDecodeNullable(_$CompanyTypeEnumMap, json['companyType']),
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
       'siteId': instance.siteId,
       'members': instance.members,
       'electedOfficials': instance.electedOfficials,
+      'otherUnion': instance.otherUnion,
       'employees': instance.employees,
       'companyType': _$CompanyTypeEnumMap[instance.companyType],
       'updatedAt': instance.updatedAt,

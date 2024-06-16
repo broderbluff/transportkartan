@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateSiteState {
   Site get site => throw _privateConstructorUsedError;
   List<Workplace> get workplaces => throw _privateConstructorUsedError;
+  bool get showDuplicateWorkplaceDialog => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateSiteStateCopyWith<CreateSiteState> get copyWith =>
@@ -30,7 +31,10 @@ abstract class $CreateSiteStateCopyWith<$Res> {
           CreateSiteState value, $Res Function(CreateSiteState) then) =
       _$CreateSiteStateCopyWithImpl<$Res, CreateSiteState>;
   @useResult
-  $Res call({Site site, List<Workplace> workplaces});
+  $Res call(
+      {Site site,
+      List<Workplace> workplaces,
+      bool showDuplicateWorkplaceDialog});
 
   $SiteCopyWith<$Res> get site;
 }
@@ -50,6 +54,7 @@ class _$CreateSiteStateCopyWithImpl<$Res, $Val extends CreateSiteState>
   $Res call({
     Object? site = null,
     Object? workplaces = null,
+    Object? showDuplicateWorkplaceDialog = null,
   }) {
     return _then(_value.copyWith(
       site: null == site
@@ -60,6 +65,10 @@ class _$CreateSiteStateCopyWithImpl<$Res, $Val extends CreateSiteState>
           ? _value.workplaces
           : workplaces // ignore: cast_nullable_to_non_nullable
               as List<Workplace>,
+      showDuplicateWorkplaceDialog: null == showDuplicateWorkplaceDialog
+          ? _value.showDuplicateWorkplaceDialog
+          : showDuplicateWorkplaceDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -80,7 +89,10 @@ abstract class _$$CreateSiteStateImplCopyWith<$Res>
       __$$CreateSiteStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Site site, List<Workplace> workplaces});
+  $Res call(
+      {Site site,
+      List<Workplace> workplaces,
+      bool showDuplicateWorkplaceDialog});
 
   @override
   $SiteCopyWith<$Res> get site;
@@ -99,6 +111,7 @@ class __$$CreateSiteStateImplCopyWithImpl<$Res>
   $Res call({
     Object? site = null,
     Object? workplaces = null,
+    Object? showDuplicateWorkplaceDialog = null,
   }) {
     return _then(_$CreateSiteStateImpl(
       site: null == site
@@ -109,6 +122,10 @@ class __$$CreateSiteStateImplCopyWithImpl<$Res>
           ? _value._workplaces
           : workplaces // ignore: cast_nullable_to_non_nullable
               as List<Workplace>,
+      showDuplicateWorkplaceDialog: null == showDuplicateWorkplaceDialog
+          ? _value.showDuplicateWorkplaceDialog
+          : showDuplicateWorkplaceDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -117,7 +134,9 @@ class __$$CreateSiteStateImplCopyWithImpl<$Res>
 
 class _$CreateSiteStateImpl implements _CreateSiteState {
   const _$CreateSiteStateImpl(
-      {required this.site, required final List<Workplace> workplaces})
+      {required this.site,
+      required final List<Workplace> workplaces,
+      required this.showDuplicateWorkplaceDialog})
       : _workplaces = workplaces;
 
   @override
@@ -131,8 +150,11 @@ class _$CreateSiteStateImpl implements _CreateSiteState {
   }
 
   @override
+  final bool showDuplicateWorkplaceDialog;
+
+  @override
   String toString() {
-    return 'CreateSiteState(site: $site, workplaces: $workplaces)';
+    return 'CreateSiteState(site: $site, workplaces: $workplaces, showDuplicateWorkplaceDialog: $showDuplicateWorkplaceDialog)';
   }
 
   @override
@@ -142,12 +164,19 @@ class _$CreateSiteStateImpl implements _CreateSiteState {
             other is _$CreateSiteStateImpl &&
             (identical(other.site, site) || other.site == site) &&
             const DeepCollectionEquality()
-                .equals(other._workplaces, _workplaces));
+                .equals(other._workplaces, _workplaces) &&
+            (identical(other.showDuplicateWorkplaceDialog,
+                    showDuplicateWorkplaceDialog) ||
+                other.showDuplicateWorkplaceDialog ==
+                    showDuplicateWorkplaceDialog));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, site, const DeepCollectionEquality().hash(_workplaces));
+      runtimeType,
+      site,
+      const DeepCollectionEquality().hash(_workplaces),
+      showDuplicateWorkplaceDialog);
 
   @JsonKey(ignore: true)
   @override
@@ -159,13 +188,17 @@ class _$CreateSiteStateImpl implements _CreateSiteState {
 
 abstract class _CreateSiteState implements CreateSiteState {
   const factory _CreateSiteState(
-      {required final Site site,
-      required final List<Workplace> workplaces}) = _$CreateSiteStateImpl;
+          {required final Site site,
+          required final List<Workplace> workplaces,
+          required final bool showDuplicateWorkplaceDialog}) =
+      _$CreateSiteStateImpl;
 
   @override
   Site get site;
   @override
   List<Workplace> get workplaces;
+  @override
+  bool get showDuplicateWorkplaceDialog;
   @override
   @JsonKey(ignore: true)
   _$$CreateSiteStateImplCopyWith<_$CreateSiteStateImpl> get copyWith =>

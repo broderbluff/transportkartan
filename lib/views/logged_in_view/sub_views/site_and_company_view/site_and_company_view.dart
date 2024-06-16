@@ -26,7 +26,7 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
       top: 0,
       left: 90,
       bottom: 0,
-      width: 300, // Adjust the width as needed
+      width: 320, // Adjust the width as needed
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -53,7 +53,7 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(view == HubOrCompany.hub ? 'Logistikhubbar' : 'Företag', style: Theme.of(context).textTheme.headlineSmall),
+                  Text(view == HubOrCompany.hub ? 'Platser' : 'Företag', style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 16),
                   BlocBuilder<FilterSiteCubit, SiteTypesState>(
                     builder: (context, state) {
@@ -98,7 +98,7 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
                   Center(
                     child: SegmentedButton(
                       segments: const [
-                        ButtonSegment(value: HubOrCompany.hub, icon: Icon(Icons.api), label: Text('Hubbar')),
+                        ButtonSegment(value: HubOrCompany.hub, icon: Icon(Icons.api), label: Text('Platser')),
                         ButtonSegment(value: HubOrCompany.company, icon: Icon(Icons.business), label: Text('Företag')),
                       ],
                       selected: <HubOrCompany>{view},

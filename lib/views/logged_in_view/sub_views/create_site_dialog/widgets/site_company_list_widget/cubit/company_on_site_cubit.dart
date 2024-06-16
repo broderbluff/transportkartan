@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
 
-class CompanyOnSiteRowCubit extends Cubit<Workplace> {
+class WorkplaceOnSiteCubit extends Cubit<Workplace> {
   static const Workplace _initState = Workplace(
     id: '',
     companyId: '',
@@ -10,10 +10,11 @@ class CompanyOnSiteRowCubit extends Cubit<Workplace> {
     updatedAt: '',
     members: 0,
     electedOfficials: 0,
+    otherUnion: 0,
     employees: 0,
     companyType: null,
   );
-  CompanyOnSiteRowCubit() : super(_initState);
+  WorkplaceOnSiteCubit() : super(_initState);
 
   void updateSiteId(String siteId) {
     emit(state.copyWith(siteId: siteId));

@@ -66,7 +66,29 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
   Widget build(BuildContext context) {
     var windowSize = MediaQuery.of(context).size;
 
-    return BlocBuilder<CreateSiteCubit, CreateSiteState>(
+    return BlocConsumer<CreateSiteCubit, CreateSiteState>(
+      listener: (context, state) {
+        if (state.showDuplicateWorkplaceDialog) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Företaget finns redan"),
+                content: Text("Företaget är redan tillagt på denna kategorin."),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                      context.read<CreateSiteCubit>().resetDuplicateWorkplaceDialog(); // Reset the flag in the state
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      },
       builder: (context, siteMarkerState) {
         siteNameController.text = siteMarkerState.site.name;
         siteDescriptionController.text = siteMarkerState.site.description;

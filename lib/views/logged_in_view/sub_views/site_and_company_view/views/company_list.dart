@@ -107,6 +107,7 @@ class _CompanyListWidgetState extends State<CompanyListWidget> {
                                       siteId: '',
                                       members: 0,
                                       electedOfficials: 0,
+                                      otherUnion: 0,
                                       employees: 0,
                                       updatedAt: DateTime.now().toString());
 

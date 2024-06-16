@@ -12,6 +12,7 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(company.logoUrl);
     return SizedBox(
       width: 40,
       height: 40,
@@ -20,7 +21,7 @@ class LogoWidget extends StatelessWidget {
           : company.logoUrl!.endsWith('.svg')
               ? SvgPicture.network(
                   company.logoUrl!,
-                  placeholderBuilder: (BuildContext context) => const CircularProgressIndicator(),
+                  placeholderBuilder: (BuildContext context) => const Icon(Icons.business_sharp),
                 )
               : Image.network(
                   company.logoUrl!,

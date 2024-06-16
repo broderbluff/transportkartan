@@ -4,7 +4,7 @@ import 'package:transportkartan/bloc/crud/workplace_repository.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/models/company_model.dart';
 import 'package:transportkartan/data/models/workplace_model.dart';
-import 'package:transportkartan/views/logged_in_view/sub_views/map/map_popup/transport_popup/widgets/charts/piechart_degree_of_organization.dart';
+import 'package:transportkartan/views/shared_widgets/charts/piechart_degree_of_organization.dart';
 import 'package:transportkartan/views/shared_widgets/company_logo_widget.dart';
 
 class PopupCompanyWidget extends StatefulWidget {
@@ -24,9 +24,10 @@ class PopupCompanyWidget extends StatefulWidget {
 }
 
 class _PopupCompanyWidgetState extends State<PopupCompanyWidget> {
-  @override
   List<Workplace> workplaces = [];
   List<Company> listOfCompanies = [];
+
+  @override
   void initState() {
     super.initState();
     _fetchCompanies();
@@ -130,13 +131,38 @@ class _PopupCompanyWidgetState extends State<PopupCompanyWidget> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                const Expanded(child: Text('Annat förbund:')),
+                                Text(workplace.otherUnion.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const Expanded(child: Text('Oorganiserade:')),
+                                Text((workplace.employees - workplace.members - workplace.otherUnion).toString(),
+                                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
                                 const Expanded(child: Text('Förtroendevalda:')),
                                 Text(workplace.electedOfficials.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ),
+                          SizedBox(
+                            height: 64,
+                          ),
                           DegreeOfOrganizationPieChart(
-                            company: workplace,
+                            workplace: workplace,
+                            vertical: true,
                           ),
                           const SizedBox(
                             height: 16,

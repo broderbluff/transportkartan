@@ -9,5 +9,6 @@ abstract class CreateSiteState with _$CreateSiteState {
   const factory CreateSiteState({
     required Site site,
     required List<Workplace> workplaces,
+    required bool showDuplicateWorkplaceDialog,
   }) = _CreateSiteState;
 }

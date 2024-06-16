@@ -25,6 +25,7 @@ mixin _$Workplace {
   String get siteId => throw _privateConstructorUsedError;
   int get members => throw _privateConstructorUsedError;
   int get electedOfficials => throw _privateConstructorUsedError;
+  int get otherUnion => throw _privateConstructorUsedError;
   int get employees => throw _privateConstructorUsedError;
   CompanyType? get companyType => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $WorkplaceCopyWith<$Res> {
       String siteId,
       int members,
       int electedOfficials,
+      int otherUnion,
       int employees,
       CompanyType? companyType,
       String updatedAt});
@@ -69,6 +71,7 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? siteId = null,
     Object? members = null,
     Object? electedOfficials = null,
+    Object? otherUnion = null,
     Object? employees = null,
     Object? companyType = freezed,
     Object? updatedAt = null,
@@ -93,6 +96,10 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
       electedOfficials: null == electedOfficials
           ? _value.electedOfficials
           : electedOfficials // ignore: cast_nullable_to_non_nullable
+              as int,
+      otherUnion: null == otherUnion
+          ? _value.otherUnion
+          : otherUnion // ignore: cast_nullable_to_non_nullable
               as int,
       employees: null == employees
           ? _value.employees
@@ -124,6 +131,7 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
       String siteId,
       int members,
       int electedOfficials,
+      int otherUnion,
       int employees,
       CompanyType? companyType,
       String updatedAt});
@@ -145,6 +153,7 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? siteId = null,
     Object? members = null,
     Object? electedOfficials = null,
+    Object? otherUnion = null,
     Object? employees = null,
     Object? companyType = freezed,
     Object? updatedAt = null,
@@ -169,6 +178,10 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
       electedOfficials: null == electedOfficials
           ? _value.electedOfficials
           : electedOfficials // ignore: cast_nullable_to_non_nullable
+              as int,
+      otherUnion: null == otherUnion
+          ? _value.otherUnion
+          : otherUnion // ignore: cast_nullable_to_non_nullable
               as int,
       employees: null == employees
           ? _value.employees
@@ -195,6 +208,7 @@ class _$WorkplaceImpl implements _Workplace {
       required this.siteId,
       required this.members,
       required this.electedOfficials,
+      required this.otherUnion,
       required this.employees,
       required this.companyType,
       required this.updatedAt});
@@ -213,6 +227,8 @@ class _$WorkplaceImpl implements _Workplace {
   @override
   final int electedOfficials;
   @override
+  final int otherUnion;
+  @override
   final int employees;
   @override
   final CompanyType? companyType;
@@ -221,7 +237,7 @@ class _$WorkplaceImpl implements _Workplace {
 
   @override
   String toString() {
-    return 'Workplace(id: $id, companyId: $companyId, siteId: $siteId, members: $members, electedOfficials: $electedOfficials, employees: $employees, companyType: $companyType, updatedAt: $updatedAt)';
+    return 'Workplace(id: $id, companyId: $companyId, siteId: $siteId, members: $members, electedOfficials: $electedOfficials, otherUnion: $otherUnion, employees: $employees, companyType: $companyType, updatedAt: $updatedAt)';
   }
 
   @override
@@ -236,6 +252,8 @@ class _$WorkplaceImpl implements _Workplace {
             (identical(other.members, members) || other.members == members) &&
             (identical(other.electedOfficials, electedOfficials) ||
                 other.electedOfficials == electedOfficials) &&
+            (identical(other.otherUnion, otherUnion) ||
+                other.otherUnion == otherUnion) &&
             (identical(other.employees, employees) ||
                 other.employees == employees) &&
             (identical(other.companyType, companyType) ||
@@ -247,7 +265,7 @@ class _$WorkplaceImpl implements _Workplace {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, companyId, siteId, members,
-      electedOfficials, employees, companyType, updatedAt);
+      electedOfficials, otherUnion, employees, companyType, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -270,6 +288,7 @@ abstract class _Workplace implements Workplace {
       required final String siteId,
       required final int members,
       required final int electedOfficials,
+      required final int otherUnion,
       required final int employees,
       required final CompanyType? companyType,
       required final String updatedAt}) = _$WorkplaceImpl;
@@ -287,6 +306,8 @@ abstract class _Workplace implements Workplace {
   int get members;
   @override
   int get electedOfficials;
+  @override
+  int get otherUnion;
   @override
   int get employees;
   @override

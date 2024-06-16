@@ -28,41 +28,42 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  var providers = [
+    BlocProvider(
+      create: (context) => AuthCubit(),
+    ),
+    BlocProvider(
+      create: (context) => MapControllerCubit(),
+    ),
+    BlocProvider(
+      create: (context) => NavigationRailCubit(),
+    ),
+    BlocProvider(
+      create: (context) => CreateCompanyCubit(),
+    ),
+    BlocProvider(create: (context) => WorkplaceFirestoreCubit(WorkplaceRepository())),
+    BlocProvider(
+      create: (context) => CompanyFirestoreCubit(context.read<AuthCubit>(), CompanyRepository()),
+    ),
+    BlocProvider(
+      create: (context) => SiteListCubit(),
+    ),
+    BlocProvider(
+      create: (context) => FilterSiteCubit(),
+    ),
+    BlocProvider(
+      create: (context) => WorkplaceOnSiteCubit(),
+    ),
+    BlocProvider(
+      create: (context) => SiteFirestoreCubit(SiteRepository(), context.read<AuthCubit>()),
+    ),
+    BlocProvider(
+      create: (context) => CreateSiteCubit(),
+    ),
+  ];
   runApp(
     MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => AuthCubit(),
-        ),
-        BlocProvider(
-          create: (context) => MapControllerCubit(),
-        ),
-        BlocProvider(
-          create: (context) => NavigationRailCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CreateCompanyCubit(),
-        ),
-        BlocProvider(create: (context) => WorkplaceFirestoreCubit(WorkplaceRepository())),
-        BlocProvider(
-          create: (context) => CompanyFirestoreCubit(context.read<AuthCubit>(), CompanyRepository()),
-        ),
-        BlocProvider(
-          create: (context) => SiteListCubit(),
-        ),
-        BlocProvider(
-          create: (context) => FilterSiteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CompanyOnSiteRowCubit(),
-        ),
-        BlocProvider(
-          create: (context) => SiteFirestoreCubit(SiteRepository(), context.read<AuthCubit>()),
-        ),
-        BlocProvider(
-          create: (context) => CreateSiteCubit(),
-        ),
-      ],
+      providers: providers,
       child: const MyApp(),
     ),
   );
