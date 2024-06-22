@@ -26,7 +26,7 @@ class _LogisticsHubsWidgetState extends State<LogisticsHubsWidget> {
       top: 0,
       left: 90,
       bottom: 0,
-      width: 320, // Adjust the width as needed
+      width: 300, // Adjust the width as needed
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [

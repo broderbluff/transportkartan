@@ -124,6 +124,9 @@ class _TransportPopupState extends State<TransportPopup> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 7,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
