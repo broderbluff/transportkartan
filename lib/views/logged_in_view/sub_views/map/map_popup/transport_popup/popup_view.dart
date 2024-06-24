@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:transportkartan/constants/values.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/helpers/letter_to_color.dart';
@@ -35,7 +36,7 @@ class _TransportPopupState extends State<TransportPopup> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(cornerRadius),
       ),
       surfaceTintColor: Colors.white,
       elevation: 25,
@@ -113,7 +114,7 @@ class _TransportPopupState extends State<TransportPopup> {
                                             label: Text(good),
                                             backgroundColor: getColorBasedOnFirstCharacter(good),
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(20.0),
+                                              borderRadius: BorderRadius.circular(cornerRadius),
                                             ),
                                             visualDensity: VisualDensity.compact,
                                             labelPadding: const EdgeInsets.all(1.0), // Reduced padding
@@ -141,7 +142,7 @@ class _TransportPopupState extends State<TransportPopup> {
                                             label: Text(good),
                                             backgroundColor: getColorBasedOnFirstCharacter(good),
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(20.0),
+                                              borderRadius: BorderRadius.circular(cornerRadius),
                                             ),
                                             visualDensity: VisualDensity.compact,
                                             labelPadding: const EdgeInsets.all(1.0), // Reduced padding

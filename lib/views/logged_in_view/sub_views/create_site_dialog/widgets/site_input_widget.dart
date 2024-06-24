@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
+import 'package:transportkartan/constants/values.dart';
 import 'package:transportkartan/data/enums/company_type.dart';
 import 'package:transportkartan/data/enums/site_type.dart';
 import 'package:transportkartan/helpers/site_type_icon.dart';
@@ -116,7 +117,7 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: DropdownButtonFormField<SiteType>(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(cornerRadius),
                     value: siteType,
                     onChanged: (SiteType? newValue) {
                       setState(() {
@@ -151,7 +152,7 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
               height: 16,
             ),
             ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(cornerRadius),
               child: SizedBox(
                 height: 400,
                 width: double.infinity,
