@@ -175,7 +175,7 @@ class _SiteInputWidgetState extends State<SiteInputWidget> {
                       'https://maps.geoapify.com/v1/tile/osm-bright-smooth/{z}/{x}/{y}.png?apiKey=fb622ee8c7a048f1b766548572313f5a',
                   searchBarBackgroundColor: Colors.white,
                   showSelectLocationButton: true,
-                  selectedLocationButtonTextstyle: const TextStyle(fontSize: 16),
+                  selectedLocationButtonTextStyle: const TextStyle(fontSize: 16),
                   mapLanguage: 'sv',
                   searchBarHintText: 'Sök plats',
                   onError: (e) => print(e),
